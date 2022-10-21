@@ -1,13 +1,13 @@
 import './App.scss';
-import { Reset } from 'styled-reset'
 import { BrowserRouter, Route } from 'react-router-dom'
+import GlobalStyles from './styled/GlobalStyles';
 import Home from './routes/Home';
 
 
 function App() {
   return (
     <BrowserRouter>
-      <Reset />
+    <GlobalStyles />
       <Route path="/" component= {Home} />
     </BrowserRouter>
   );
