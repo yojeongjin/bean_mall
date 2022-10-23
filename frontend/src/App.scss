@@ -4,10 +4,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  text-align: end;
   display: inline-flex;
   & :hover {
     background-color: #f6f5f0c4;
     box-sizing: border-box;
+    border-bottom: 3px solid #333;
+    border: 3px solid orange;
+    background-color: #5c554f;
+    align-items: flex-end;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 }

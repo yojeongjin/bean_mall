@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
 import Com4 from './COM4t-Fine-Regular.ttf.woff'
+import NotoSansKRM from './NotoSansKR-Medium.otf'
+import NotoSansKRR from './NotoSansKR-Regular.otf'
+import NotoSansKRL from './NotoSansKR-Light.otf'
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
@@ -11,6 +14,28 @@ const GlobalStyles = createGlobalStyle`
     src: local('Com4');
     src: url(${Com4}) format('truetype');
   }
+
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 500;
+    src: local('NotoSansKR');
+    src: url(${NotoSansKRM}) format('truetype');
+  }  
+
+
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+    src: local('NotoSansKRR');
+    src: url(${NotoSansKRR}) format('truetype');
+  }  
+
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 300;
+    src: local('NotoSansKRL');
+    src: url(${NotoSansKRL}) format('truetype');
+  }  
 
 
   * {

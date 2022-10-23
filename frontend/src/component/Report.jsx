@@ -76,6 +76,7 @@ export default function Report() {
 const ReportSection = styled.section`
 background-color: #fdfdf3;`
 
+
 const Inner = styled.div`
 width: 1300px;
 height: 746px;
@@ -116,6 +117,7 @@ const ReportSelect = styled.span`
 margin-left: 20px;
 position: absolute;
 bottom: -50px;
+font-family: 'Nanum Barun Gothic', sans-serif;
 color: #252525;
 display: block;
 > span {

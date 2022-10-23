@@ -13,7 +13,7 @@ export default function Main() {
             designed specifically for combination skin.
             </p>
           </MainTitle>
-          <MainBtn>Discover the range
+          <MainBtn>전체 상품보기
           <span> → </span>
           </MainBtn>
         </MainContent>
@@ -46,10 +46,10 @@ const MainTitle = styled.div`
 font-family: 'Nanum Barun Gothic', sans-serif;
 color: #c8c8c8;
 > h1 {
-  font-size: 25px;
+  font-size: 27px;
 }
 >h3 {
-  font-size: 14px;
+  font-size: 15px;
 }
 > p {
   font-size: 13px;
@@ -59,10 +59,11 @@ color: #c8c8c8;
 
 const MainBtn = styled.button`
 border: 1px solid #c8c8c8;
+font-family: 'Nanum Barun Gothic', sans-serif;
 font-size: 14px;
 color: #c8c8c8;
-margin-top: 30px;
-padding: 15px 15px;
+margin-top: 35px;
+padding: 13px 13px;
 &:hover {
   background-color: #6b645bc2;
   border: none;
