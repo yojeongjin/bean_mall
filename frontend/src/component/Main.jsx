@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import mainbg from '../assets/mainbg.png'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 export default function Main() {
   return (
@@ -13,9 +14,11 @@ export default function Main() {
             designed specifically for combination skin.
             </p>
           </MainTitle>
-          <MainBtn>전체 상품보기
-          <span> → </span>
-          </MainBtn>
+          <Link to="/product">
+            <MainBtn>전체 상품보기
+            <span> → </span>
+            </MainBtn>
+          </Link>
         </MainContent>
       </MainInner>
     </MainSection>
@@ -24,7 +27,7 @@ export default function Main() {
 
 const MainSection = styled.section`
 background-image: url(${mainbg});
-margin-top: 100px;
+margin-top: 110px;
 height: 600px;
 `
 

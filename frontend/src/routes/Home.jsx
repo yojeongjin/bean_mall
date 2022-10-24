@@ -3,6 +3,8 @@ import Main from "../component/Main";
 import Report from "../component/Report";
 import HomeVideo from "../component/HomeVideo";
 import PerfumeReport from "../component/PerfumeReport";
+import Gift from "../component/Gift";
+import Footer from "../component/Footer";
 
 export default function Home() {
   return (
@@ -10,8 +12,10 @@ export default function Home() {
       <Header />
       <Main />
       <Report />
-      <HomeVideo />
       <PerfumeReport />
+      <HomeVideo />
+      <Gift />
+      <Footer />
     </>
   )
 }

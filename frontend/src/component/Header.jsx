@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../assets/logoname.png'
+// import logo from '../assets/logoname.png'
 import styled from 'styled-components'
 
 export default function Header() {
@@ -7,7 +7,7 @@ export default function Header() {
     <HeaderBase>
       <HeaderInner>
         <HeaderLogo>
-          <Link to="/"><HeaderLogoImg src={logo}  alt="로고" /></Link>
+          {/* <Link to="/"><HeaderLogoImg src={logo}  alt="로고" /></Link> */}
         </HeaderLogo>
 
         <SubMenu>
@@ -59,9 +59,9 @@ position: absolute;
 top: 0px;
 `
 
-const HeaderLogoImg = styled.img`
-width: 80%;
-`
+// const HeaderLogoImg = styled.img`
+// width: 80%;
+// `
 
 const SubMenu = styled.div`
 position: absolute;

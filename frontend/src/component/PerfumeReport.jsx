@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
 import bodyimg from '../assets/theine/perfumecontent.PNG'
 
@@ -7,7 +8,7 @@ export default function BodyReport() {
     <BodyBase>
       <BodyInner>
         <BodyImg>
-          <img src={bodyimg} alt="바디밤" />
+          <img src={bodyimg} alt="향수" />
         </BodyImg>
         <BodyContent>
           <span>향수가이드</span>
@@ -22,9 +23,11 @@ export default function BodyReport() {
             <br></br>
             테인에서 당신을 표현해줄 수 있는 시그니처 향수를 만나보세요.
           </p>
-          <BodyBtn>테인 향수가이드
-            <span> → </span>
-          </BodyBtn>
+          <Link to="/perfumeinfo">
+            <BodyBtn>테인 향수가이드
+              <span> → </span>
+            </BodyBtn>
+          </Link>
         </BodyContent>
         {/* <BodyFloat>
           <img src={perfume} alt="향수"/>
@@ -34,8 +37,9 @@ export default function BodyReport() {
   )
 }
 
-const BodyBase = styled.div`
-background-color: #b8bcbf;
+const BodyBase = styled.section`
+// background-color: #dfd8d4;
+background-color: #d6d9dc;
 `
 
 const BodyInner = styled.div`
@@ -51,6 +55,8 @@ justify-content: center;
 const BodyImg = styled.div `
 width: 450px;
 height: 500px;
+// width: 550px;
+// height: 600px;
 > img {
   width: 100%;
   height:100%;
@@ -65,6 +71,7 @@ font-family: 'Noto Sans KR';
 color: #21262b;
 > span {
   font-size: 13px;
+  font-weight: 500;
   display: block;
   margin: 30px 0 25px 0;
 }
@@ -89,7 +96,7 @@ color: #21262b;
 margin-top: 35px;
 padding: 12px 12px;
 &:hover {
-  background-color: #d6d9dc;
+  background-color: #b8bcbf;
   border: none;
 }
 > span {
