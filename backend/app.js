@@ -1,8 +1,9 @@
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var db = require('./config/db');
 var logger = require('morgan');
+var db = require('./config/db');
+var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -17,6 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+app.use(cors())
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

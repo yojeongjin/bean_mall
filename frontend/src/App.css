@@ -1,0 +1,25 @@
+.theine {
+  font-weight: 300;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  display: inline-flex;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: inherit;
+  justify-content: space-between;
+  height: 100vh;
+}
+.theine :hover {
+  background-color: rgb(182, 182, 175);
+  box-sizing: border-box;
+  border-bottom: 3px solid #616161;
+  border: 3px solid orange;
+  background-color: #5e554f;
+  align-items: flex-end;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  flex-direction: column-reverse;
+}/*# sourceMappingURL=App.css.map */

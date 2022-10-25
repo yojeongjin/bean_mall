@@ -1,58 +1,53 @@
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import eremia from '../assets/eremia.jpeg'
+import axios from 'axios'
 
 export default function PerfumeInfo() {
+  const [ infos, setInfo ] = useState([])
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/perfume')
+    .then((res) => {
+      setInfo(res.data.data)
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  },[])
+
+  const renderInfo = infos.map((info, idx) => (
+      <PerfumeNotice key={idx} isOdd = {idx % 2 === 1} >
+        <PerfumeImg isOdd = {idx % 2 === 1}>
+          <img src={info.PerfumeImg} alt="향수 이미지"/>
+        </PerfumeImg>
+        <PerfumeExp isOdd = {idx % 2 === 1}>
+          <ExpTitle isOdd = {idx % 2 === 1}>
+            <h1>{info.PerfumeName}</h1>
+            <ExpDirectR isOdd = {idx % 2 === 1}> → </ExpDirectR>
+            <ExpDirectL isOdd = {idx % 2 === 1}> ← </ExpDirectL>
+          </ExpTitle>
+          <p>
+            {info.PerfumeDesc}
+          </p>
+          <h4 isOdd = {idx % 2 === 1}> Top notes <br></br>
+            <span>{info.PerfumeTop}</span>
+          </h4>
+          <h4> Middle notes <br></br>
+            <span>{info.PerfumeMid}</span>
+          </h4>
+          <h4> Base notes <br></br>
+            <span>{info.PerfumeBase}</span>
+          </h4>
+        </PerfumeExp>
+    </PerfumeNotice>
+  ))
+
   return (
     <PerfumeInfoBase>
       <PerfumeTitle></PerfumeTitle>
       <PerfumeInner>
-        <PerfumeNotice style={{'margin-right': '50px'}}>
-          <PerfumeImg>
-            <img src={eremia} alt="eremia"/>
-          </PerfumeImg>
-          <PerfumeExp>
-            <ExpTitle>
-              <h1>Eremia</h1>
-              <span> → </span>
-            </ExpTitle>
-            <p>
-            풍성하고, 강렬하며, 우수한 지속력을 자랑하는 베르가못 향은 자연의 무성한 숲을 연상시킵니다.
-            밝은 시트러스 노트로 시작하여 따뜻한 숲내음으로 이어지는 활기차고 상쾌한 향수입니다.
-            </p>
-            <h4> Top notes <br></br>
-              <span>Yuzu, Bergamot, Grapefruit</span>
-            </h4>
-            <h4> Middle notes <br></br>
-              <span>Mimosa, Green Tea, Guaiacwood</span>
-            </h4>
-            <h4> Base notes <br></br>
-              <span>Galbanum, Iris, Patchouli</span>
-            </h4>
-          </PerfumeExp>
-        </PerfumeNotice>
-
-        <PerfumeNotice style={{'margin-left': '80px'}}>
-          <PerfumeExp>
-            <ExpTitle>
-              <span>  ← </span>
-              <h1>Eremia</h1>
-            </ExpTitle>
-            <p>tjfaudtjjafdhljd</p>
-            <h4> Top notes <br></br>
-              <span>Yuzu, Bergamot, Grapefruit</span>
-            </h4>
-            <h4> Middle notes <br></br>
-              <span>Mimosa, Green Tea, Guaiacwood</span>
-            </h4>
-            <h4> Base notes <br></br>
-              <span>Galbanum, Iris, Patchouli</span>
-            </h4>
-          </PerfumeExp>
-          <PerfumeImg>
-            <img src={eremia} alt="eremia"/>
-          </PerfumeImg>
-        </PerfumeNotice>
-
+        {renderInfo}
       </PerfumeInner>
     </PerfumeInfoBase>
   )
@@ -78,9 +73,11 @@ position: relative;
 `
 
 const PerfumeNotice = styled.div`
-margin-top: 50px;
+font-family: 'Noto Sans KR';
+margin-top: 80px;
 height: 450px;
 display: flex;
+flex-direction: ${(props) => props.isOdd ? 'row-reverse' : 'row'}; 
 `
 
 const PerfumeImg = styled.div`
@@ -88,6 +85,7 @@ flex: 1;
 display: flex;
 justify-content: center;
 align-items: center;
+margin-right: ${(props) => props.isOdd ? '-50px' : 0}; 
 > img {
   width: 80%;
   height: 100%;
@@ -96,6 +94,7 @@ align-items: center;
 
 const PerfumeExp = styled.div`
 flex: 1;
+margin-left: ${(props) => props.isOdd ? '50px' : 0};
 
 > p {
   display: block;
@@ -103,7 +102,6 @@ flex: 1;
   padding: 30px 0;
   border-bottom: 2px solid black;
 }
-
 >h4 {
   display: block;
   margin-top: 12px;
@@ -121,6 +119,7 @@ const ExpTitle = styled.div`
   font-size: 25px;
   display: flex;
   justify-content: space-between;
+  flex-direction: ${(props) => props.isOdd ? 'row-reverse' : 'row'}; 
 
   > h1 {
     display: block;
@@ -128,4 +127,12 @@ const ExpTitle = styled.div`
   > span {
     display: block;
   }
+`
+
+const ExpDirectR = styled.div`
+display: ${(props) => props.isOdd ? 'none' : 'block'};
+`
+
+const ExpDirectL = styled.div`
+display: ${(props) => props.isOdd ? 'block' : 'none'};
 `

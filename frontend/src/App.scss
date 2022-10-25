@@ -1,7 +1,7 @@
 
 .theine {
+  
   font-weight: 300;
-  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -22,5 +22,6 @@
     background-color: #5e554f;
     align-items: flex-end;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    flex-direction:column-reverse;
   }
 }
