@@ -1,10 +1,40 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 // import logo from '../assets/logoname.png'
 import styled from 'styled-components'
 
 export default function Header() {
+  const [scroll, setScroll] = useState(0)
+
+  const throttle = (callback, delay) => {
+    let timer = null;
+
+    return() => {
+      if (timer) return
+
+      timer = setTimeout(() => {
+        callback()
+        timer = null
+      }, delay)
+    }
+  }
+
+  const handleScroll = () => {
+    setScroll(window.scrollY || document.documentElement.scrollTop)
+    console.log(scroll)
+  }
+
+  const updateScroll = throttle(handleScroll, 300);
+
+  useEffect(() => {
+    window.addEventListener('scroll', updateScroll)
+    return () => {
+      window.removeEventListener("scroll", updateScroll);
+    }
+  })
+
   return (
-    <HeaderBase>
+    <HeaderBase  isActive = {scroll <= 80}>
       <HeaderInner>
         <HeaderLogo>
           {/* <Link to="/"><HeaderLogoImg src={logo}  alt="로고" /></Link> */}
@@ -43,7 +73,9 @@ position: fixed;
 top: 0;
 width: 100%;
 height: 80px;
-z-index: 9;`
+z-index: 9;
+opacity: ${(props) => props.isActive ? 1 : 0};
+transition: 0.5s ease;`
 
 const HeaderInner = styled.div`
 width: 1100px;

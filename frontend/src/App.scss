@@ -4,17 +4,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
   text-align: center;
   display: inline-flex;
   background-repeat: no-repeat;
   background-size:contain;
   width: 100%;
   height: inherit;
-  
+  justify-content: space-between;
+  height: 100vh;
   & :hover {
     background-color: rgb(182, 182, 175);
     box-sizing: border-box;
-    border-bottom: 3px solid #333;
+    border-bottom: 3px solid #616161;
     border: 3px solid orange;
     background-color: #5e554f;
     align-items: flex-end;
