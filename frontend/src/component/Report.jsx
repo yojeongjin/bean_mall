@@ -155,7 +155,7 @@ transition :200ms ease;
   margin-left: 60px;
 }
 > img {
-  width: 200px;
+  width: 210px;
   height: 450px;
 }
 `

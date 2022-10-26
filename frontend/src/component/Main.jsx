@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import mainbg from '../assets/mainbg.png'
+import mainbg from '../assets/mainbgimg.png'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 export default function Main() {
@@ -27,8 +27,8 @@ export default function Main() {
 
 const MainSection = styled.section`
 background-image: url(${mainbg});
-margin-top: 110px;
-height: 600px;
+margin-top: 66px;
+height: 700px;
 `
 
 const MainInner = styled.div`

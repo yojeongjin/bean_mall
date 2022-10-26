@@ -4,17 +4,45 @@ import axios from 'axios'
 
 export default function PerfumeInfo() {
   const [ infos, setInfo ] = useState([])
+  const [ start, setStart ] = useState(0)
+  const [ limit, setLimit ] = useState(3) //eslint-disable-line no-unused-vars
+  const [ pageSize, setPageSize ] = useState(0)
+
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/perfume')
+    let body = {
+      start: start,
+      limit: limit
+    }
+    getInfo(body)
+  },[])
+
+  const getInfo = (body) => {
+    axios.post('http://localhost:5000/api/perfume', body)
     .then((res) => {
-      setInfo(res.data.data)
-      console.log(res)
+      if(body.loadMore) {
+        setInfo([...infos, ...res.data.data])
+      } else {
+        setInfo(res.data.data)
+      }
+      setPageSize(res.data.data.length)
     })
     .catch((err) => {
       console.log(err)
     })
-  },[])
+  }
+
+  const moreInfo = () => {
+    let currentStart = start + limit
+    let body = {
+      start: currentStart,
+      limit: limit,
+      loadMore: true
+    }
+    getInfo(body)
+    setStart(start)
+  }
+
 
   const renderInfo = infos.map((info, idx) => (
       <PerfumeNotice key={idx} isOdd = {idx % 2 === 1} >
@@ -30,7 +58,7 @@ export default function PerfumeInfo() {
           <p>
             {info.PerfumeDesc}
           </p>
-          <h4 isOdd = {idx % 2 === 1}> Top notes <br></br>
+          <h4> Top notes <br></br>
             <span>{info.PerfumeTop}</span>
           </h4>
           <h4> Middle notes <br></br>
@@ -48,6 +76,9 @@ export default function PerfumeInfo() {
       <PerfumeTitle></PerfumeTitle>
       <PerfumeInner>
         {renderInfo}
+        {pageSize >= limit && 
+          <LoadMore onClick={moreInfo}>더 보기</LoadMore>
+        } 
       </PerfumeInner>
     </PerfumeInfoBase>
   )
@@ -56,7 +87,7 @@ export default function PerfumeInfo() {
 
 const PerfumeInfoBase = styled.div `
 background-color: #ddd6d0;
-// height: 100vh;
+height: 100%;
 // font-family: 'Noto Sans KR';
 `
 
@@ -66,15 +97,19 @@ height: 200px;
 `
 
 const PerfumeInner = styled.div `
-width: 1100px;
+width: 1000px;
 height: 100%;
 margin: 0 auto;
 position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
 `
 
 const PerfumeNotice = styled.div`
 font-family: 'Noto Sans KR';
-margin-top: 80px;
+margin: 30px 0 50px 0;
 height: 450px;
 display: flex;
 flex-direction: ${(props) => props.isOdd ? 'row-reverse' : 'row'}; 
@@ -98,15 +133,17 @@ margin-left: ${(props) => props.isOdd ? '50px' : 0};
 
 > p {
   display: block;
-  margin-top: 25px;
+  margin-top: 10px;
   padding: 30px 0;
   border-bottom: 2px solid black;
 }
->h4 {
+> h4 {
   display: block;
   margin-top: 12px;
+  font-size: 15px;
   border-bottom: 1px solid #9f9f9f;
   > span {
+    font-size: 13px;
     display: block;
     padding: 10px 0 5px 0;
     color: #616161;
@@ -135,4 +172,16 @@ display: ${(props) => props.isOdd ? 'none' : 'block'};
 
 const ExpDirectL = styled.div`
 display: ${(props) => props.isOdd ? 'block' : 'none'};
+`
+
+const LoadMore = styled.button `
+border: 1px solid black;
+font-size: 15px;
+color: black;
+margin: 50px 0 50px 0;
+padding: 13px 70px;
+&:hover {
+  background-color: #6b645bc2;
+  border: 1px solid #ddd6d0;
+}
 `

@@ -72,7 +72,7 @@ background-color: #f6f5f0;
 position: fixed;
 top: 0;
 width: 100%;
-height: 80px;
+height: 50px;
 z-index: 9;
 opacity: ${(props) => props.isActive ? 1 : 0};
 transition: 0.5s ease;`
@@ -138,7 +138,7 @@ color: #656565;
 
 const MainMenuList = styled.ul`
 min-width: 1100px;
-margin-top: 80px;
+margin-top: 50px;
 padding: 5px 0;
 background-color: #242424;
 display: flex;
