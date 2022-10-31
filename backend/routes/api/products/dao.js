@@ -10,12 +10,21 @@ exports.list = (req,res) => { //리스트 모듈 router 에서 호출
 
 exports.filter = (req,res) => {
 	let filter = req.body.filter
+	let category = req.body.category
 
-	sql = "select * from mydb_mall.Products where ProductsFilters = ? ";
-	conn.query(sql,[filter],(err,rows) => { 
-		if(err) throw err;
-		res.send({success:true,data:rows})
-	})
+	if (filter) {
+		sql = "select * from mydb_mall.Products where ProductsFilters = ? ";
+		conn.query(sql,[filter],(err,rows) => { 
+			if(err) throw err;
+			res.send({success:true,data:rows})
+		})
+	} else if (category) {
+		sql = "select * from mydb_mall.Products where ProductsCategory = ? ";
+		conn.query(sql,[category],(err,rows) => { 
+			if(err) throw err;
+			res.send({success:true,data:rows})
+		})
+	}
 }
 
 

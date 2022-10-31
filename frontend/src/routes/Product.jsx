@@ -7,8 +7,9 @@ export default function Product() {
   const titles = ['전체보기', '스킨케어', '바디&핸드', '헤어', '향수']
   const skincares = ['전체보기', '토너', '세럼', '에센스', '로션']
   const bodys = ['전체보기', '바디', '핸드']
+  const hairs = ['전체보기', '샴푸', '트리트먼트', '오일']
   const [productsInfos, setProductsInfos] = useState([])
-  const [category, setCategory] = useState('')
+  const [categoryTypes, setcategoryTypes] = useState([])
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/products')
@@ -51,8 +52,29 @@ export default function Product() {
     .catch((err) => {
       console.log(err)
     })
-    setCategory(title)
+    if (title === '스킨케어') {
+      setcategoryTypes(skincares)
+    } else if (title === '바디&핸드') {
+      setcategoryTypes(bodys)
+    } else if (title === '헤어') {
+      setcategoryTypes(hairs)
+    }
+  } 
+
+  const getCategory = (categoryType) => {
+    let body = {
+      category: categoryType
+    }
+    axios.post('http://localhost:5000/api/products', body)
+    .then((res) => {
+      setProductsInfos(res.data.data)
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
+
 
   return (
     <ProductBase>
@@ -66,20 +88,11 @@ export default function Product() {
             ))
           }
         </ProductTitle>
-        <ProductCategory isActive = {category === '스킨케어'}>
+        <ProductCategory isActive>
           {
-            skincares.map((skincare,idx) => (
-              <button key={idx} className="skincare">
-                <span>{skincare}</span>
-              </button>
-            ))
-          }
-        </ProductCategory>
-        <ProductCategory isActive = {category === '바디&핸드'}>
-          {
-            bodys.map((body,idx) => (
-              <button key={idx} className="body">
-                <span>{body}</span>
+            categoryTypes.map((categoryType,idx) => (
+              <button key={idx} onClick={() => {getCategory(categoryType)}}>
+                <span>{categoryType}</span>
               </button>
             ))
           }
@@ -169,15 +182,13 @@ const ProductCategory = styled.div`
 width: 70%;
 height: 50px;
 margin: 0 auto;
-border: 3px solid orange;
 display: flex;
 justify-content: center;
 align-items: center;
 font-size: 13px;
 color: #555;
-> .skincare {
+> button {
   flex: 1;
-  display: ${(props) => props.isActive ? 'block' : 'none'};
   > span {
     display: block;
     &:hover {
