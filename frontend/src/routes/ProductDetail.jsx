@@ -1,12 +1,27 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
+import axios from 'axios'
 
 
-export default function Product() {
-  const [ value, setValue ] = useState('20mL')
+export default function ProductDetail(props) {
+  const idx = Number(props.match.params.idx)
+  const [ detailDatas, setDetailDatas ] = useState([])
 
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/products/'+idx, {params: {
+      idx: idx
+    }})
+    .then((res) => {
+      setDetailDatas(res.data.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  },[])
+  
+  const [ value, setValue ] = useState('detailDatas.ProductsSize1')
 
-  const valueLists = ['20mL', '50mL']
+  const valueLists = ['detailDatas.ProductsSize1', 'detailDatas.ProductsSize2']
   const handleChange = (e) => {
     setValue(e.target.value)
   }
@@ -21,22 +36,25 @@ export default function Product() {
       <span>{valueList}</span>
     </DetailRadio>
   ))
-  return (
-    <DetailBase>
-      <DetailInner>
-        <DetailBanner></DetailBanner>
 
-        <DetailContent>
-          <DetailImg></DetailImg>
-          <Detail>
-            <DetailTitle></DetailTitle>
-            <DetailExp></DetailExp>
-
+  const detailProduct = 
+  <DetailContent>
+    {
+      detailDatas.map((detailData,idx) => (
+        <>
+          <DetailImg key={idx}>
+            <img src={detailData.ProductsImg} alt="제품사진" />
+          </DetailImg>
+          <Detail key={idx}>
+            <DetailTitle> {detailData.ProductsName} </DetailTitle>
+            <DetailExp>
+              {detailData.ProductsDes}
+            </DetailExp>
             <DetailInfo>
               <h3>사용감</h3>
-              <span>부드러운, 상쾌한, 촉촉한</span>
+              <span>{detailData.ProductsUsing}</span>
               <h3>주요성분</h3>
-              <span>어쩌구 저쩌구, 샬랄라, 루루루루룰</span>
+              <span>{detailData.ProductsMain}</span>
             </DetailInfo>
         
             <DetailRadioGroup>
@@ -48,9 +66,20 @@ export default function Product() {
 
             <DetailPrice>
               <h3>가격</h3>
+              <span>₩ {detailData.ProductsPrice1}</span>
             </DetailPrice>
+            <AddCartBtn>카트에 추가하기</AddCartBtn>
           </Detail>
-        </DetailContent>
+        </>
+      ))
+    }
+</DetailContent>
+
+  return (
+    <DetailBase>
+      <DetailInner>
+        <DetailBanner></DetailBanner>
+          {detailProduct}
       </DetailInner>
     </DetailBase>
   )
@@ -79,29 +108,38 @@ const DetailBanner = styled.div`
 `
 
 const DetailContent = styled.div`
-border: 1px solid black;
 width: 80%;
 height: 550px;
 margin-top: 100px;
 display: flex;
 `
 const DetailImg = styled.div`
-border: 1px solid orange;
 flex: 1;
+display: flex;
+justify-content: center;
+align-items: center;
+> img {
+  width: 60%;
+  height: 100%;
+}
 `
 
 const Detail = styled.div`
 flex: 1;
+margin-top: 20px;
 `
 
 const DetailTitle = styled.div`
-height: 60px;
+font-weight: 500;
+font-size: 35px;
+margin-bottom: 10px;
 `
 
 const DetailExp = styled.div`
 border-bottom: 2px solid black;
-height: 120px;
 margin: 20px auto;
+padding-bottom: 25px;
+font-size: 15px;
 `
 
 const DetailInfo = styled.div`
@@ -109,11 +147,13 @@ margin-bottom: 10px;
 > h3 {
   font-weight: 500;
   font-size: 15px;
-  padding: 5px 0;
+  padding: 7px 0;
 }
 > span {
   font-size: 13px;
   color: #333;
+  display: block;
+  padding-bottom: 5px;
 }
 `
 
@@ -146,5 +186,18 @@ const DetailPrice = styled.div`
 > h3 {
   font-weight: 500;
   font-size: 15px;
+  padding-bottom: 2px;
+}
+> span {
+  font-size: 15px;
+}
+`
+const AddCartBtn = styled.button`
+border: 1px solid #333;
+padding: 13px 160px;
+margin-top: 30px;
+&:hover {
+  background-color: #c5bbb3;
+  border: 1px solid #c5bbb3;
 }
 `

@@ -1,15 +1,17 @@
-import { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 export default function Product() {
+
   const titles = ['전체보기', '스킨케어', '바디&핸드', '헤어', '향수']
   const skincares = ['전체보기', '토너', '세럼', '에센스', '로션']
   const bodys = ['전체보기', '바디', '핸드']
   const hairs = ['전체보기', '샴푸', '트리트먼트', '오일']
   const [productsInfos, setProductsInfos] = useState([])
   const [categoryTypes, setcategoryTypes] = useState([])
+  const [category, setCategory]  = useState('')
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/products')
@@ -25,7 +27,7 @@ export default function Product() {
   <ProductMenu>
     {
       productsInfos.map((productsInfo,idx) => (
-        <Link to="/productdetail">
+        <Link to={"/product/" + productsInfo.idProducts}>
           <ProductList key={idx}>
             <img src={productsInfo.ProductsImg} alt="제품사진" />
             <ProductExp>
@@ -45,6 +47,7 @@ export default function Product() {
     let body = {
       filter: title
     }
+
     axios.post('http://localhost:5000/api/products', body)
     .then((res) => {
       setProductsInfos(res.data.data)
@@ -58,7 +61,11 @@ export default function Product() {
       setcategoryTypes(bodys)
     } else if (title === '헤어') {
       setcategoryTypes(hairs)
+    } else {
+      setcategoryTypes('')
     }
+
+    setCategory(title)
   } 
 
   const getCategory = (categoryType) => {
@@ -68,7 +75,6 @@ export default function Product() {
     axios.post('http://localhost:5000/api/products', body)
     .then((res) => {
       setProductsInfos(res.data.data)
-      console.log(res)
     })
     .catch((err) => {
       console.log(err)
@@ -84,11 +90,13 @@ export default function Product() {
         <ProductTitle>
           {
             titles.map((title,idx) => (
-              <button key={idx} onClick={()=>{getFilter(title)}}><span>{title}</span></button>
+              <button key={idx} onClick={()=>{getFilter(title)}}>
+                <TitleSpan isTitle = {category === title}>{title}</TitleSpan>
+              </button>
             ))
           }
         </ProductTitle>
-        <ProductCategory isActive>
+        <ProductCategory>
           {
             categoryTypes.map((categoryType,idx) => (
               <button key={idx} onClick={() => {getCategory(categoryType)}}>
@@ -130,11 +138,12 @@ font-size: 14px;
 color: #1e1e1e;
 > button {
   flex: 1;
-  > span {
-    &:hover {
-      border-bottom: 1px solid black;
-    }
-  }
+}
+`
+const TitleSpan = styled.span`
+border-bottom: ${(props) => props.isTitle ? '1px solid black' : 'none'};
+&:hover {
+  border-bottom: 1px solid black;
 }
 `
 const ProductContent = styled.div`
@@ -145,12 +154,14 @@ const ProductMenu = styled.ul`
 margin-top: 5px;
 display: flex;
 flex-wrap: wrap;
+display: flex;
+justify-content: center;
+align-items: center;
 `
 
 const ProductList = styled.li`
 width: 250px;
 height: 360px;
-margin: 0px auto;
 padding-bottom: 15px;
 cursor: pointer;
 > img {

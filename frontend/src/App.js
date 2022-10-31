@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
     <GlobalStyles />
       <Switch>
-        <Route path="/productdetail" component= {ProductDetail} />
+        <Route path="/product/:idx" component= {ProductDetail} />
         <Route path="/perfumeinfo" component= {PerfumeInfo} />
         <Route path="/product" component= {Product} />
         <Route path="/" exact component= {Home} />

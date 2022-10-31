@@ -31,7 +31,7 @@ exports.filter = (req,res) => {
 exports.view = (req,res) => {
 	idx = req.params.idx;
 
-	sql = "select * from mydb_mall.Products where ProductsFilters = ? ";
+	sql = "select * from mydb_mall.Products where idProducts = ? ";
 	conn.query(sql,[idx],(err,row) => {
 		if(err) throw err;
 		
