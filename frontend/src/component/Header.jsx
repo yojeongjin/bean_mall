@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-// import logo from '../assets/logoname.png'
+import logo from '../assets/logoname.png'
 import styled from 'styled-components'
 
 export default function Header() {
@@ -37,7 +37,7 @@ export default function Header() {
     <HeaderBase  isActive = {scroll <= 80}>
       <HeaderInner>
         <HeaderLogo>
-          {/* <Link to="/"><HeaderLogoImg src={logo}  alt="로고" /></Link> */}
+          <Link to="/"><HeaderLogoImg src={logo}  alt="로고" /></Link>
         </HeaderLogo>
 
         <SubMenu>
@@ -72,7 +72,7 @@ background-color: #f6f5f0;
 position: fixed;
 top: 0;
 width: 100%;
-height: 50px;
+height: 80px;
 z-index: 9;
 opacity: ${(props) => props.isActive ? 1 : 0};
 transition: 0.5s ease;`
@@ -88,12 +88,12 @@ align-items: center;
 
 const HeaderLogo = styled.div`
 position: absolute;
-top: 0px;
+top: 0;
 `
 
-// const HeaderLogoImg = styled.img`
-// width: 80%;
-// `
+const HeaderLogoImg = styled.img`
+width: 80%;
+`
 
 const SubMenu = styled.div`
 position: absolute;
@@ -138,7 +138,7 @@ color: #656565;
 
 const MainMenuList = styled.ul`
 min-width: 1100px;
-margin-top: 50px;
+margin-top: 80px;
 padding: 5px 0;
 background-color: #242424;
 display: flex;

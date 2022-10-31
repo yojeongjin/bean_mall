@@ -2,19 +2,20 @@ import {  RiArrowDropRightLine } from 'react-icons/ri'
 import { useState } from 'react'
 import styled from 'styled-components'
 
-import essence from '../assets/theine/essence.png'
-import body from '../assets/theine/body.png'
-import shampoo from '../assets/theine/shampoo.png'
-import handcream from '../assets/theine/handcream.png'
-import bodycleanser from '../assets/theine/bodycleanser.png'
 
 export default function Report() {
-  const carouselImgs = [ essence, body, handcream, shampoo, bodycleanser ]
+  const carouselImgs = 
+  [ 
+    'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%85%E1%85%AE%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A9%E1%84%89%E1%85%B3%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A6%E1%86%AB%E1%84%89%E1%85%B3.png',
+    'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%90%E1%85%A9%E1%84%82%E1%85%A5%E1%84%8B%E1%85%A2%E1%84%91%E1%85%B3%E1%86%AF%E1%84%86%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3.png',
+    'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/handcream11.png',
+    'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/bodycleanser.png',
+    'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%89%E1%85%A3%E1%86%B7%E1%84%91%E1%85%AE.png'
+  ]
   const [activeIdx, setActiveIdx] = useState(0)
 
   function setNext() {
     setActiveIdx(activeIdx => (activeIdx + 1) % carouselImgs.length)
-    console.log(activeIdx)
   }
   // function setPrev() {
   //   setActiveIdx(activeIdx => (activeIdx -1 + carouselImgs.length))
@@ -24,7 +25,6 @@ export default function Report() {
   function goNext(idx) {
     setActiveIdx(idx)
   }
-
 
   return (
     <ReportSection>
@@ -90,7 +90,7 @@ display: flex;
 
 const ReportInfo = styled.div`
 position: relative;
-width: 25%;
+width: 30%;
 flex-direction: column;
 display: flex;
 margin: 0 50px 0 30px;
@@ -155,8 +155,8 @@ transition :200ms ease;
   margin-left: 60px;
 }
 > img {
-  width: 210px;
-  height: 450px;
+  width: 180px;
+  height: 400px;
 }
 `
 

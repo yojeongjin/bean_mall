@@ -87,7 +87,7 @@ export default function PerfumeInfo() {
 
 const PerfumeInfoBase = styled.div `
 background-color: #ddd6d0;
-height: 100%;
+// height: 100%;
 // font-family: 'Noto Sans KR';
 `
 

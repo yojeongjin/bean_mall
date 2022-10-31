@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
-import bodyimg from '../assets/theine/perfumecontent.PNG'
+import bodyimg from '../assets/perfumebgbg.png'
 
 
 export default function BodyReport() {
@@ -97,7 +97,7 @@ margin-top: 35px;
 padding: 12px 12px;
 &:hover {
   background-color: #b8bcbf;
-  border: none;
+  border: 1px solid #b8bcbf;
 }
 > span {
   display: inline-block;

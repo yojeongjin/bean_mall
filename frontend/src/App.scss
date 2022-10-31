@@ -1,7 +1,8 @@
 
 .theine {
-  
+  background-color: #5d5b5b;
   font-weight: 300;
+  text-align: center;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -12,12 +13,15 @@
   background-size:contain;
   width: 100%;
   height: inherit;
+  flex-wrap: wrap;
   justify-content: space-between;
   height: 100vh;
   & :hover {
+    margin-top: 50px;
+    color:#c5bbb3;
     background-color: rgb(182, 182, 175);
     box-sizing: border-box;
-    border-bottom: 3px solid #616161;
+    border-bottom: 3px solid #1e1e1e;
     border: 3px solid orange;
     background-color: #5e554f;
     align-items: flex-end;

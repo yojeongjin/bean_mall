@@ -6,6 +6,7 @@ import Home from './routes/Home';
 import Product from './routes/Product';
 import NotFound from './routes/NotFound';
 import PerfumeInfo from './routes/PerfumeInfo';
+import ProductDetail from './routes/ProductDetail';
 
 
 
@@ -14,6 +15,7 @@ function App() {
     <BrowserRouter>
     <GlobalStyles />
       <Switch>
+        <Route path="/productdetail" component= {ProductDetail} />
         <Route path="/perfumeinfo" component= {PerfumeInfo} />
         <Route path="/product" component= {Product} />
         <Route path="/" exact component= {Home} />

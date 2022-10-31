@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import mainbg from '../assets/mainbgimg.png'
+import mainbg from '../assets/mainbg.png'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 export default function Main() {
@@ -27,8 +27,8 @@ export default function Main() {
 
 const MainSection = styled.section`
 background-image: url(${mainbg});
-margin-top: 66px;
-height: 700px;
+margin-top: 110px;
+height: 600px;
 `
 
 const MainInner = styled.div`
@@ -69,7 +69,7 @@ margin-top: 35px;
 padding: 13px 13px;
 &:hover {
   background-color: #6b645bc2;
-  border: none;
+  border: 1px solid #6b645bc2;
 }
 > span {
   display: inline-block;
