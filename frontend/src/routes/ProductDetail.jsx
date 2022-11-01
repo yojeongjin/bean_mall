@@ -78,8 +78,7 @@ export default function ProductDetail(props) {
   return (
     <DetailBase>
       <DetailInner>
-        <DetailBanner></DetailBanner>
-          {detailProduct}
+        {detailProduct}
       </DetailInner>
     </DetailBase>
   )
@@ -91,6 +90,7 @@ const DetailBase = styled.section`
 background-color: #e1d8d1;
 margin-top: 50px;
 height: 100vh;
+border-top: 1px solid black;
 font-family: 'Noto Sans KR';
 `
 
@@ -103,14 +103,10 @@ justify-content: center;
 align-items: center;
 `
 
-const DetailBanner = styled.div`
-
-`
-
 const DetailContent = styled.div`
 width: 80%;
 height: 550px;
-margin-top: 100px;
+margin-top: 70px;
 display: flex;
 `
 const DetailImg = styled.div`
@@ -136,10 +132,11 @@ margin-bottom: 10px;
 `
 
 const DetailExp = styled.div`
-border-bottom: 2px solid black;
+border-bottom: 1px solid black;
 margin: 20px auto;
 padding-bottom: 25px;
 font-size: 15px;
+color: #252525;
 `
 
 const DetailInfo = styled.div`

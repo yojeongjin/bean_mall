@@ -21,7 +21,6 @@ export default function Header() {
 
   const handleScroll = () => {
     setScroll(window.scrollY || document.documentElement.scrollTop)
-    console.log(scroll)
   }
 
   const updateScroll = throttle(handleScroll, 300);
@@ -43,7 +42,7 @@ export default function Header() {
         <SubMenu>
           <MenuList>
             <MenuItems>
-              <Link to="/"><MenuItemsSpan>Sign In</MenuItemsSpan></Link>
+              <Link to="/signin"><MenuItemsSpan>Sign In</MenuItemsSpan></Link>
             </MenuItems>
             <MenuItems>
               <Link to="/"><MenuItemsSpan>My Page</MenuItemsSpan></Link>

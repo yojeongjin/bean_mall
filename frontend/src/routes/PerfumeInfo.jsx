@@ -93,11 +93,11 @@ background-color: #ddd6d0;
 
 const PerfumeTitle = styled.div`
 width: 100%;
-height: 200px;
+height: 80px;
 `
 
 const PerfumeInner = styled.div `
-width: 1000px;
+width: 1100px;
 height: 100%;
 margin: 0 auto;
 position: relative;

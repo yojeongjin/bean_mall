@@ -12,6 +12,7 @@ exports.filter = (req,res) => {
 	let filter = req.body.filter
 	let category = req.body.category
 
+
 	if (filter) {
 		sql = "select * from mydb_mall.Products where ProductsFilters = ? ";
 		conn.query(sql,[filter],(err,rows) => { 

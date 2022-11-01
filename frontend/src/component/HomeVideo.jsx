@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 
 
-export default function BodyReport() {
+export default function HomeVideo() {
   return (
     <VideoBase>
       <video src= 'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/homevideo.mp4' autoPlay playsInline loop muted />

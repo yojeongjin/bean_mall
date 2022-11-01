@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import bodyimg from '../assets/perfumebgbg.png'
 
 
-export default function BodyReport() {
+export default function PerfumeReport() {
   return (
     <BodyBase>
       <BodyInner>
