@@ -1,6 +1,30 @@
+import { useState } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 
 export default function SignUp() {
+  const [email, setEmail] = useState('')
+  const [pw, setPw] = useState('')
+  const [rePw, setRePw]  = useState('')
+  const [name, setName] = useState('')
+
+  let body = {
+    UserEmail: email,
+    UserPw: pw,
+    UserRePw: rePw,
+    UserName: name
+  }
+  
+  const join = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/users', body)
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <SignUpBase>
       <SignUpInner>
@@ -22,11 +46,15 @@ export default function SignUp() {
           </FormContent>
 
           <InputContainer>
-            <EmailInput 
+            <Input 
             id="email"
             type="email"
+            value={email}
             placeholder="이메일을 입력해주세요."
             required
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
             />
           </InputContainer>
 
@@ -37,19 +65,27 @@ export default function SignUp() {
           </FormContent>
 
           <InputContainer>
-            <EmailInput 
+            <Input 
             id="password"
             type="password"
+            value={pw}
             placeholder="비밀번호 (영문+숫자 8자 이상)"
             required
+            onChange={(e) => {
+              setPw(e.target.value);
+            }}
             />
           </InputContainer>          
           <InputContainer>
-            <EmailInput 
+            <Input 
             id="repassword"
             type="password"
+            value={rePw}
             placeholder="비밀번호 확인"
             required
+            onChange={(e) => {
+              setRePw(e.target.value);
+            }}
             />
           </InputContainer>
 
@@ -59,15 +95,19 @@ export default function SignUp() {
             </FormLabel>
           </FormContent>
           <InputContainer>
-            <EmailInput 
+            <Input 
             id="repassword"
             type="text"
+            value={name}
             placeholder="이름을 입력해 주세요."
             required
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
             />
           </InputContainer>
+          <SignUpBtn onClick={join}>회원가입하기</SignUpBtn>
         </SignUpContent>
-        <SignUpBtn>회원가입하기</SignUpBtn>
       </SignUpInner>
     </SignUpBase>
   )
@@ -153,7 +193,7 @@ const InputContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const EmailInput = styled.input`
+const Input = styled.input`
   width: 100%;
   height: 44px;
   border-radius: 2px;
@@ -169,6 +209,11 @@ const EmailInput = styled.input`
   }
 `;
 
-const SignUpBtn = styled.btn`
-
+const SignUpBtn = styled.button`
+width: 100%;
+height: 44px;
+margin: 30px 0;
+font-size: 14px;
+color: #46423f;
+background-color: #c5bbb3;
 `

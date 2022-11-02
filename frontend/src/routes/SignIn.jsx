@@ -10,9 +10,9 @@ export default function SignIn() {
             <span>간편 로그인/회원가입</span>
           </SignInTitle>
           <SignInUpBtn className="kakao">카카오로 3초만에 가입하기</SignInUpBtn>
-          <SignInUpBtn className="email">
-            <Link to="/signup">이메일로 가입하기</Link>
-          </SignInUpBtn>
+          <Link to="/signup">
+          <SignInUpBtn className="email">이메일로 가입하기</SignInUpBtn>
+          </Link>
           <SignInTitle>
             <span>이메일 로그인</span>
           </SignInTitle>
@@ -28,7 +28,9 @@ export default function SignIn() {
               placeholder="비밀번호"
               required />
           </EmailSignInContainer>
-          <SignInUpBtn>로그인</SignInUpBtn>
+          <Link to="/">
+            <SignInUpBtn>로그인</SignInUpBtn>
+          </Link>
         </SignInContent>
       </SignInInner>
     </SignInBase>
@@ -96,8 +98,8 @@ const EmailInput = styled.input`
 `;
 
 const SignInUpBtn = styled.button`
-width: 90%;
-height: 10%;
+width: 351px;
+height: 47px;
 margin: 30px 0;
 font-size: 14px;
 color: #595450;

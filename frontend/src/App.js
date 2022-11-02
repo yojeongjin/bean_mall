@@ -1,7 +1,5 @@
-import './App.scss';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import GlobalStyles from './styled/GlobalStyles';
-import { Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import Home from './routes/Home';
 import Product from './routes/Product';
 import NotFound from './routes/NotFound';
@@ -10,8 +8,6 @@ import ProductDetail from './routes/ProductDetail';
 import AnotherHeader from './component/AnotherHeader';
 import SignIn from './routes/SignIn';
 import SignUp from './routes/SignUp';
-
-
 
 function App() {
   return (
