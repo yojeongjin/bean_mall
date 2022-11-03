@@ -6,6 +6,8 @@ import Address from './Address'
 
 export default function UserInfo() {
   const [active, setActive] = useState(true)
+  const phoneNumbers = ['02', '031', '032', '033','041','042','043','044','051',
+  '052','053','054','055','061','062','063','064','070','010','011','016','017','018','019']
 
   const [address, setAddress] = useState({
     postcode: '',
@@ -44,6 +46,35 @@ export default function UserInfo() {
                 required
               />
             </FormContent>
+
+            <FormContent>
+              <FormLabel>
+                전화번호
+              </FormLabel>
+              <PhoneSelect>
+                {
+                  phoneNumbers.map((phoneNumber) => (
+                    <PhoneOption>{phoneNumber}</PhoneOption>
+                  ))
+                }
+              </PhoneSelect>
+              <Phone>
+                <PhoneInput
+                id="phone"
+                type="text"
+                required
+                />
+              </Phone>
+              <Phone>
+                <PhoneInput
+                id="phone"
+                type="text"
+                required
+                />
+              </Phone>
+            </FormContent>
+            <SignUpBtn>회원가입 완료</SignUpBtn>
+            <SignUpBtn className="next">다음에 작성할게요.</SignUpBtn>
         </UserInfoContent>
       </UserInfoInner>
     </UserInfoBase>
@@ -57,6 +88,7 @@ background-color: #ddd6d0;
 
 const UserInfoInner = styled.div`
 width: 390px;
+height: 100vh;
 margin: 0 auto;
 padding-top: 50px;
 `
@@ -65,6 +97,7 @@ margin-top: 50px;
 border-top: 1px solid #333;
 padding-bottom: 100px;
 text-align: center;
+
 `
 
 const UserInfoTitle = styled.h2`
@@ -112,9 +145,10 @@ margin: 45px 0 20px;
 
 const FormContent = styled.div`
   text-align: left;
-  margin: 10px 0 0;
   display: flex;
+  margin: 8px 0;
   &.default_address{
+    margin: 0 0;
     flex-direction: column;
     margin-left: 45px;
   }
@@ -123,25 +157,24 @@ const FormContent = styled.div`
 const FormLabel = styled.label`
   font-size: 14px;
   padding: 5px 5px;
+  margin-right: 13px;
   &.default_label {
     font-size: 12px;
-  }
-  > em {
-    color: red;
+    margin-left: 10px;
   }
 `;
 
 const FormPostCode = styled.div`
   width: 80px;
   height: 28px;
-  border: 1px solid #333;
+  border: 1px solid #aaa;
   margin: 0 11px;
   font-size: 14px;
   padding: 4px 3px;
-
+  background: #fff;
   &.default_code {
     width: 345px;
-    margin: 0 0;
+    margin: 0 15px;
   }
 `
 
@@ -149,8 +182,8 @@ const Input = styled.input`
   width: 100%;
   height: 28px;
   border-radius: 2px;
-  border: 1px solid #333;
-  margin-bottom: 8px;
+  border: 1px solid #aaa;
+  margin: 0 0 8px 15px;
   display: flex;
   justify-content: center;
   padding: 0 10px;
@@ -158,3 +191,59 @@ const Input = styled.input`
   outline: none;
 `;
 
+const PhoneSelect = styled.select`
+  width: 70px;
+  height: 28px;
+  font-size: 12px;
+  margin-right: 7px;
+  border: 1px solid #aaa;
+`
+const PhoneOption = styled.option``
+
+const Phone = styled.div`
+position: relative;
+&::before {
+  content: "";
+  width: 8px;
+  height: 1px;
+  background-color: black;
+  position: absolute;
+  top: -10px;
+  bottom: 0;
+  margin: auto 0;
+}
+`
+const PhoneInput = styled.input`
+width: 65px;
+height: 28px;
+border-radius: 2px;
+border: 1px solid #aaa;
+display: flex;
+justify-content: center;
+margin: 0 15px 8px 15px;
+padding: 0 10px;
+font-size: 12px;
+outline: none;
+&:first-child {
+  margin-right: 10px;
+}
+`
+const SignUpBtn = styled.button`
+width: 100%;
+height: 44px;
+margin: 20px 0 0 15px;
+font-size: 14px;
+color: #46423f;
+background-color: #c5bbb3;
+&:hover {
+  background-color: #807974;
+  color: #f7f2f2;
+}
+
+&.next {
+  margin-top: 10px;
+  background-color: transparent;
+  border: 1px solid #807974;
+  color: #595450;
+}
+`

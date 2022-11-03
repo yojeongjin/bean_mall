@@ -29,7 +29,8 @@ export default function Address({setAddress}) {
     background : 'rgba(0,0,0,0.25)',
     position : 'fixed',
     height: '400px',
-    width: '400px'
+    width: '400px',
+    zIndex: '30'
   }
 
   return (
@@ -49,8 +50,9 @@ export default function Address({setAddress}) {
 const AddressBase = styled.div`
 `
 const AddressButton = styled.button`
-border: 1px solid black;
+border: 1px solid #333;
 padding: 5px 5px;
 font-size: 13px;
+position: relative;
 `
 

@@ -7,8 +7,6 @@ export default function AnotherHeader() {
   return (
     <AnotherHeaderBase>
       <AnotherHeaderInner>
-
-
         <HeaderSub>
           <HeaderSubList>
             <Link to="/"><HeaderSubSpan>Main</HeaderSubSpan></Link>

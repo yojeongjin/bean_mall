@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
+import kakao from '../assets/kakaoicon.png'
 
 export default function SignIn() {
   return (
@@ -10,9 +11,10 @@ export default function SignIn() {
           <SignInTitle>
             <span>간편 로그인/회원가입</span>
           </SignInTitle>
+          <SnsIcon></SnsIcon>
           <SignInUpBtn className="kakao">카카오로 3초만에 가입하기</SignInUpBtn>
           <Link to="/signup">
-          <SignInUpBtn className="email">이메일로 가입하기</SignInUpBtn>
+            <SignInUpBtn className="email">이메일로 가입하기</SignInUpBtn>
           </Link>
           <SignInTitle>
             <span>이메일 로그인</span>
@@ -105,14 +107,33 @@ margin: 30px 0;
 font-size: 14px;
 color: #595450;
 background-color: #c5bbb3;
+&:hover {
+  background-color: #807974;
+  color: #f7f2f2;
+}
 
 &.kakao {
   margin-bottom: 0;
+  padding-left: 20px;
 }
 &.email {
   margin-top: 8px;
   background-color: transparent;
   border: 1px solid #807974;
   color: #595450;
+  &:hover {
+    background-color: #807974;
+    color: #f7f2f2;
+  }
 }
+`
+
+const SnsIcon = styled.div`
+position: absolute;
+top: 105px;
+left: 90px;
+width: 24px;
+height: 24px;
+margin-left: 7px;
+background-image: url(${kakao});
 `

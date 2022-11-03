@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import check from '../assets/check-mark.png'
-import { Link, Route } from 'react-router-dom/cjs/react-router-dom.min'
+import checked from '../assets/checked.png'
 
 
 export default function Join ({match}) {
-  const [active, setActive] = useState(true)
+  const [active] = useState(true)
+  const [check, setCheck] = useState(false)
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
   const [rePw, setRePw]  = useState('')
@@ -19,15 +20,41 @@ export default function Join ({match}) {
     UserName: name
   }
   
-  const join =  () => {
-    // try {
-    //   const response = await axios.post(
-    //     'http://localhost:5000/api/users', body)
-    //   console.log(response)
-    // } catch (err) {
-    //   console.log(err)
-    // }
+  const join =  async() => {
+    if(check === false) {
+      alert('이메일 중복확인을 해주세요.')
+    } else {
+      try {
+        const res = await axios.post(
+          'http://localhost:5000/api/users', body)
+          if(res.data.code === 400) {
+            alert(res.data.msg)
+          } else {
+            alert(res.data.msg)
+            window.location.href = `${match.url}/userinfo`
+          }
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
+
+  const checkEmail = async() => {
+    try {
+      const res = await axios.get(
+        'http://localhost:5000/api/users', {params: {UserEmail: email }})
+        if(res.data.code === 400) {
+          alert(res.data.msg)
+        } else {
+          alert(res.data.msg)
+          setCheck(true)
+        }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+
 
   return (
     <SignUpBase>
@@ -61,7 +88,9 @@ export default function Join ({match}) {
             }}
             />
           </InputContainer>
-          <EmailCheck><CheckIcon></CheckIcon>이메일 중복확인</EmailCheck>
+          <EmailCheck onClick={checkEmail}>
+            <CheckIcon isCheck = {check}></CheckIcon>이메일 중복확인
+          </EmailCheck>
 
           <FormContent>
             <FormLabel>
@@ -111,9 +140,9 @@ export default function Join ({match}) {
             }}
             />
           </InputContainer>
-          <Link to={`${match.url}/userinfo`}>
-            <SignUpBtn>회원가입하기</SignUpBtn>
-          </Link>
+
+          <SignUpBtn onClick={join}>회원가입하기</SignUpBtn>
+
         </SignUpContent>
       </SignUpInner>
     </SignUpBase>
@@ -226,6 +255,10 @@ margin: 30px 0;
 font-size: 14px;
 color: #46423f;
 background-color: #c5bbb3;
+&:hover {
+  background-color: #807974;
+  color: #f7f2f2;
+}
 `
 
 const EmailCheck = styled.div`
@@ -237,7 +270,7 @@ cursor: pointer;
 `
 
 const CheckIcon = styled.div`
-background-image: url(${check});
+background-image: ${(props) => props.isCheck ? `url(${checked})` : `url(${check})`}; 
 width: 16px;
 height: 16px;
 margin-right: 5px
