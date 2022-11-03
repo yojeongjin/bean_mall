@@ -1,3 +1,4 @@
+import React from 'react'
 import Header from "../component/Header";
 import Main from "../component/Main";
 import Report from "../component/Report";

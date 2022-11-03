@@ -1,12 +1,16 @@
 
 .theine {
-  background-color: #5d5b5b;
+  background-color: #222222;
+  text-decoration:line-through;
   font-weight: 300;
+  line-height: 1.2;
   text-align: center;
+  background-image: url();
   justify-content: center;
-  align-items: center;
   flex-direction: column;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
   text-align: center;
   display: inline-flex;
   background-repeat: no-repeat;
