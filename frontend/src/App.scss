@@ -1,6 +1,6 @@
 
 .theine {
-  background-color: #222222;
+  background: rgb(246, 245, 240);
   text-decoration:line-through;
   font-weight: 300;
   line-height: 1.2;
@@ -9,6 +9,7 @@
   justify-content: center;
   flex-direction: column;
   display: flex;
+  text-align: right;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -24,9 +25,9 @@
     color: #46423f;
     margin-top: 50px;
     color:#f7f2f2;
-    background-color: rgb(182, 182, 175);
+    background-color: rgb(21, 21, 21);
     box-sizing: border-box;
-    border-bottom: 3px solid #595959;
+    border-bottom: 3px solid rgb(89, 89, 89);
     background-color: transparent;
     border: 3px solid orange;
     background-color: #5e554f;

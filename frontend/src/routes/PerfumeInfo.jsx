@@ -58,15 +58,17 @@ export default function PerfumeInfo() {
           <p>
             {info.PerfumeDesc}
           </p>
-          <h4> Top notes <br></br>
-            <span>{info.PerfumeTop}</span>
-          </h4>
-          <h4> Middle notes <br></br>
-            <span>{info.PerfumeMid}</span>
-          </h4>
-          <h4> Base notes <br></br>
-            <span>{info.PerfumeBase}</span>
-          </h4>
+          <H4andSpan isOdd = {idx % 2 === 1}>
+            <h4> Top notes <br></br>
+              <span>{info.PerfumeTop}</span>
+            </h4>
+            <h4> Middle notes <br></br>
+              <span>{info.PerfumeMid}</span>
+            </h4>
+            <h4> Base notes <br></br>
+              <span>{info.PerfumeBase}</span>
+            </h4>
+          </H4andSpan>
         </PerfumeExp>
     </PerfumeNotice>
   ))
@@ -137,7 +139,13 @@ margin-left: ${(props) => props.isOdd ? '50px' : 0};
   padding: 30px 0;
   border-bottom: 2px solid black;
 }
-> h4 {
+
+}
+`
+
+const H4andSpan = styled.div`
+text-align: ${(props) => props.isOdd ? 'right' : 'left'}; 
+  > h4 {
   display: block;
   margin-top: 12px;
   font-size: 15px;
@@ -148,7 +156,6 @@ margin-left: ${(props) => props.isOdd ? '50px' : 0};
     padding: 10px 0 5px 0;
     color: #616161;
   }
-}
 `
 
 const ExpTitle = styled.div`

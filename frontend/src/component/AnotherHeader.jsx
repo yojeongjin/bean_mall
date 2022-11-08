@@ -38,6 +38,7 @@ top: 0;
 width: 100%;
 height: 50px;
 z-index: 9;
+background-color: rgb(246, 245, 240, 0.5);
 font-family: 'Noto Sans KR';
 `
 

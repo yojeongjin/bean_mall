@@ -8,13 +8,13 @@ import checked from '../assets/checked.png'
 export default function Join ({match}) {
   const [active] = useState(true)
   const [check, setCheck] = useState(false)
-  const [email, setEmail] = useState('')
+  const [UserEmail, setUserEmail] = useState('')
   const [pw, setPw] = useState('')
   const [rePw, setRePw]  = useState('')
   const [name, setName] = useState('')
 
   let body = {
-    UserEmail: email,
+    UserEmail: UserEmail,
     UserPw: pw,
     UserRePw: rePw,
     UserName: name
@@ -42,7 +42,7 @@ export default function Join ({match}) {
   const checkEmail = async() => {
     try {
       const res = await axios.get(
-        'http://localhost:5000/api/users', {params: {UserEmail: email }})
+        'http://localhost:5000/api/users', {params: {UserEmail: UserEmail }})
         if(res.data.code === 400) {
           alert(res.data.msg)
         } else {
@@ -80,11 +80,11 @@ export default function Join ({match}) {
             <Input 
             id="email"
             type="email"
-            value={email}
+            value={UserEmail}
             placeholder="이메일을 입력해주세요."
             required
             onChange={(e) => {
-              setEmail(e.target.value);
+              setUserEmail(e.target.value);
             }}
             />
           </InputContainer>
@@ -141,7 +141,7 @@ export default function Join ({match}) {
             />
           </InputContainer>
 
-          <SignUpBtn onClick={join}>회원가입하기</SignUpBtn>
+          <SignUpBtn type="submit" onClick={join}>회원가입하기</SignUpBtn>
 
         </SignUpContent>
       </SignUpInner>

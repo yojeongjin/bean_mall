@@ -1,0 +1,1 @@
+export const LOGIN_AUTH = "login_auth"
