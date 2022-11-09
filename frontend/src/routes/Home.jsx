@@ -7,6 +7,7 @@ import PerfumeReport from "../component/PerfumeReport";
 import Gift from "../component/Gift";
 import Footer from "../component/Footer";
 
+
 export default function Home() {
   return (
     <>

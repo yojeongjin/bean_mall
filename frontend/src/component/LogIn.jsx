@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
 import kakao from '../assets/kakaoicon.png'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginAuth } from '../redux/actions/auth_actions'
 
 export default function LogIn() {
@@ -15,12 +15,20 @@ export default function LogIn() {
     e.preventDefault();
     
     let body = {
-      email: email,
-      password: password 
+      UserEmail: email,
+      UserPw: password 
     }
-    
+
     dispatch(loginAuth(body))
-    console.log(email, password)
+      .then(res => {
+        if (res.payload.success === true) {
+          const token = res.payload.result.jwt
+          localStorage.setItem('m-access-token', token)
+          window.location.replace('/')
+        } else {
+          alert(res.payload.msg)
+        }
+      })
   }
 
   return (
