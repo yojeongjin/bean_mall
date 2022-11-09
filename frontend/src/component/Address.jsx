@@ -5,8 +5,6 @@ import styled from 'styled-components'
 export default function Address({setAddress}) {
   const [openPostcode, setOpenPostcode] = useState(false)
 
-
-
   const handlePostCode = {
     clickButton: () => {
       setOpenPostcode(current => !current)
@@ -17,7 +15,7 @@ export default function Address({setAddress}) {
         주소: ${data.address},
         우편번호: ${data.zonecode}
       `)
-      setOpenPostcode(false);
+      setOpenPostcode(false)
       setAddress({
         postcode: data.zonecode,
         defaultAddr: data.address
@@ -27,15 +25,17 @@ export default function Address({setAddress}) {
 
   const addressStyle = {
     background : 'rgba(0,0,0,0.25)',
-    position : 'fixed',
+    position : 'absolute',
     height: '400px',
     width: '400px',
+    top: '-50px',
+    left: '60px',
     zIndex: '30'
   }
 
   return (
     <AddressBase>
-    <AddressButton onClick={handlePostCode.clickButton}>우편번호</AddressButton>
+      <AddressButton onClick={handlePostCode.clickButton}>우편번호</AddressButton>
 
     {openPostcode && 
         <DaumPostCode 
@@ -48,11 +48,10 @@ export default function Address({setAddress}) {
 }
 
 const AddressBase = styled.div`
+position: relative;
 `
 const AddressButton = styled.button`
 border: 1px solid #333;
 padding: 5px 5px;
 font-size: 13px;
-position: relative;
 `
-

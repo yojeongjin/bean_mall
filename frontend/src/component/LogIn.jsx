@@ -31,9 +31,16 @@ export default function LogIn() {
       })
   }
 
+  const pressEnter = (e) => {
+    if (e.key === 'Enter') {
+      signin()
+    }
+  }
+
   return (
     <SignInBase>
       <SignInInner>
+
         <SignInContent>
           <SignInTitle>
             <span>간편 로그인/회원가입</span>
@@ -43,6 +50,10 @@ export default function LogIn() {
           <Link to="/signup">
             <SignInUpBtn className="email">이메일로 가입하기</SignInUpBtn>
           </Link>
+        </SignInContent>
+        
+        <SignInContent onKeyPress={pressEnter} >
+
           <SignInTitle>
             <span>이메일 로그인</span>
           </SignInTitle>
@@ -71,7 +82,7 @@ export default function LogIn() {
   )
 }
 
-const SignInBase = styled.section`
+const SignInBase = styled.div`
 background-color: #ddd6d0;
 `
 
@@ -82,12 +93,12 @@ margin: 0 auto;
 display: flex;
 justify-content: center;
 align-items: center;
+flex-direction: column;
 `
 
-const SignInContent = styled.div`
+const SignInContent = styled.form`
 position: relative;
 width: 100%;
-height: 70%;
 margin-top: 10px;
 display: flex;
 justify-content: center;
@@ -161,7 +172,7 @@ background-color: #c5bbb3;
 
 const SnsIcon = styled.div`
 position: absolute;
-top: 105px;
+top: 50px;
 left: 90px;
 width: 24px;
 height: 24px;

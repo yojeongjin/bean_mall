@@ -50,7 +50,7 @@ export default function Header() {
           <HeaderMain>
             <HeaderMainList>
               <Link to="/signin"><MenuListSpan>Sign In</MenuListSpan></Link>
-              <Link to="/"><MenuListSpan>My Page</MenuListSpan></Link>
+              <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
               <Link to="/"><MenuListSpan>Cart</MenuListSpan></Link>
             </HeaderMainList>
           </HeaderMain>

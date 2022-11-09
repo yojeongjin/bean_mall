@@ -130,7 +130,7 @@ export default function Join ({match}) {
           </FormContent>
           <InputContainer>
             <Input 
-            id="repassword"
+            id="name"
             type="text"
             value={name}
             placeholder="이름을 입력해 주세요."
@@ -149,7 +149,7 @@ export default function Join ({match}) {
   )
 }
 
-const SignUpBase = styled.section`
+const SignUpBase = styled.div `
 background-color: #ddd6d0;
 `
 
@@ -224,7 +224,6 @@ const FormLabel = styled.label`
 `;
 
 const InputContainer = styled.div`
-  display: block;
   width: 100%;
   margin-top: 10px;
   text-align: left;

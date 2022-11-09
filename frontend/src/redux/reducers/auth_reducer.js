@@ -5,8 +5,7 @@ export default function (state={}, action) {
     case LOGIN_AUTH:
       return {
         ...state, 
-        loginSuccess: action.payload,
-        loginToken: action.payload.result.jwt}
+        loginSuccess: action.payload}
       break
     
       default:
