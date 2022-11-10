@@ -9,6 +9,7 @@ import AnotherHeader from './component/AnotherHeader';
 import SignIn from './routes/SignIn';
 import SignUp from './routes/SignUp';
 import Mypage from './routes/Mypage';
+import Cart from './routes/Cart';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
     <GlobalStyles />
     <AnotherHeader />
       <Switch>
+        <Route path="/cart" component= {Cart} />
         <Route path="/mypage" component= {Mypage} />
         <Route path="/signup" component= {SignUp} />
         <Route path="/signin" component= {SignIn} />

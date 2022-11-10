@@ -151,6 +151,7 @@ export default function Join ({match}) {
 
 const SignUpBase = styled.div `
 background-color: #ddd6d0;
+font-family: 'AppleSDGothicNeo';
 `
 
 const SignUpInner = styled.div`
@@ -207,6 +208,7 @@ margin: 45px 0 20px;
   li + li {
     margin-left: 50px;
   }
+
 `;
 
 

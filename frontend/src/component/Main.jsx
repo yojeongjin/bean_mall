@@ -30,6 +30,7 @@ const MainSection = styled.section`
 background-image: url(${mainbg});
 margin-top: 50px;
 height: 700px;
+font-family: 'AppleSDGothicNeo';
 `
 
 const MainInner = styled.div`
@@ -40,14 +41,13 @@ position: relative;
 
 const MainContent = styled.div`
 position: absolute;
-top: 130px;
+top: 150px;
 left: 50px;
 width: 500px;
 height: 300px;
 `
 
 const MainTitle = styled.div`
-font-family: 'Nanum Barun Gothic', sans-serif;
 color: #c8c8c8;
 > h1 {
   font-size: 27px;
@@ -63,11 +63,10 @@ color: #c8c8c8;
 
 const MainBtn = styled.button`
 border: 1px solid #c8c8c8;
-font-family: 'Nanum Barun Gothic', sans-serif;
 font-size: 14px;
 color: #c8c8c8;
 margin-top: 35px;
-padding: 13px 13px;
+padding: 10px 13px;
 &:hover {
   background-color: #6b645bc2;
   border: 1px solid #6b645bc2;

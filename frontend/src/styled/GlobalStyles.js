@@ -1,9 +1,13 @@
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
 import Com4 from './COM4t-Fine-Regular.ttf.woff'
-import NotoSansKRM from './NotoSansKR-Medium.otf'
-import NotoSansKRR from './NotoSansKR-Regular.otf'
-import NotoSansKRL from './NotoSansKR-Light.otf'
+
+import AppleSDGothicNeoL from './AppleSDGothicNeoL.ttf'
+import AppleSDGothicNeoH from './AppleSDGothicNeoH.ttf'
+import AppleSDGothicNeoEB from './AppleSDGothicNeoEB.ttf'
+import AppleSDGothicNeoSB from './AppleSDGothicNeoSB.ttf'
+import AppleSDGothicNeoT from './AppleSDGothicNeoT.ttf'
+import AppleSDGothicNeoUL from './AppleSDGothicNeoUL.ttf'
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
@@ -16,25 +20,47 @@ const GlobalStyles = createGlobalStyle`
   }
 
   @font-face {
-    font-family: 'Noto Sans KR';
+    font-family: 'AppleSDGothicNeo';
+    font-weight: 700;
+    src: local('AppleSDGothicNeoH');
+    src: url(${AppleSDGothicNeoH}) format('truetype');
+  }  
+
+
+  @font-face {
+    font-family: 'AppleSDGothicNeo';
+    font-weight: 600;
+    src: local('AppleSDGothicNeoEB');
+    src: url(${AppleSDGothicNeoEB}) format('truetype');
+  }  
+
+  @font-face {
+    font-family: 'AppleSDGothicNeo';
     font-weight: 500;
-    src: local('NotoSansKR');
-    src: url(${NotoSansKRM}) format('truetype');
+    src: local('AppleSDGothicNeoSB');
+    src: url(${AppleSDGothicNeoSB}) format('truetype');
   }  
 
 
   @font-face {
-    font-family: 'Noto Sans KR';
+    font-family: 'AppleSDGothicNeo';
     font-weight: 400;
-    src: local('NotoSansKRR');
-    src: url(${NotoSansKRR}) format('truetype');
+    src: local('AppleSDGothicNeoL');
+    src: url(${AppleSDGothicNeoL}) format('truetype');
   }  
 
   @font-face {
-    font-family: 'Noto Sans KR';
+    font-family: 'AppleSDGothicNeo';
     font-weight: 300;
-    src: local('NotoSansKRL');
-    src: url(${NotoSansKRL}) format('truetype');
+    src: local('AppleSDGothicNeoUL');
+    src: url(${AppleSDGothicNeoUL}) format('truetype');
+  }  
+
+  @font-face {
+    font-family: 'AppleSDGothicNeo';
+    font-weight: 200;
+    src: local('AppleSDGothicNeoT');
+    src: url(${AppleSDGothicNeoT}) format('truetype');
   }  
 
 

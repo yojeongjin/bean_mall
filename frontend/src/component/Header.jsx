@@ -35,23 +35,26 @@ export default function Header() {
   return (
     <HeaderBase  isActive = {scroll <= 80}>
       <HeaderInner>
-        <HeaderSub>
-            <HeaderSubList>
-              <Link to="/"><HeaderSubSpan>Main</HeaderSubSpan></Link>
-              <Link to="/product"><HeaderSubSpan>Products</HeaderSubSpan></Link>
-              <Link to="/perfumeinfo"><HeaderSubSpan>Flavours</HeaderSubSpan></Link>
-            </HeaderSubList>
-          </HeaderSub>
-
-          <AnotherHeaderLogo>
-            <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
-          </AnotherHeaderLogo>
-
           <HeaderMain>
             <HeaderMainList>
-              <Link to="/signin"><MenuListSpan>Sign In</MenuListSpan></Link>
+              <Link to="/"><MenuListSpan>Main</MenuListSpan></Link>
+              <Link to="/product"><MenuListSpan>Products</MenuListSpan></Link>
+              <Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link>
+            </HeaderMainList>
+          </HeaderMain>
+            <AnotherHeaderLogo>
+            <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
+          </AnotherHeaderLogo>
+          <HeaderMain>
+            <HeaderMainList>
               <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
-              <Link to="/"><MenuListSpan>Cart</MenuListSpan></Link>
+              <Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link>
+              <Link to="/cart">
+                <MenuListSpan>Cart
+                  <span className="cart-num">0</span>
+                </MenuListSpan>
+
+              </Link>
             </HeaderMainList>
           </HeaderMain>
       </HeaderInner>
@@ -60,19 +63,20 @@ export default function Header() {
 }
 
 const HeaderBase = styled.header`
+font-family: 'AppleSDGothicNeo';
 position: fixed;
 top: 0;
 width: 100%;
 height: 50px;
 z-index: 9;
-background-color: rgb(21, 21, 21);
+background-color: #f6f5f0;
+// background-color: #181818;
 opacity: ${(props) => props.isActive ? 1 : 0};
 transition: 0.5s ease;`
 
 const HeaderInner = styled.div`
 width: 1100px;
 margin: 0 auto;
-position: relative;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -90,11 +94,13 @@ width: 100px;
 `
 
 const HeaderMain = styled.ul`
-flex: 1;
+flex:1;
+display: flex;
+color: #333;
+font-size: 12px;
 display: flex;
 justify-content: center;
 align-items: center;
-color: #989898;
 `
 
 const HeaderMainList = styled.li`
@@ -102,35 +108,26 @@ display: flex;
 `
 
 const MenuListSpan = styled.span`
-font-size: 12px;
+position: relative;
 text-decoration: none;
 padding: 0 20px;
 text-align: center;
-display: block;
+
 &:hover {
-  font-weight: 500;
+  color: black;
 }
-`
 
-const HeaderSub = styled.ul`
-flex: 1;
-display: flex;
-justify-content: center;
-align-items: center;
-color: #989898;
-`
-
-const HeaderSubList = styled.li`
-display: flex;
-`
-
-const HeaderSubSpan = styled.span`
-font-size: 12px;
-text-decoration: none;
-padding: 0 20px;
-text-align: center;
-display: block;
-&:hover {
-  font-weight: 500;
+>.cart-num {
+  position: absolute;
+  top: -6px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  font-size: 11px;
+  text-align: center;
+  background: #000;
+  color: #fff;
+  border-radius: 50%;
 }
 `

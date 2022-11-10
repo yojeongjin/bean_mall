@@ -6,6 +6,10 @@ import axios from 'axios'
 export default function ProductDetail(props) {
   const idx = Number(props.match.params.idx)
   const [ detailDatas, setDetailDatas ] = useState([])
+  const [ value, setValue ] = useState('')
+
+  const [ sizeOne, setSizeOne ] = useState('')
+  const [ sizeTwo, setSizeTwo ] = useState('')
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/products/'+idx, {params: {
@@ -13,15 +17,17 @@ export default function ProductDetail(props) {
     }})
     .then((res) => {
       setDetailDatas(res.data.data)
+      setSizeOne(res.data.data[0].ProductsSize1)
+      setSizeTwo(res.data.data[0].ProductsSize2)
+      setValue(res.data.data[0].ProductsSize1)
     })
     .catch((err) => {
       console.log(err)
     })
   },[])
   
-  const [ value, setValue ] = useState('detailDatas.ProductsSize1')
+  const valueLists = [sizeOne, sizeTwo]
 
-  const valueLists = ['detailDatas.ProductsSize1', 'detailDatas.ProductsSize2']
   const handleChange = (e) => {
     setValue(e.target.value)
   }
@@ -66,7 +72,10 @@ export default function ProductDetail(props) {
 
             <DetailPrice>
               <h3>가격</h3>
-              <span>₩ {detailData.ProductsPrice1}</span>
+              {value===sizeOne && 
+              <span>₩ {detailData.ProductsPrice1}</span>}
+              {value===sizeTwo && 
+              <span>₩ {detailData.ProductsPrice2}</span>}
             </DetailPrice>
             <AddCartBtn>카트에 추가하기</AddCartBtn>
           </Detail>
@@ -91,7 +100,7 @@ background-color: #e1d8d1;
 margin-top: 50px;
 height: 100vh;
 border-top: 1px solid black;
-font-family: 'Noto Sans KR';
+font-family: 'AppleSDGothicNeo';
 `
 
 const DetailInner = styled.div`

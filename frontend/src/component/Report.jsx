@@ -9,8 +9,8 @@ export default function Report() {
     'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%85%E1%85%AE%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A9%E1%84%89%E1%85%B3%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A6%E1%86%AB%E1%84%89%E1%85%B3.png',
     'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%90%E1%85%A9%E1%84%82%E1%85%A5%E1%84%8B%E1%85%A2%E1%84%91%E1%85%B3%E1%86%AF%E1%84%86%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3.png',
     'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/handcream11.png',
-    'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/bodycleanser.png',
-    'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%89%E1%85%A3%E1%86%B7%E1%84%91%E1%85%AE.png'
+    'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%89%E1%85%A3%E1%86%B7%E1%84%91%E1%85%AE.png',
+    'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%87%E1%85%A1%E1%84%83%E1%85%B5%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A6%E1%86%AB%E1%84%8C%E1%85%A5.png'
   ]
   const [activeIdx, setActiveIdx] = useState(0)
 
@@ -110,14 +110,14 @@ top: 150px;
 display: block;
 color: #252525;
 font-size: 15px;
-font-family: 'Nanum Barun Gothic', sans-serif;
+font-family: 'AppleSDGothicNeo';
 `
 
 const ReportSelect = styled.span`
 margin-left: 20px;
 position: absolute;
 bottom: -50px;
-font-family: 'Nanum Barun Gothic', sans-serif;
+font-family: 'AppleSDGothicNeo';
 color: #252525;
 display: block;
 > span {
@@ -148,7 +148,7 @@ display: flex;
 overflow: hidden;`
 
 const CarouselItems = styled.li`
-margin-right: 150px;
+margin-right: 140px;
 transform: translateX(-${(props) => props.activeIdx}00%);
 transition :200ms ease;
 &:first-child {

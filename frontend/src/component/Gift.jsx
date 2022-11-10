@@ -34,7 +34,7 @@ const GiftContent = styled.div`
 width: 500px;
 height: 100%;
 margin: 0 auto;
-font-family: 'Noto Sans KR';
+font-family: 'AppleSDGothicNeo';
 
 > span {
   font-size: 13px;

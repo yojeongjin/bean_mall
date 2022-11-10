@@ -68,7 +68,7 @@ const BodyContent = styled.div`
 margin-left: 150px;
 width: 460px;
 height: 450px;
-font-family: 'Noto Sans KR';
+font-family: 'AppleSDGothicNeo';
 color: #21262b;
 > span {
   font-size: 13px;

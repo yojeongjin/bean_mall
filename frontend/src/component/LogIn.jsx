@@ -84,6 +84,9 @@ export default function LogIn() {
 
 const SignInBase = styled.div`
 background-color: #ddd6d0;
+font-family: 'AppleSDGothicNeo';
+margin-top: 50px;
+border-top: 1px solid black;
 `
 
 const SignInInner = styled.div `

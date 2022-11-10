@@ -182,6 +182,10 @@ export default function MyInfos() {
 
 const MyInfoBase = styled.div`
 background-color: #ddd6d0;
+margin-top: 50px;
+border-top: 1px solid black;
+font-family: 'AppleSDGothicNeo';
+font-weight: 400;
 `
 const MyInfoInner = styled.div`
 width: 1100px;
@@ -215,7 +219,7 @@ const MyInfoB = styled.b`
   display: block;
   padding-top: 15px;
   color: #333;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 13px;
   margin-top: 0;
 `;
