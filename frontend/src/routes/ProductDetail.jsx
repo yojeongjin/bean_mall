@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect, useMemo } from 'react'
 import axios from 'axios'
 
 
@@ -7,9 +7,13 @@ export default function ProductDetail(props) {
   const idx = Number(props.match.params.idx)
   const [ detailDatas, setDetailDatas ] = useState([])
   const [ value, setValue ] = useState('')
-
   const [ sizeOne, setSizeOne ] = useState('')
   const [ sizeTwo, setSizeTwo ] = useState('')
+  const [ quantity, setQuantity ] = useState('1')
+  const [ priceOne, setPriceOne ] = useState('')
+  const [ priceTwo, setPriceTwo ] = useState('')
+  const quantitys = [1,2,3,4,5,6,7,8,9,10]
+
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/products/'+idx, {params: {
@@ -20,6 +24,8 @@ export default function ProductDetail(props) {
       setSizeOne(res.data.data[0].ProductsSize1)
       setSizeTwo(res.data.data[0].ProductsSize2)
       setValue(res.data.data[0].ProductsSize1)
+      setPriceOne(res.data.data[0].ProductsPrice1)
+      setPriceTwo(res.data.data[0].ProductsPrice2)
     })
     .catch((err) => {
       console.log(err)
@@ -43,6 +49,21 @@ export default function ProductDetail(props) {
     </DetailRadio>
   ))
 
+  const getPrice = useMemo(() => {
+    const one = Number(priceOne * quantity)
+    const two = Number(priceTwo * quantity)
+
+    const onePrice = one.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    const twoPrice = two.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
+    if (value === sizeOne) {
+      return onePrice
+ 
+    } else {
+      return twoPrice
+    }
+  },[value, quantity, sizeOne, priceOne, priceTwo])
+
   const detailProduct = 
   <DetailContent>
     {
@@ -57,27 +78,39 @@ export default function ProductDetail(props) {
               {detailData.ProductsDes}
             </DetailExp>
             <DetailInfo>
-              <h3>사용감</h3>
+              <Title>사용감</Title>
               <span>{detailData.ProductsUsing}</span>
-              <h3>주요성분</h3>
+            </DetailInfo>
+
+            <DetailInfo>
+              <Title>주요성분</Title>
               <span>{detailData.ProductsMain}</span>
             </DetailInfo>
         
             <DetailRadioGroup>
-              <h3>사이즈</h3>
+              <Title>사이즈</Title>
               <DetailRadio>
                 {Radio}
               </DetailRadio>
             </DetailRadioGroup>
 
+            <Quantity>
+              <Title>수량</Title>
+              <QuantitySelect onChange={(e)=>{setQuantity(e.target.value)}}>                
+                {
+                  quantitys.map((quantity,idx) => (
+                    <QuantityOption key={idx}>{quantity}</QuantityOption>
+                  ))
+                }
+              </QuantitySelect>
+            </Quantity>
+
             <DetailPrice>
-              <h3>가격</h3>
-              {value===sizeOne && 
-              <span>₩ {detailData.ProductsPrice1}</span>}
-              {value===sizeTwo && 
-              <span>₩ {detailData.ProductsPrice2}</span>}
+              <Title>가격</Title>
+              <Price>{getPrice}</Price>
             </DetailPrice>
-            <AddCartBtn>카트에 추가하기</AddCartBtn>
+
+            <AddCartBtn type="button" onClick={()=>{console.log(getPrice)}}>카트에 추가하기</AddCartBtn>
           </Detail>
         </>
       ))
@@ -150,11 +183,6 @@ color: #252525;
 
 const DetailInfo = styled.div`
 margin-bottom: 10px;
-> h3 {
-  font-weight: 500;
-  font-size: 15px;
-  padding: 7px 0;
-}
 > span {
   font-size: 13px;
   color: #333;
@@ -164,11 +192,7 @@ margin-bottom: 10px;
 `
 
 const DetailRadioGroup = styled.div`
-> h3 {
-  font-weight: 500;
-  font-size: 15px;
-  padding-bottom: 5px;
-}
+
 `
 const DetailRadio = styled.div`
 display: flex;
@@ -188,15 +212,9 @@ margin-bottom: 10px;
 `
 
 const DetailPrice = styled.div`
-
-> h3 {
-  font-weight: 500;
-  font-size: 15px;
-  padding-bottom: 2px;
-}
-> span {
-  font-size: 15px;
-}
+`
+const Price = styled.span`
+font-size: 15px;
 `
 const AddCartBtn = styled.button`
 border: 1px solid #333;
@@ -206,4 +224,25 @@ margin-top: 30px;
   background-color: #c5bbb3;
   border: 1px solid #c5bbb3;
 }
+`
+
+const Quantity = styled.div`
+margin-bottom: 10px;
+`
+const QuantitySelect = styled.select`
+  width: 70px;
+  height: 28px;
+  font-size: 12px;
+  margin-right: 7px;
+  border: 1px solid #aaa;
+  outline: none;
+`
+const QuantityOption = styled.option`
+  text-align: center;
+`
+
+const Title = styled.h3`
+font-weight: 500;
+font-size: 15px;
+padding-bottom: 2px;
 `
