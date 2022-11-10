@@ -5,15 +5,15 @@ import axios from 'axios'
 
 export default function ProductDetail(props) {
   const idx = Number(props.match.params.idx)
+  const [ data, setData ] = useState([])
   const [ detailDatas, setDetailDatas ] = useState([])
   const [ value, setValue ] = useState('')
-  const [ sizeOne, setSizeOne ] = useState('')
-  const [ sizeTwo, setSizeTwo ] = useState('')
   const [ quantity, setQuantity ] = useState('1')
-  const [ priceOne, setPriceOne ] = useState('')
-  const [ priceTwo, setPriceTwo ] = useState('')
+  
   const quantitys = [1,2,3,4,5,6,7,8,9,10]
 
+
+  const { idProducts,ProductsSize1,ProductsSize2,ProductsPrice1,ProductsPrice2 } = data
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/products/'+idx, {params: {
@@ -21,18 +21,15 @@ export default function ProductDetail(props) {
     }})
     .then((res) => {
       setDetailDatas(res.data.data)
-      setSizeOne(res.data.data[0].ProductsSize1)
-      setSizeTwo(res.data.data[0].ProductsSize2)
+      setData(res.data.data[0])
       setValue(res.data.data[0].ProductsSize1)
-      setPriceOne(res.data.data[0].ProductsPrice1)
-      setPriceTwo(res.data.data[0].ProductsPrice2)
     })
     .catch((err) => {
       console.log(err)
     })
   },[])
   
-  const valueLists = [sizeOne, sizeTwo]
+  const valueLists = [ProductsSize1, ProductsSize2]
 
   const handleChange = (e) => {
     setValue(e.target.value)
@@ -50,19 +47,19 @@ export default function ProductDetail(props) {
   ))
 
   const getPrice = useMemo(() => {
-    const one = Number(priceOne * quantity)
-    const two = Number(priceTwo * quantity)
+    const numquan = Number(quantity)
+    const one = ProductsPrice1 * numquan
+    const two = ProductsPrice2 * numquan
 
-    const onePrice = one.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    const twoPrice = two.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-
-    if (value === sizeOne) {
-      return onePrice
+    if (value === ProductsSize1) {
+      return one.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
  
     } else {
-      return twoPrice
+      return two.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
     }
-  },[value, quantity, sizeOne, priceOne, priceTwo])
+  },[value, quantity])
+
 
   const detailProduct = 
   <DetailContent>
@@ -110,7 +107,7 @@ export default function ProductDetail(props) {
               <Price>{getPrice}</Price>
             </DetailPrice>
 
-            <AddCartBtn type="button" onClick={()=>{console.log(getPrice)}}>카트에 추가하기</AddCartBtn>
+            <AddCartBtn type="button">카트에 추가하기</AddCartBtn>
           </Detail>
         </>
       ))
