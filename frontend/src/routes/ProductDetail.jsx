@@ -13,7 +13,7 @@ export default function ProductDetail(props) {
   const [ detailDatas, setDetailDatas ] = useState([])
   const [ value, setValue ] = useState('')
   const [ quantity, setQuantity ] = useState('1')
-  const [ price, setPrice ]  = useState('')
+  const [ price, setPrice ]  = useState(0)
 
   const quantitys = [1,2,3,4,5,6,7,8,9,10]
 
@@ -56,10 +56,10 @@ export default function ProductDetail(props) {
     const two = ProductsPrice2 * numquan
 
     if (value === ProductsSize1) {
-      setPrice(one)
+      setPrice(ProductsPrice1)
       return one.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     } else {
-      setPrice(two)
+      setPrice(ProductsPrice2)
       return two.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
     }
@@ -90,7 +90,7 @@ export default function ProductDetail(props) {
     {
       detailDatas.map((detailData,idx) => (
         <>
-          <DetailImg key={idx}>
+          <DetailImg key={detailData.idProducts}>
             <img src={detailData.ProductsImg} alt="제품사진" />
           </DetailImg>
           <Detail>

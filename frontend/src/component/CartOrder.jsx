@@ -1,55 +1,93 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import { getCart } from '../redux/actions/cart_actions'
+import { patchCart } from '../redux/actions/cart_actions'
 
 export default function CartOrder() {
   const dispatch = useDispatch()
   const [ isDatas, setIsDatas ] = useState([])
+  const [ id, setId ] = useState(0)
   const [ cartQuantity, setCartQuantity ]  = useState('')
+  const [ total, setTotal ] = useState(0)
+  const [ allPayment, setAllPayment ] = useState(0)
+  const [ fee, setFee ] = useState(0)
+
   const quantitys = [1,2,3,4,5,6,7,8,9,10]
 
   useEffect(()=>{
     dispatch(getCart())
     .then((res) => {
       setIsDatas(res.payload)
+      calculateTotal(res.payload)
     })
-  },[])
+  })
+
+  const change = (e, id) => {
+    setCartQuantity(e.target.value)
+    setId(id)
+    modifiedQuantity()
+  }
+
+  const modifiedQuantity = useMemo(() => {
+    let body = {
+      idCart: id,
+      CartQuantity: cartQuantity
+    }
+    dispatch(patchCart(body))
+  }, [id,cartQuantity])
+
+  let calculateTotal = (cartDatas) => {
+    let total = 0;
+
+    cartDatas.map(cartData => {
+      total += cartData.CartPrice * cartData.CartQuantity
+    })
+    setTotal(total)
+    if (total < 30000) {
+      const totalPayment = total + 3000
+      setAllPayment(totalPayment)
+      setFee(3000)
+    } else {
+      setAllPayment(total)
+    }
+  }
+
 
   const detailCarts =             
-  <CartSectionLt>
+  <CartList>
     {
-      isDatas.map((isdata,idx) => (
-        <CartList key={idx}>
-          <CartItem>
-            <CartThumnail>
-              <img src={isdata.CartImg}
-                alt="제품사진" />
-            </CartThumnail>
-            <CartColumn>
-              <h3>{isdata.CartName}</h3>
-              <p className="category">{isdata.CartFilters}</p>
-              <p>{isDatas.CartSize}</p>
-              <div className="select">
-                <Select onChange={(e)=>{setCartQuantity(e.target.value)}} defaultValue={isdata.CartQuantity}>
-                {
-                  quantitys.map((quantity,idx) => (
-                    <Option key={idx}>{quantity}</Option>
-                  ))
-                }
-                </Select>
-              </div>
-            </CartColumn>
-            <CartColumnRight>
-              <p>{isDatas.CartPrice}</p>
-              <button type="button">삭제</button>
-            </CartColumnRight>
-          </CartItem>
-        </CartList>
+      isDatas.map(isdata => (
+        <CartItem key={isdata.idCart}>
+          <CartThumnail>
+            <img src={isdata.CartImg}
+              alt="제품사진" />
+          </CartThumnail>
+          <CartColumn>
+            <h3>{isdata.CartName}</h3>
+            <p className="category">{isdata.CartFilters}</p>
+            <p>{isdata.CartSize}</p>
+            <div className="select">
+              <Select onChange={(e)=>{change(e,isdata.idCart,isdata.CartPrice,isdata.CartQuantity)}} defaultValue={isdata.CartQuantity}>
+              {
+                quantitys.map((quantity,idx) => (
+                  <Option key={idx}>{quantity}</Option>
+                ))
+              }
+              </Select>
+            </div>
+          </CartColumn>
+          <CartColumnRight>
+            <p>{(isdata.CartPrice * isdata.CartQuantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</p>
+            <button type="button">삭제</button>
+          </CartColumnRight>
+        </CartItem>
       ))
     }
-</CartSectionLt>
+</CartList>
+
+  
 
   if (isDatas.length === 0) {
     return(
@@ -95,25 +133,29 @@ export default function CartOrder() {
       <CartBase>
         <CartInner>
           <CartPage>
-            {detailCarts}
+
+            <CartSectionLt>
+              {detailCarts}
+            </CartSectionLt>
+
             <CartSectionRt>
               <h2>결제내역</h2>
   
               <PriceGroup>
                 <PriceList>
                   <div className="label">주문금액</div>
-                  <div className="value">32,000원</div>
+                  <div className="value">{total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
                 </PriceList>
                 <PriceList>
                   <div className="label">배송비</div>
                   <div className="value">
                     <span>3만원 이상 구매 시 무료배송</span>
-                    0원</div>
+                    {fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
                 </PriceList>
   
                 <PriceTotal>
                   <div className="label">총 금액</div>
-                  <div className="value">32,000원</div>
+                  <div className="value">{allPayment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
                 </PriceTotal>
               </PriceGroup>
   
@@ -141,7 +183,6 @@ font-size: 12px;
 
 const CartInner = styled.div`
 width: 1100px;
-height: 100vh;
 margin: 0 auto;
 // display: flex;
 // justify-content: center;
@@ -168,15 +209,16 @@ width: 35%;
 `
 
 const CartList = styled.ul`
+
 `
 
 const CartItem = styled.li`
 display: flex;
 padding: 20px 0;
 border-bottom: 1px solid #e6e6e6;
-// &:last-child {
-//   border: none;   
-// }
+&:last-child {
+  border-bottom: none;
+}
 `
 
 const CartThumnail = styled.div`
@@ -202,7 +244,6 @@ width: calc(70% - 54px);
     margin: 4px 0 0;
   }
 }
-
 > div {
   margin: 10px 0 0;
 }

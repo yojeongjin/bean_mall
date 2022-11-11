@@ -51,3 +51,13 @@ exports.list = (req,res) => {
 		res.send(row)
 	})
 }
+
+exports.modi = (req,res) => { 
+	const { CartQuantity, idCart }  = req.body
+	sql = "update mydb_mall.Cart set CartQuantity = ? where idCart = ?";
+	conn.query(sql,[ CartQuantity, idCart],(err,rows)=>{
+		if(err) throw err;
+
+		res.send({data: rows, msg:'수정완료'})
+	})
+}

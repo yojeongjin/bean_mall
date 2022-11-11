@@ -29,9 +29,9 @@ export default function Prototype() {
   const allProducts = 
   <ProductMenu>
     {
-      productsInfos.map((productsInfo,idx) => (
+      productsInfos.map(productsInfo => (
         <Link to={"/product/" + productsInfo.idProducts}>
-          <ProductList key={idx}>
+          <ProductList key={productsInfo.idProducts}>
             <img src={productsInfo.ProductsImg} alt="제품사진" />
             <ProductExp>
               <div className='exptitle'>{productsInfo.ProductsName}</div>
