@@ -16,6 +16,7 @@ exports.view = (req,res) => {
 				if(err) throw err;
 		
 				res.send({
+					data: rows,
 					success:true,        
 					code: 200,
 					msg:'추가되었습니다.'});
@@ -32,6 +33,7 @@ exports.view = (req,res) => {
 						if(err) throw err;
 						
 						res.send({
+							data: rows,
 							success:true,        
 							code: 200,
 							msg:'추가되었습니다.'});
@@ -39,5 +41,13 @@ exports.view = (req,res) => {
 				}
 			})
 		}
+	})
+}
+
+
+exports.list = (req,res) => { 
+	conn.query("select * from mydb_mall.Cart",(err,row) => { 
+		if(err) throw err;
+		res.send(row)
 	})
 }

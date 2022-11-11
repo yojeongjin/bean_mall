@@ -1,75 +1,134 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { getCart } from '../redux/actions/cart_actions'
 
 export default function CartOrder() {
-  return (
-    <CartBase>
-      <CartInner>
-        <CartPage>
-          <CartSectionLt>
+  const dispatch = useDispatch()
+  const [ isDatas, setIsDatas ] = useState([])
+  const [ cartQuantity, setCartQuantity ]  = useState('')
+  const quantitys = [1,2,3,4,5,6,7,8,9,10]
 
-            <CartList>
-              <CartItem>
-                <CartThumnail>
-                  <img src={'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%87%E1%85%A1%E1%84%83%E1%85%B5%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A6%E1%86%AB%E1%84%8C%E1%85%A5.png'}
-                    alt="제품사진" />
-                </CartThumnail>
-                <CartColumn>
-                  <h3>제품명제품명제품명</h3>
-                  <p className="category">카테고리</p>
-                  <p>사이즈mL</p>
-                  <div className="select">
-                    <Select>
-                      <Option></Option>
-                    </Select>
-                  </div>
-                </CartColumn>
-                <CartColumnRight>
-                  <p>32,000원</p>
-                  <button type="button">삭제</button>
-                </CartColumnRight>
-              </CartItem>
-            </CartList>
+  useEffect(()=>{
+    dispatch(getCart())
+    .then((res) => {
+      setIsDatas(res.payload)
+    })
+  },[])
 
-            <CartNone>장바구니에 담긴 상품이 없습니다.</CartNone>
-          </CartSectionLt>
+  const detailCarts =             
+  <CartSectionLt>
+    {
+      isDatas.map((isdata,idx) => (
+        <CartList key={idx}>
+          <CartItem>
+            <CartThumnail>
+              <img src={isdata.CartImg}
+                alt="제품사진" />
+            </CartThumnail>
+            <CartColumn>
+              <h3>{isdata.CartName}</h3>
+              <p className="category">{isdata.CartFilters}</p>
+              <p>{isDatas.CartSize}</p>
+              <div className="select">
+                <Select onChange={(e)=>{setCartQuantity(e.target.value)}} defaultValue={isdata.CartQuantity}>
+                {
+                  quantitys.map((quantity,idx) => (
+                    <Option key={idx}>{quantity}</Option>
+                  ))
+                }
+                </Select>
+              </div>
+            </CartColumn>
+            <CartColumnRight>
+              <p>{isDatas.CartPrice}</p>
+              <button type="button">삭제</button>
+            </CartColumnRight>
+          </CartItem>
+        </CartList>
+      ))
+    }
+</CartSectionLt>
 
+  if (isDatas.length === 0) {
+    return(
+      <CartBase>
+        <CartInner>
+          <CartPage>
+            <CartSectionLt>
+              <CartNone>장바구니에 담긴 상품이 없습니다.</CartNone>
+            </CartSectionLt>
+            <CartSectionRt>
+              <h2>결제내역</h2>
 
+              <PriceGroup>
+                <PriceList>
+                  <div className="label">주문금액</div>
+                  <div className="value">0원</div>
+                </PriceList>
+                <PriceList>
+                  <div className="label">배송비</div>
+                  <div className="value">
+                    <span>3만원 이상 구매 시 무료배송</span>
+                    0원</div>
+                </PriceList>
 
-          <CartSectionRt>
-            <h2>결제내역</h2>
+                <PriceTotal>
+                  <div className="label">총 금액</div>
+                  <div className="value">0원</div>
+                </PriceTotal>
+              </PriceGroup>
 
-            <PriceGroup>
-              <PriceList>
-                <div className="label">주문금액</div>
-                <div className="value">32,000원</div>
-              </PriceList>
-              <PriceList>
-                <div className="label">배송비</div>
-                <div className="value">
-                  <span>3만원 이상 구매 시 무료배송</span>
-                  0원</div>
-              </PriceList>
+              <CartBtnGroup>
+                <CartBtn>주문하기</CartBtn>
+                <CartBtn className="keep">쇼핑 계속하기</CartBtn>
+              </CartBtnGroup>
+            </CartSectionRt>
 
-              <PriceTotal>
-                <div className="label">총 금액</div>
-                <div className="value">32,000원</div>
-              </PriceTotal>
-            </PriceGroup>
-
-            <CartBtnGroup>
-              <CartBtn>주문하기</CartBtn>
-              <CartBtn className="keep">쇼핑 계속하기</CartBtn>
-
-            </CartBtnGroup>
-
-
-          </CartSectionRt>
-        </CartPage>
-      </CartInner>
-    </CartBase>
-  )
+          </CartPage>
+        </CartInner>
+      </CartBase>
+    )
+  } else {
+    return (
+      <CartBase>
+        <CartInner>
+          <CartPage>
+            {detailCarts}
+            <CartSectionRt>
+              <h2>결제내역</h2>
+  
+              <PriceGroup>
+                <PriceList>
+                  <div className="label">주문금액</div>
+                  <div className="value">32,000원</div>
+                </PriceList>
+                <PriceList>
+                  <div className="label">배송비</div>
+                  <div className="value">
+                    <span>3만원 이상 구매 시 무료배송</span>
+                    0원</div>
+                </PriceList>
+  
+                <PriceTotal>
+                  <div className="label">총 금액</div>
+                  <div className="value">32,000원</div>
+                </PriceTotal>
+              </PriceGroup>
+  
+              <CartBtnGroup>
+                <CartBtn>주문하기</CartBtn>
+                <CartBtn className="keep">쇼핑 계속하기</CartBtn>
+              </CartBtnGroup>
+  
+  
+            </CartSectionRt>
+          </CartPage>
+        </CartInner>
+      </CartBase>
+    )
+  }
 }
 
 
@@ -233,10 +292,10 @@ display: flex;
 `
 
 const CartNone = styled.div`
-margin-top: 20px;
+margin-top: 130px;
 text-align: center;
 color: #333;
-font-size: 13px;
+font-size: 15px;
 `
 
 const CartBtnGroup = styled.div`

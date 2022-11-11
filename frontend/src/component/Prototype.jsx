@@ -57,7 +57,6 @@ export default function Prototype() {
     axios.post('http://localhost:5000/api/products', body)
     .then((res) => {
       setProductsInfos(res.data.data)
-      console.log(res)
     })
     .catch((err) => {
       console.log(err)

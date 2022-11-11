@@ -93,7 +93,7 @@ export default function ProductDetail(props) {
           <DetailImg key={idx}>
             <img src={detailData.ProductsImg} alt="제품사진" />
           </DetailImg>
-          <Detail key={idx}>
+          <Detail>
             <DetailTitle> {detailData.ProductsName} </DetailTitle>
             <DetailExp>
               {detailData.ProductsDes}
