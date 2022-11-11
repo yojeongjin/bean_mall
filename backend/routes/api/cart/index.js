@@ -4,6 +4,7 @@ const dao = require('./dao'); //데이터 모듈 호출
 router.get("/", dao.list);
 router.post("/", dao.view);
 router.patch("/", dao.modi);
+router.delete("/", dao.delete);
 
 
 router.all('*',(req, res)=> {

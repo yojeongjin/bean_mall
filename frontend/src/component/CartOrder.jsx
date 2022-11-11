@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import styled from 'styled-components'
-import { useEffect, useState, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import { getCart } from '../redux/actions/cart_actions'
 import { patchCart } from '../redux/actions/cart_actions'
+import { deleteCart } from '../redux/actions/cart_actions'
 
 export default function CartOrder() {
   const dispatch = useDispatch()
@@ -22,7 +22,9 @@ export default function CartOrder() {
       setIsDatas(res.payload)
       calculateTotal(res.payload)
     })
-  })
+  },[])
+  
+
 
   const change = (e, id) => {
     setCartQuantity(e.target.value)
@@ -36,13 +38,18 @@ export default function CartOrder() {
       CartQuantity: cartQuantity
     }
     dispatch(patchCart(body))
-  }, [id,cartQuantity])
+  }, [id,cartQuantity,dispatch])
+
+  const deleteItem = (cartId) => {
+
+    dispatch(deleteCart(cartId))
+  }
 
   let calculateTotal = (cartDatas) => {
     let total = 0;
 
     cartDatas.map(cartData => {
-      total += cartData.CartPrice * cartData.CartQuantity
+      return total += cartData.CartPrice * cartData.CartQuantity
     })
     setTotal(total)
     if (total < 30000) {
@@ -53,7 +60,6 @@ export default function CartOrder() {
       setAllPayment(total)
     }
   }
-
 
   const detailCarts =             
   <CartList>
@@ -69,7 +75,7 @@ export default function CartOrder() {
             <p className="category">{isdata.CartFilters}</p>
             <p>{isdata.CartSize}</p>
             <div className="select">
-              <Select onChange={(e)=>{change(e,isdata.idCart,isdata.CartPrice,isdata.CartQuantity)}} defaultValue={isdata.CartQuantity}>
+              <Select onChange={(e)=>{change(e,isdata.idCart)}} defaultValue={isdata.CartQuantity}>
               {
                 quantitys.map((quantity,idx) => (
                   <Option key={idx}>{quantity}</Option>
@@ -80,7 +86,7 @@ export default function CartOrder() {
           </CartColumn>
           <CartColumnRight>
             <p>{(isdata.CartPrice * isdata.CartQuantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</p>
-            <button type="button">삭제</button>
+            <button type="button" onClick={()=> {deleteItem(isdata.idCart)}}><span>삭제</span></button>
           </CartColumnRight>
         </CartItem>
       ))
@@ -267,11 +273,13 @@ width: 25%;
   right: 5px;
   bottom: 0;
   line-height: 1;
-  border-bottom: 1px solid #aaa;
-  padding: 0;
+  padding: 10px 15px;
   font-size: 12px;
-  color: #aaa;
+  color: #666;
   vertical-align: top;
+  > span {
+    border-bottom: 1px solid #aaa;
+  }
 }
 `
 

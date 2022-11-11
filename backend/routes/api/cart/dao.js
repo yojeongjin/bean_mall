@@ -58,6 +58,17 @@ exports.modi = (req,res) => {
 	conn.query(sql,[ CartQuantity, idCart],(err,rows)=>{
 		if(err) throw err;
 
-		res.send({data: rows, msg:'수정완료'})
+		res.send({data: rows, success:true})
+	})
+}
+
+
+exports.delete = (req,res) => { 
+	const { idCart }  = req.query
+	sql = "delete from mydb_mall.Cart where idCart = ? ";
+	conn.query(sql,[ idCart ],(err,rows)=>{
+		if(err) throw err;
+
+		res.send({data: rows, success:true, msg:'삭제되었습니다.'})
 	})
 }

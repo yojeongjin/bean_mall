@@ -1,6 +1,7 @@
 import { ADD_TO_CART } from "../actions/types";
 import { GET_CART } from "../actions/types";
 import { PATCH_CART } from "../actions/types";
+import { DELETE_CART } from "../actions/types";
 
 export default function (state={}, action) {
   switch(action.type) {
@@ -17,6 +18,10 @@ export default function (state={}, action) {
       return {
         ...state, 
         getCartInfo: action.payload}
+      break
+    
+    case DELETE_CART:
+      return {...state}
       break
     
       default:
