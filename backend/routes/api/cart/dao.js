@@ -15,7 +15,10 @@ exports.view = (req,res) => {
 			conn.query(sql,[CartName, CartImg, CartFilters, CartSize, CartPrice, CartQuantity, CartProductsId],(err,rows)=>{
 				if(err) throw err;
 		
-				res.send({success:true});
+				res.send({
+					success:true,        
+					code: 200,
+					msg:'추가되었습니다.'});
 			})
 		} else {
 			sql = "select CartQuantity from mydb_mall.Cart where CartProductsId = ? ";
@@ -27,8 +30,11 @@ exports.view = (req,res) => {
 					sql = "update mydb_mall.Cart set CartQuantity = '?' where CartProductsId = ? ";
 					conn.query(sql,[addQuantity,CartProductsId],(err,rows)=>{
 						if(err) throw err;
-
-						res.send({success:true});
+						
+						res.send({
+							success:true,        
+							code: 200,
+							msg:'추가되었습니다.'});
 					})
 				}
 			})

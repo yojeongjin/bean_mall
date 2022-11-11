@@ -1,19 +1,23 @@
 import styled from 'styled-components'
 import React, { useState,useEffect, useMemo } from 'react'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../redux/actions/cart_actions'
 
 
 export default function ProductDetail(props) {
   const idx = Number(props.match.params.idx)
+
+  const dispatch = useDispatch()
   const [ data, setData ] = useState([])
   const [ detailDatas, setDetailDatas ] = useState([])
   const [ value, setValue ] = useState('')
   const [ quantity, setQuantity ] = useState('1')
-  
+  const [ price, setPrice ]  = useState('')
+
   const quantitys = [1,2,3,4,5,6,7,8,9,10]
 
-
-  const { idProducts,ProductsSize1,ProductsSize2,ProductsPrice1,ProductsPrice2 } = data
+  const { idProducts, ProductsFilters, ProductsImg, ProductsName, ProductsSize1, ProductsSize2, ProductsPrice1, ProductsPrice2 } = data
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/products/'+idx, {params: {
@@ -52,13 +56,33 @@ export default function ProductDetail(props) {
     const two = ProductsPrice2 * numquan
 
     if (value === ProductsSize1) {
+      setPrice(one)
       return one.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
- 
     } else {
+      setPrice(two)
       return two.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
     }
   },[value, quantity])
+
+  const clickCart = () => {
+    let body = {
+      CartName: ProductsName,
+      CartImg: ProductsImg,
+      CartFilters: ProductsFilters,
+      CartSize: value,
+      CartPrice: price,
+      CartQuantity: quantity,
+      CartProductsId: idProducts
+    }
+    dispatch(addToCart(body))
+    .then((res) => {
+      alert(res.payload.msg)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
 
   const detailProduct = 
@@ -107,7 +131,7 @@ export default function ProductDetail(props) {
               <Price>{getPrice}</Price>
             </DetailPrice>
 
-            <AddCartBtn type="button">카트에 추가하기</AddCartBtn>
+            <AddCartBtn type="button" onClick={clickCart}>카트에 추가하기</AddCartBtn>
           </Detail>
         </>
       ))

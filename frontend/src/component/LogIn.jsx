@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
 import kakao from '../assets/kakaoicon.png'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { loginAuth } from '../redux/actions/auth_actions'
 
 export default function LogIn() {
