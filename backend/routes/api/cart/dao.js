@@ -13,13 +13,18 @@ exports.view = (req,res) => {
 			sql = 
 			"insert into mydb_mall.Cart(CartName, CartImg, CartFilters, CartSize, CartPrice, CartQuantity, CartProductsId) values(?,?,?,?,?,?,?)";
 			conn.query(sql,[CartName, CartImg, CartFilters, CartSize, CartPrice, CartQuantity, CartProductsId],(err,rows)=>{
-				if(err) throw err;
-		
-				res.send({
-					data: rows,
-					success:true,        
-					code: 200,
-					msg:'추가되었습니다.'});
+				if(err) {
+					throw err
+				} else {
+					conn.query("select * from mydb_mall.Cart",(err,rows) => { 
+						if(err) throw err;
+						res.send({
+							data: rows.length,
+							success:true,        
+							code: 200,
+							msg:'추가되었습니다.'});
+					})
+				}
 			})
 		} else {
 			sql = "select CartQuantity from mydb_mall.Cart where CartProductsId = ? ";
@@ -30,13 +35,18 @@ exports.view = (req,res) => {
 					const addQuantity = Number(rows[0].CartQuantity) + Number(CartQuantity)
 					sql = "update mydb_mall.Cart set CartQuantity = '?' where CartProductsId = ? ";
 					conn.query(sql,[addQuantity,CartProductsId],(err,rows)=>{
-						if(err) throw err;
-						
-						res.send({
-							data: rows,
-							success:true,        
-							code: 200,
-							msg:'추가되었습니다.'});
+						if(err) {
+							throw err;
+						} else {
+							conn.query("select * from mydb_mall.Cart",(err,rows) => { 
+								if(err) throw err;
+								res.send({
+									data: rows.length,
+									success:true,        
+									code: 200,
+									msg:'추가되었습니다.'});
+							})
+						}
 					})
 				}
 			})

@@ -4,19 +4,21 @@ import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk'
 import rootReducer from './reducers';
 
-const create = () => {
-  const token = localStorage.getItem('m-access-token')
+//redux-persist
+import { persistStore } from 'redux-persist'
 
-  const store = createStore(rootReducer,
-    {
-      auth : {
-        token
-      }
-    },
-    composeWithDevTools(applyMiddleware(promiseMiddleware,ReduxThunk))
-  )
 
-  return store;
-}
+const token = localStorage.getItem('m-access-token')
 
-export default create;
+export const store = createStore(rootReducer,
+  {
+    auth : {
+      token
+    }
+  },
+  composeWithDevTools(applyMiddleware(promiseMiddleware,ReduxThunk))
+)
+
+export const persistor = persistStore(store);
+
+export default { store, persistor }

@@ -2,8 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import logo from '../assets/logoname.png'
 import { Link } from 'react-router-dom'
-
+import { useSelector } from 'react-redux'
 export default function AnotherHeader() {
+  const countCartItem = useSelector((state)=> state.cart.cart)
+
   return (
     <AnotherHeaderBase>
       <AnotherHeaderInner>
@@ -25,7 +27,7 @@ export default function AnotherHeader() {
             <Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link>
             <Link to="/cart">
               <MenuListSpan>Cart
-                <span className="cart-num">0</span>
+                <span className="cart-num">{countCartItem}</span>
               </MenuListSpan>
             </Link>
           </HeaderMainList>

@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 export default function Header() {
   const [scroll, setScroll] = useState(0)
+  
 
   const throttle = (callback, delay) => {
     let timer = null;
@@ -51,7 +52,7 @@ export default function Header() {
               <Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link>
               <Link to="/cart">
                 <MenuListSpan>Cart
-                  <span className="cart-num">0</span>
+                  <span className="cart-num">{0}</span>
                 </MenuListSpan>
 
               </Link>

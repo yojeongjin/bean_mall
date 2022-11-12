@@ -6,12 +6,15 @@ import { DELETE_CART } from "../actions/types";
 export default function (state={}, action) {
   switch(action.type) {
     case ADD_TO_CART:
-      return {...state, cart: action.payload }
+      return {
+        ...state, 
+        cart: action.payload.data}
       break
     case GET_CART:
       return {
         ...state, 
-        getCartInfo: action.payload}
+        getCartInfo: action.payload,
+        cart: action.payload.length}
       break
 
     case PATCH_CART:

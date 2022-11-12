@@ -63,7 +63,7 @@ export default function ProductDetail(props) {
       return two.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
     }
-  },[value, quantity])
+  },[value, quantity,ProductsPrice1,ProductsPrice2,ProductsSize1])
 
   const clickCart = () => {
     let body = {
@@ -88,7 +88,7 @@ export default function ProductDetail(props) {
   const detailProduct = 
   <DetailContent>
     {
-      detailDatas.map((detailData,idx) => (
+      detailDatas.map(detailData => (
         <>
           <DetailImg key={detailData.idProducts}>
             <img src={detailData.ProductsImg} alt="제품사진" />
