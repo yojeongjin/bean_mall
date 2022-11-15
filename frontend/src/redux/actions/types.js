@@ -1,5 +1,8 @@
 export const LOGIN_AUTH = "LOGIN_AUTH"
 export const LOGOUT_AUTH = "LOGOUT_AUTH"
+export const VERIFIED_AUTH = "VERIFIED_AUTH"
+
+
 
 export const ADD_TO_CART = "ADD_TO_CART"
 export const GET_CART = "GET_CART"

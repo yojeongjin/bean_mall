@@ -1,19 +1,21 @@
 import styled from 'styled-components'
 import React, { useState,useEffect, useMemo } from 'react'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../redux/actions/cart_actions'
-
+import { verifiedAuth } from '../redux/actions/cart_actions'
 
 export default function ProductDetail(props) {
   const idx = Number(props.match.params.idx)
-
+  const token = useSelector((state) => state.auth.token)
   const dispatch = useDispatch()
+
   const [ data, setData ] = useState([])
   const [ detailDatas, setDetailDatas ] = useState([])
   const [ value, setValue ] = useState('')
   const [ quantity, setQuantity ] = useState('1')
   const [ price, setPrice ]  = useState(0)
+  const [ idUser, setIdUser ] = useState('')
 
   const quantitys = [1,2,3,4,5,6,7,8,9,10]
 
@@ -30,6 +32,13 @@ export default function ProductDetail(props) {
     })
     .catch((err) => {
       console.log(err)
+    })
+    dispatch(verifiedAuth({
+      headers: { 'm-access-token': token }
+    }))
+    .then((res) => {
+      setIdUser(res.payload.result.idUser)
+      console.log(res.payload.result.idUser)
     })
   },[])
   
@@ -73,7 +82,8 @@ export default function ProductDetail(props) {
       CartSize: value,
       CartPrice: price,
       CartQuantity: quantity,
-      CartProductsId: idProducts
+      CartProductsId: idProducts,
+      idUser: idUser
     }
     dispatch(addToCart(body))
     .then((res) => {

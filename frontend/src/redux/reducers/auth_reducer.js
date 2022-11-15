@@ -1,6 +1,7 @@
 import { LOGIN_AUTH } from "../actions/types";
 import { LOGOUT_AUTH } from "../actions/types";
 
+
 export default function (state={}, action) {
   switch(action.type) {
     case LOGIN_AUTH:

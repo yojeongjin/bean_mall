@@ -2,6 +2,7 @@ import { ADD_TO_CART } from "../actions/types";
 import { GET_CART } from "../actions/types";
 import { PATCH_CART } from "../actions/types";
 import { DELETE_CART } from "../actions/types";
+import { VERIFIED_AUTH } from "../actions/types"
 
 export default function (state={}, action) {
   switch(action.type) {
@@ -25,6 +26,12 @@ export default function (state={}, action) {
     
     case DELETE_CART:
       return {...state}
+      break
+      
+    case VERIFIED_AUTH:
+      return {
+        ...state, 
+        idUser: action.payload.result.idUser}
       break
     
       default:

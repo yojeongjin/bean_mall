@@ -2,6 +2,8 @@ import axios from 'axios'
 import { LOGIN_AUTH } from './types' 
 import { LOGOUT_AUTH } from './types'
 
+
+
 export function loginAuth(body) {
   const res = axios.post('http://localhost:5000/api/signin', body)
           .then (res => res.data)
@@ -19,3 +21,4 @@ export function logoutAuth(payload) {
     payload: res
   }
 }
+

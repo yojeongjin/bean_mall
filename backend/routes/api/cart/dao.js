@@ -2,7 +2,7 @@ const db = require('../../../config/db');
 const conn =  db.init();
 
 exports.view = (req,res) => {
-  const {CartName, CartImg, CartFilters, CartSize, CartPrice, CartQuantity, CartProductsId } = req.body
+  const {CartName, CartImg, CartFilters, CartSize, CartPrice, CartQuantity, CartProductsId, idUser } = req.body
 
 
 	sql = "select * from mydb_mall.Cart where CartProductsId = ? ";
@@ -11,8 +11,8 @@ exports.view = (req,res) => {
 
 		if(rows.length === 0) {
 			sql = 
-			"insert into mydb_mall.Cart(CartName, CartImg, CartFilters, CartSize, CartPrice, CartQuantity, CartProductsId) values(?,?,?,?,?,?,?)";
-			conn.query(sql,[CartName, CartImg, CartFilters, CartSize, CartPrice, CartQuantity, CartProductsId],(err,rows)=>{
+			"insert into mydb_mall.Cart(CartName, CartImg, CartFilters, CartSize, CartPrice, CartQuantity, CartProductsId, idUser) values(?,?,?,?,?,?,?,?)";
+			conn.query(sql,[CartName, CartImg, CartFilters, CartSize, CartPrice, CartQuantity, CartProductsId, idUser],(err,rows)=>{
 				if(err) {
 					throw err
 				} else {
@@ -56,7 +56,9 @@ exports.view = (req,res) => {
 
 
 exports.list = (req,res) => { 
-	conn.query("select * from mydb_mall.Cart",(err,row) => { 
+	const { idUser }  = req.query
+
+	conn.query("select * from mydb_mall.Cart where idUser = ?",[ idUser ],(err,row) => { 
 		if(err) throw err;
 		res.send(row)
 	})

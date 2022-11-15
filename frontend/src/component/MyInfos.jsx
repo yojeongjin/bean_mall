@@ -3,8 +3,13 @@ import styled from 'styled-components'
 import Address from './Address'
 import OrderCheck from './OrderCheck'
 
+import { useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
+
 
 export default function MyInfos() {
+  const token = useSelector((state) => state.auth.token)
+
   const phoneNumbers = ['02', '031', '032', '033','041','042','043','044','051',
   '052','053','054','055','061','062','063','064','070','010','011','016','017','018','019']
   const [address, setAddress] = useState({
@@ -25,152 +30,157 @@ export default function MyInfos() {
     setOpenCheck(true)
   }
 
-  return (
-    <MyInfoBase>
-      <MyInfoInner>
-
-        <MyInfoMenu>
-          <MyInfoNav>
-            <MyInfoB>
-              <span>회원정보</span>
-            </MyInfoB>
-            <MyInfoSpan onClick={goToForm}>회원 정보 수정</MyInfoSpan>
-
-            <MyInfoB>
-              <span>주문내역</span>
-            </MyInfoB>
-            <MyInfoSpan onClick={goToCheck}>주문조회</MyInfoSpan>
-            <MyInfoSpan>상품리뷰</MyInfoSpan>
-
-            <MyInfoB>
-              <span>고객서비스</span>
-            </MyInfoB>
-            <MyInfoSpan>자주 묻는 질문</MyInfoSpan>
-            <MyInfoSpan>1:1 문의하기</MyInfoSpan>
-            <MyInfoSpan>상품문의내역</MyInfoSpan>
-
-          </MyInfoNav>
-        </MyInfoMenu>
-
-        <InfoSection>
-          {openCheck && <OrderCheck />}
-
-          {openForm && 
-
-          <Form>
-            <FormContent>
-              <FormLabel>
-                <em>*</em> 이름
-              </FormLabel>
-              <InputContainer>
-                <Input 
-                id="name"
-                type="text"
-                required
-                />
-            </InputContainer>  
-            </FormContent>
-
-            <FormContent>
-              <FormLabel>
-                이메일
-              </FormLabel>
-              <InputContainer>
-                <Input 
-                id="email"
-                type="text"
-                disabled
-                />
-            </InputContainer>  
-            </FormContent>
-
-            <FormContent>
-              <FormLabel>
-                <em>*</em> 비밀번호
-              </FormLabel>
-              <InputContainer>
-                <Input 
-                id="password"
-                type="password"
-                required
-                />
-            </InputContainer> 
-            </FormContent>
-
-            <FormContent>
-              <FormLabel>
-                <em>*</em> 비밀번호 확인
-              </FormLabel>
-              <InputContainer>
-                <Input 
-                id="repassword"
-                type="password"
-                required
-                />
-            </InputContainer> 
-            </FormContent>
-
-            <FormContent>
-              <FormLabel>
-                <em>*</em> 전화번호
-              </FormLabel>
-              <InputContainer className="post">
-                <PhoneSelect>
-                  {
-                    phoneNumbers.map((phoneNumber) => (
-                      <PhoneOption>{phoneNumber}</PhoneOption>
-                    ))
-                  }
-                </PhoneSelect>
-                <Phone>
-                  <PhoneInput />
-                </Phone>
-
-                <Phone>
-                  <PhoneInput />
-                </Phone>
-              </InputContainer>
-            </FormContent>
-
-            <FormContent>
-              <FormLabel>
-                <em>*</em> 주소
-              </FormLabel>
-              <InputContainer className="post">
-                <FormPostCode>{address.postcode}</FormPostCode>
-                <Address setAddress={setAddress} />
-              </InputContainer>
-            </FormContent>
-
-            <FormContent className="default_address">
-              <FormLabel className="default_label">
-                기본주소
-              </FormLabel>
-              <InputContainer className="post">
-                <FormPostCode className="default_code">{address.defaultAddr}</FormPostCode>
-              </InputContainer>
-            </FormContent>
-
-            <FormContent>
-              <FormLabel className="default_label">
-                나머지주소
-              </FormLabel>
-              <InputContainer>
-                <Input 
-                  id="address"
+  if (token !== null) {
+    return (
+      <MyInfoBase>
+        <MyInfoInner>
+  
+          <MyInfoMenu>
+            <MyInfoNav>
+              <MyInfoB>
+                <span>회원정보</span>
+              </MyInfoB>
+              <MyInfoSpan onClick={goToForm}>회원 정보 수정</MyInfoSpan>
+  
+              <MyInfoB>
+                <span>주문내역</span>
+              </MyInfoB>
+              <MyInfoSpan onClick={goToCheck}>주문조회</MyInfoSpan>
+              <MyInfoSpan>상품리뷰</MyInfoSpan>
+  
+              <MyInfoB>
+                <span>고객서비스</span>
+              </MyInfoB>
+              <MyInfoSpan>자주 묻는 질문</MyInfoSpan>
+              <MyInfoSpan>1:1 문의하기</MyInfoSpan>
+              <MyInfoSpan>상품문의내역</MyInfoSpan>
+  
+            </MyInfoNav>
+          </MyInfoMenu>
+  
+          <InfoSection>
+            {openCheck && <OrderCheck />}
+  
+            {openForm && 
+  
+            <Form>
+              <FormContent>
+                <FormLabel>
+                  <em>*</em> 이름
+                </FormLabel>
+                <InputContainer>
+                  <Input 
+                  id="name"
                   type="text"
                   required
-                />
-              </InputContainer>
-            </FormContent>
+                  />
+              </InputContainer>  
+              </FormContent>
+  
+              <FormContent>
+                <FormLabel>
+                  이메일
+                </FormLabel>
+                <InputContainer>
+                  <Input 
+                  id="email"
+                  type="text"
+                  disabled
+                  />
+              </InputContainer>  
+              </FormContent>
+  
+              <FormContent>
+                <FormLabel>
+                  <em>*</em> 비밀번호
+                </FormLabel>
+                <InputContainer>
+                  <Input 
+                  id="password"
+                  type="password"
+                  required
+                  />
+              </InputContainer> 
+              </FormContent>
+  
+              <FormContent>
+                <FormLabel>
+                  <em>*</em> 비밀번호 확인
+                </FormLabel>
+                <InputContainer>
+                  <Input 
+                  id="repassword"
+                  type="password"
+                  required
+                  />
+              </InputContainer> 
+              </FormContent>
+  
+              <FormContent>
+                <FormLabel>
+                  <em>*</em> 전화번호
+                </FormLabel>
+                <InputContainer className="post">
+                  <PhoneSelect>
+                    {
+                      phoneNumbers.map((phoneNumber) => (
+                        <PhoneOption>{phoneNumber}</PhoneOption>
+                      ))
+                    }
+                  </PhoneSelect>
+                  <Phone>
+                    <PhoneInput />
+                  </Phone>
+  
+                  <Phone>
+                    <PhoneInput />
+                  </Phone>
+                </InputContainer>
+              </FormContent>
+  
+              <FormContent>
+                <FormLabel>
+                  <em>*</em> 주소
+                </FormLabel>
+                <InputContainer className="post">
+                  <FormPostCode>{address.postcode}</FormPostCode>
+                  <Address setAddress={setAddress} />
+                </InputContainer>
+              </FormContent>
+  
+              <FormContent className="default_address">
+                <FormLabel className="default_label">
+                  기본주소
+                </FormLabel>
+                <InputContainer className="post">
+                  <FormPostCode className="default_code">{address.defaultAddr}</FormPostCode>
+                </InputContainer>
+              </FormContent>
+  
+              <FormContent>
+                <FormLabel className="default_label">
+                  나머지주소
+                </FormLabel>
+                <InputContainer>
+                  <Input 
+                    id="address"
+                    type="text"
+                    required
+                  />
+                </InputContainer>
+              </FormContent>
+  
+              <ModifyBtn type="submit">회원정보 수정하기</ModifyBtn>
+            </Form>
+          }
+          </InfoSection>
+        </MyInfoInner>
+      </MyInfoBase>
+    )
+  } else {
+    return <Redirect to="/signin" />
+  }
 
-            <ModifyBtn type="submit">회원정보 수정하기</ModifyBtn>
-          </Form>
-        }
-        </InfoSection>
-      </MyInfoInner>
-    </MyInfoBase>
-  )
 }
 
 const MyInfoBase = styled.div`
