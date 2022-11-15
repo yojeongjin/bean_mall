@@ -1,4 +1,5 @@
 import { LOGIN_AUTH } from "../actions/types";
+import { LOGOUT_AUTH } from "../actions/types";
 
 export default function (state={}, action) {
   switch(action.type) {
@@ -6,6 +7,12 @@ export default function (state={}, action) {
       return {
         ...state, 
         loginSuccess: action.payload}
+      break
+    
+    case LOGOUT_AUTH:
+      return {
+        ...state, 
+        token: null }
       break
     
       default:

@@ -43,13 +43,6 @@ export default function MyInfos() {
             <MyInfoSpan>상품리뷰</MyInfoSpan>
 
             <MyInfoB>
-              <span>관심리스트</span>
-            </MyInfoB>
-            <MyInfoSpan>장바구니</MyInfoSpan>
-            <MyInfoSpan>최근 본 상품</MyInfoSpan>
-
-
-            <MyInfoB>
               <span>고객서비스</span>
             </MyInfoB>
             <MyInfoSpan>자주 묻는 질문</MyInfoSpan>

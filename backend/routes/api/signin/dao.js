@@ -33,3 +33,14 @@ exports.view = (req,res) => {
     }
 	})
 }
+
+exports.list = (req,res) => { 
+  const { userIdx, UserName } = req.verifiedToken
+
+  return res.send({
+    result: { userIdx: userIdx, UserName: UserName },
+    success: true,
+    code: 200,
+    msg:'유효한 토큰입니다.'
+  })
+}

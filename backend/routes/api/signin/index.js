@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const dao = require('./dao'); //데이터 모듈 호출
+const jwtMiddleware = require('../../../config/jwtMiddleware');
 
+router.get('/', jwtMiddleware, dao.list)
 router.post('/', dao.view);
 
 

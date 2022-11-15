@@ -2,40 +2,90 @@ import React from 'react'
 import styled from 'styled-components'
 import logo from '../assets/logoname.png'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutAuth } from '../redux/actions/auth_actions'
+
 export default function AnotherHeader() {
+  const dispatch = useDispatch()
   const countCartItem = useSelector((state)=> state.cart.cart)
+  const token = useSelector((state) => state.auth.token)
 
-  return (
-    <AnotherHeaderBase>
-      <AnotherHeaderInner>
-        <HeaderSub>
-          <HeaderSubList>
-            <Link to="/"><HeaderSubSpan>Main</HeaderSubSpan></Link>
-            <Link to="/product"><HeaderSubSpan>Products</HeaderSubSpan></Link>
-            <Link to="/perfumeinfo"><HeaderSubSpan>Flavours</HeaderSubSpan></Link>
-          </HeaderSubList>
-        </HeaderSub>
+  const logout = () => {
+    dispatch(logoutAuth({
+      headers: { 'm-access-token': token }
+    }))
+    .then(res => {
+      if (res.payload.success === true) {
+        localStorage.removeItem('m-access-token', token)
+        window.location.replace('/')
+      }
+    })
+  }
 
-        <AnotherHeaderLogo>
-          <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
-        </AnotherHeaderLogo>
+  if (token === null) {
+    return (
+      <AnotherHeaderBase>
+        <AnotherHeaderInner>
+          <HeaderSub>
+            <HeaderSubList>
+              <Link to="/"><HeaderSubSpan>Main</HeaderSubSpan></Link>
+              <Link to="/product"><HeaderSubSpan>Products</HeaderSubSpan></Link>
+              <Link to="/perfumeinfo"><HeaderSubSpan>Flavours</HeaderSubSpan></Link>
+            </HeaderSubList>
+          </HeaderSub>
+  
+          <AnotherHeaderLogo>
+            <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
+          </AnotherHeaderLogo>
+  
+          <HeaderMain>
+            <HeaderMainList>
+              <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
+              <Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link>
+              <Link to="/cart">
+                <MenuListSpan>Cart
+                  <span className="cart-num">0</span>
+                </MenuListSpan>
+              </Link>
+            </HeaderMainList>
+          </HeaderMain>
+  
+        </AnotherHeaderInner>
+      </AnotherHeaderBase>
+    )
+  } else {
+    return (
+      <AnotherHeaderBase>
+        <AnotherHeaderInner>
+          <HeaderSub>
+            <HeaderSubList>
+              <Link to="/"><HeaderSubSpan>Main</HeaderSubSpan></Link>
+              <Link to="/product"><HeaderSubSpan>Products</HeaderSubSpan></Link>
+              <Link to="/perfumeinfo"><HeaderSubSpan>Flavours</HeaderSubSpan></Link>
+            </HeaderSubList>
+          </HeaderSub>
+  
+          <AnotherHeaderLogo>
+            <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
+          </AnotherHeaderLogo>
+  
+          <HeaderMain>
+            <HeaderMainList>
+              <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
+              <MenuListSpan className="logout" onClick={logout} >Logout</MenuListSpan>
+              <Link to="/cart">
+                <MenuListSpan>Cart
+                  <span className="cart-num">{countCartItem}</span>
+                </MenuListSpan>
+              </Link>
+            </HeaderMainList>
+          </HeaderMain>
+  
+        </AnotherHeaderInner>
+      </AnotherHeaderBase>
+    )
+  }
 
-        <HeaderMain>
-          <HeaderMainList>
-            <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
-            <Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link>
-            <Link to="/cart">
-              <MenuListSpan>Cart
-                <span className="cart-num">{countCartItem}</span>
-              </MenuListSpan>
-            </Link>
-          </HeaderMainList>
-        </HeaderMain>
-
-      </AnotherHeaderInner>
-    </AnotherHeaderBase>
-  )
 }
 
 const AnotherHeaderBase = styled.header`
@@ -87,6 +137,12 @@ text-decoration: none;
 padding: 0 20px;
 text-align: center;
 display: block;
+&.logout {
+  cursor: pointer;
+  &:hover {
+    color: black;
+  }
+}
 &:hover {
   color: black;
 }
