@@ -5,17 +5,17 @@ import Product from './routes/Product';
 import NotFound from './routes/NotFound';
 import PerfumeInfo from './routes/PerfumeInfo';
 import ProductDetail from './routes/ProductDetail';
-import AnotherHeader from './component/AnotherHeader';
 import SignIn from './routes/SignIn';
 import SignUp from './routes/SignUp';
 import Mypage from './routes/Mypage';
 import Cart from './routes/Cart';
+import Header from './component/Header';
 
 function App() {
   return (
     <BrowserRouter>
     <GlobalStyles />
-    <AnotherHeader />
+    <Header />
       <Switch>
         <Route path="/cart" component= {Cart} />
         <Route path="/mypage" component= {Mypage} />

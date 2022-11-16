@@ -2,10 +2,26 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../assets/logoname.png'
 import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutAuth } from '../redux/actions/auth_actions'
 
 export default function Header() {
   const [scroll, setScroll] = useState(0)
-  
+  const dispatch = useDispatch()
+  const countCartItem = useSelector((state)=> state.cart.cart)
+  const token = useSelector((state) => state.auth.token)
+
+  const logout = () => {
+    dispatch(logoutAuth({
+      headers: { 'm-access-token': token }
+    }))
+    .then(res => {
+      if (res.payload.success === true) {
+        localStorage.removeItem('m-access-token', token)
+        window.location.replace('/')
+      }
+    })
+  }
 
   const throttle = (callback, delay) => {
     let timer = null;
@@ -33,34 +49,65 @@ export default function Header() {
     }
   })
 
-  return (
-    <HeaderBase  isActive = {scroll <= 80}>
-      <HeaderInner>
-          <HeaderMain>
-            <HeaderMainList>
-              <Link to="/"><MenuListSpan>Main</MenuListSpan></Link>
-              <Link to="/product"><MenuListSpan>Products</MenuListSpan></Link>
-              <Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link>
-            </HeaderMainList>
-          </HeaderMain>
-            <AnotherHeaderLogo>
-            <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
-          </AnotherHeaderLogo>
-          <HeaderMain>
-            <HeaderMainList>
-              <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
-              <Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link>
-              <Link to="/cart">
-                <MenuListSpan>Cart
-                  <span className="cart-num">{0}</span>
-                </MenuListSpan>
+	if (token === null) {
+    return (
+      <HeaderBase  isActive = {scroll <= 80} isHome = {window.location.pathname === '/'} >
+        <HeaderInner>
+            <HeaderMain>
+              <HeaderMainList>
+                <Link to="/"><MenuListSpan>Main</MenuListSpan></Link>
+                <Link to="/product"><MenuListSpan>Products</MenuListSpan></Link>
+                <Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link>
+              </HeaderMainList>
+            </HeaderMain>
+              <AnotherHeaderLogo>
+              <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
+            </AnotherHeaderLogo>
+            <HeaderMain>
+              <HeaderMainList>
+                <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
+                <Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link>
+                <Link to="/cart">
+                  <MenuListSpan>Cart
+                    <span className="cart-num">0</span>
+                  </MenuListSpan>
+  
+                </Link>
+              </HeaderMainList>
+            </HeaderMain>
+        </HeaderInner>
+      </HeaderBase>
+    )
+  } else {
+    return (
+      <HeaderBase  isActive = {scroll <= 80}>
+        <HeaderInner>
+            <HeaderMain>
+              <HeaderMainList>
+                <Link to="/"><MenuListSpan>Main</MenuListSpan></Link>
+                <Link to="/product"><MenuListSpan>Products</MenuListSpan></Link>
+                <Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link>
+              </HeaderMainList>
+            </HeaderMain>
+              <AnotherHeaderLogo>
+              <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
+            </AnotherHeaderLogo>
+            <HeaderMain>
+              <HeaderMainList>
+                <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
+                <MenuListSpan className="logout" onClick={logout} >Logout</MenuListSpan>
+                <Link to="/cart">
+                  <MenuListSpan>Cart
+                    <span className="cart-num">{countCartItem}</span>
+                  </MenuListSpan>
 
-              </Link>
-            </HeaderMainList>
-          </HeaderMain>
-      </HeaderInner>
-    </HeaderBase>
-  )
+                </Link>
+              </HeaderMainList>
+            </HeaderMain>
+        </HeaderInner>
+      </HeaderBase>
+    )
+  }
 }
 
 const HeaderBase = styled.header`
@@ -70,7 +117,8 @@ top: 0;
 width: 100%;
 height: 50px;
 z-index: 9;
-background-color: #f6f5f0;
+// background-color: #f6f5f0;
+background-color: ${(props) => props.isHome ? '#f6f5f0' : 'rgb(246, 245, 240, 0.5)'};
 // background-color: #181818;
 opacity: ${(props) => props.isActive ? 1 : 0};
 transition: 0.5s ease;`
@@ -96,7 +144,6 @@ width: 100px;
 
 const HeaderMain = styled.ul`
 flex:1;
-display: flex;
 color: #333;
 font-size: 12px;
 display: flex;
@@ -113,6 +160,12 @@ position: relative;
 text-decoration: none;
 padding: 0 20px;
 text-align: center;
+&.logout {
+  cursor: pointer;
+  &:hover {
+    color: black;
+  }
+}
 
 &:hover {
   color: black;
