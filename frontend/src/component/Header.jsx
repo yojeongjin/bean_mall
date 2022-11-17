@@ -4,6 +4,9 @@ import logo from '../assets/logoname.png'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutAuth } from '../redux/actions/auth_actions'
+import { persistor } from '../redux/create'
+
+
 
 export default function Header() {
   const [scroll, setScroll] = useState(0)
@@ -18,6 +21,7 @@ export default function Header() {
     .then(res => {
       if (res.payload.success === true) {
         localStorage.removeItem('m-access-token', token)
+        persistor.purge()
         window.location.replace('/')
       }
     })

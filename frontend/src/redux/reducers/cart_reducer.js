@@ -3,6 +3,7 @@ import { GET_CART } from "../actions/types";
 import { PATCH_CART } from "../actions/types";
 import { DELETE_CART } from "../actions/types";
 import { VERIFIED_AUTH } from "../actions/types"
+import { PURGE } from 'redux-persist'
 
 export default function (state={}, action) {
   switch(action.type) {
@@ -32,6 +33,10 @@ export default function (state={}, action) {
       return {
         ...state, 
         idUser: action.payload.result.idUser}
+      break
+
+    case PURGE:
+      return {}
       break
     
       default:
