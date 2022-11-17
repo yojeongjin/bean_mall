@@ -18,6 +18,7 @@ export default function Main() {
     }))
     dispatch(getCart(idUser))
   })
+
   return (
     <MainSection>
       <MainInner>

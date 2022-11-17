@@ -22,7 +22,6 @@ export default function CartOrder() {
   const quantitys = [1,2,3,4,5,6,7,8,9,10]
 
   useEffect(()=>{
-    console.log(idUser)
     dispatch(getCart(idUser))
     .then((res) => {
       setIsDatas(res.payload)
@@ -72,10 +71,10 @@ export default function CartOrder() {
     {
       isDatas.map(isdata => (
         <CartItem key={isdata.idCart}>
-          <CartThumnail>
+          <CartThumbnail>
             <img src={isdata.CartImg}
               alt="제품사진" />
-          </CartThumnail>
+          </CartThumbnail>
           <CartColumn>
             <h3>{isdata.CartName}</h3>
             <p className="category">{isdata.CartFilters}</p>
@@ -236,7 +235,7 @@ border-bottom: 1px solid #e6e6e6;
 }
 `
 
-const CartThumnail = styled.div`
+const CartThumbnail = styled.div`
 width: 54px;
 margin-right: 16px;
 

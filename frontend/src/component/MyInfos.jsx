@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 import Address from './Address'
 import OrderCheck from './OrderCheck'
 
@@ -9,6 +10,15 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 
 export default function MyInfos() {
   const token = useSelector((state) => state.auth.token)
+  const idUser = useSelector((state) => state.cart.idUser)
+
+  const [pw, setPw] = useState('')
+  const [rePw, setRePw]  = useState('')
+  const [name, setName] = useState('')
+  const [ userDetail, setUserDetail ] = useState('')
+  const [ userPhone, setUserPhone ] = useState(0)
+  const [ userPhoneMid, setUserPhoneMid ] = useState(0)
+  const [ userPhoneEnd, setUserPhoneEnd ] = useState(0)
 
   const phoneNumbers = ['02', '031', '032', '033','041','042','043','044','051',
   '052','053','054','055','061','062','063','064','070','010','011','016','017','018','019']
@@ -17,9 +27,9 @@ export default function MyInfos() {
     defaultAddr: ''
   })
 
-  const [openForm, setOpenForm] = useState(true)
-  const [openCheck, setOpenCheck] = useState(false)
-
+  const [ openForm, setOpenForm ] = useState(true)
+  const [ openCheck, setOpenCheck ] = useState(false)
+  const [ userInfo, setUserInfo ] = useState([])
 
   const goToForm = () => {
     setOpenForm(true)
@@ -29,6 +39,17 @@ export default function MyInfos() {
     setOpenForm(false)
     setOpenCheck(true)
   }
+
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/getuser', {params: {userIdx: idUser}})
+    .then((res) => {
+      setUserInfo(res.data.data[0])
+      setName(res.data.data[0].UserName)
+      setPw(res.data.data[0].UserPw)
+      setRePw(res.data.data[0].UserRePw)
+    })
+  },[])
 
   if (token !== null) {
     return (
@@ -72,7 +93,11 @@ export default function MyInfos() {
                   <Input 
                   id="name"
                   type="text"
+                  value={name}
                   required
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
                   />
               </InputContainer>  
               </FormContent>
@@ -85,6 +110,7 @@ export default function MyInfos() {
                   <Input 
                   id="email"
                   type="text"
+                  value={userInfo.UserEmail}
                   disabled
                   />
               </InputContainer>  
@@ -98,7 +124,11 @@ export default function MyInfos() {
                   <Input 
                   id="password"
                   type="password"
+                  value={pw}
                   required
+                  onChange={(e) => {
+                    setPw(e.target.value);
+                  }}
                   />
               </InputContainer> 
               </FormContent>
@@ -111,7 +141,11 @@ export default function MyInfos() {
                   <Input 
                   id="repassword"
                   type="password"
+                  value={rePw}
                   required
+                  onChange={(e) => {
+                    setRePw(e.target.value);
+                  }}
                   />
               </InputContainer> 
               </FormContent>

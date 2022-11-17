@@ -98,7 +98,7 @@ margin: 0 50px 0 30px;
 const ReportH1 = styled.h1`
 position: absolute;
 top: 80px;
-display: block;
+display: inline-block;
 font-family: 'Com4';
 color: #252525;
 font-size: 32px;

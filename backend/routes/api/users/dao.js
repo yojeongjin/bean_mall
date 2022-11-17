@@ -69,25 +69,26 @@ exports.list = (req,res) => {
   }
 
   sql = "select * from mydb_mall.User where UserEmail = ? ";
-	conn.query(sql, [UserEmail],(err,rows) => { 
+  conn.query(sql, [UserEmail],(err,rows) => { 
     if(err) throw err;
     
     if(rows.length === 0) {
       res.send({
         data: rows,
-				success: true,
-				code: 200,
-				msg:'사용 가능한 이메일입니다.'
-			})
+        success: true,
+        code: 200,
+        msg:'사용 가능한 이메일입니다.'
+      })
     } else {
       res.send({
         data: rows,
-				success: false,
-				code: 400,
-				msg:'이미 사용 중인 이메일입니다.'
-			})
+        success: false,
+        code: 400,
+        msg:'이미 사용 중인 이메일입니다.'
+      })
     }
-	})
+  })
+
 }
 
 

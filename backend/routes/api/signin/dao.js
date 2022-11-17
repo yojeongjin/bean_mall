@@ -17,11 +17,11 @@ exports.view = (req,res) => {
 				msg:'회원정보가 존재하지 않습니다.'
 			})
     } else {
-      const { idUser,UserName } = rows[0];
+      const { idUser, UserName } = rows[0]
       const secret = process.env.SECRETKEY
-      
+
       const token = jwt.sign(
-        { idUser: idUser, UserName: UserName },
+        { userIdx: idUser, UserName: UserName },
         secret
       )
       return res.send({
@@ -36,10 +36,10 @@ exports.view = (req,res) => {
 }
 
 exports.list = (req,res) => { 
-  const { idUser, UserName } = req.verifiedToken
+  const { userIdx, UserName } = req.verifiedToken
 
   return res.send({
-    result: { idUser: idUser, UserName: UserName },
+    result: { userIdx: userIdx, UserName: UserName },
     success: true,
     code: 200,
     msg:'유효한 토큰입니다.'

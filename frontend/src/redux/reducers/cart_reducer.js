@@ -32,7 +32,7 @@ export default function (state={}, action) {
     case VERIFIED_AUTH:
       return {
         ...state, 
-        idUser: action.payload.result.idUser}
+        idUser: action.payload.result.userIdx}
       break
 
     case PURGE:

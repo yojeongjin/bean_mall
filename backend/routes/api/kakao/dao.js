@@ -42,6 +42,7 @@ exports.list = async (req, res) => {
   
         return res.send({
           result: { jwt: token },
+          data: rows,
           success: true,
           code: 200,
           msg:'회원가입 성공!'
@@ -57,6 +58,7 @@ exports.list = async (req, res) => {
       )
       return res.send({
         result: { jwt: token },
+        data: rows,
         success: true,
         code: 200,
         msg:'로그인 성공'

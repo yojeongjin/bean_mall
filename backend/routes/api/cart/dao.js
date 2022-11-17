@@ -2,11 +2,11 @@ const db = require('../../../config/db');
 const conn =  db.init();
 
 exports.view = (req,res) => {
-  const {CartName, CartImg, CartFilters, CartSize, CartPrice, CartQuantity, CartProductsId, idUser } = req.body
+  const { CartName, CartImg, CartFilters, CartSize, CartPrice, CartQuantity, CartProductsId, idUser } = req.body
 
 
-	sql = "select * from mydb_mall.Cart where CartProductsId = ? ";
-	conn.query(sql,[ CartProductsId ],(err,rows)=>{
+	sql = "select * from mydb_mall.Cart where CartProductsId = ? and idUser = ?";
+	conn.query(sql,[ CartProductsId , idUser ],(err,rows)=>{
 		if(err) throw err;
 
 		if(rows.length === 0) {
@@ -16,7 +16,7 @@ exports.view = (req,res) => {
 				if(err) {
 					throw err
 				} else {
-					conn.query("select * from mydb_mall.Cart",(err,rows) => { 
+					conn.query("select * from mydb_mall.Cart where idUser = ? ", [idUser], (err,rows) => { 
 						if(err) throw err;
 						res.send({
 							data: rows.length,
@@ -27,19 +27,20 @@ exports.view = (req,res) => {
 				}
 			})
 		} else {
-			sql = "select CartQuantity from mydb_mall.Cart where CartProductsId = ? ";
-			conn.query(sql,[ CartProductsId ],(err,rows)=>{
+			sql = "select CartQuantity from mydb_mall.Cart where CartProductsId = ? and idUser = ?";
+			conn.query(sql,[ CartProductsId, idUser ],(err,rows)=>{
 				if(err) throw err;
 
 				if (rows) {
 					const addQuantity = Number(rows[0].CartQuantity) + Number(CartQuantity)
-					sql = "update mydb_mall.Cart set CartQuantity = '?' where CartProductsId = ? ";
-					conn.query(sql,[addQuantity,CartProductsId],(err,rows)=>{
+					sql = "update mydb_mall.Cart set CartQuantity = '?' where CartProductsId = ? and idUser = ?";
+					conn.query(sql,[ addQuantity,CartProductsId, idUser],(err,rows)=>{
 						if(err) {
 							throw err;
 						} else {
-							conn.query("select * from mydb_mall.Cart",(err,rows) => { 
+							conn.query("select * from mydb_mall.Cart where idUser = ? ",[idUser],(err,rows) => { 
 								if(err) throw err;
+
 								res.send({
 									data: rows.length,
 									success:true,        

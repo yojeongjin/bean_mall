@@ -6,7 +6,7 @@ export default function (state={}, action) {
       return {
         ...state, 
         joinSuccess: action.payload,
-      userID:action.payload.userIdx}
+      userID: action.payload.userIdx}
       break
 
       default:
