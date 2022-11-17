@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import axios from 'axios'
 import check from '../assets/check-mark.png'
 import checked from '../assets/checked.png'
+
+import { joinAuth } from '../redux/actions/join_actions'
 
 
 export default function Join ({match}) {
@@ -13,29 +16,31 @@ export default function Join ({match}) {
   const [rePw, setRePw]  = useState('')
   const [name, setName] = useState('')
 
-  let body = {
-    UserEmail: UserEmail,
-    UserPw: pw,
-    UserRePw: rePw,
-    UserName: name
-  }
+  const dispatch = useDispatch()
   
-  const join =  async() => {
+  const join = () => {
+
+    let body = {
+      UserEmail: UserEmail,
+      UserPw: pw,
+      UserRePw: rePw,
+      UserName: name
+    }
+
     if(check === false) {
       alert('이메일 중복확인을 해주세요.')
     } else {
-      try {
-        const res = await axios.post(
-          'http://localhost:5000/api/users', body)
-          if(res.data.code === 400) {
-            alert(res.data.msg)
-          } else {
-            alert(res.data.msg)
-            window.location.href = `${match.url}/userinfo`
-          }
-      } catch (err) {
-        console.log(err)
-      }
+      dispatch(joinAuth(body))
+      .then((res) => {
+        if (res.payload.code === 200) {
+          const token = res.payload.result.jwt
+          localStorage.setItem('m-access-token', token)
+          alert(res.payload.msg)
+          window.location.href = `${match.url}/userinfo`
+        } else {
+          alert(res.payload.message)
+        }
+      })
     }
   }
 

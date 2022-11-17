@@ -41,6 +41,7 @@ exports.add = (req,res) => {
 
       res.send({
         result: { jwt: token },
+        userIdx: userIdx,
         success: true,
         code: 200,
         msg:'회원가입 성공! 추가 정보를 입력해주세요.'
@@ -86,5 +87,22 @@ exports.list = (req,res) => {
 				msg:'이미 사용 중인 이메일입니다.'
 			})
     }
+	})
+}
+
+
+
+exports.modi = (req,res) => { 
+	const { UserPostCode, UserDefault, UserDetail, UserPhone, UserPhoneMid, UserPhoneEnd, idUser }  = req.body
+	sql = "update mydb_mall.User set UserPostCode = ?,UserDefault = ?, UserDetail = ?, UserPhone = ?,  UserPhoneMid = ?, UserPhoneEnd = ? where idUser = ?";
+	conn.query(sql,[ UserPostCode, UserDefault, UserDetail, UserPhone, UserPhoneMid, UserPhoneEnd, idUser ],(err,rows)=>{
+		if(err) throw err;
+
+    res.send({
+      data: rows,
+      success: true,
+      code: 200,
+      msg:'회원가입이 완료되었습니다.'
+    })
 	})
 }

@@ -1,18 +1,52 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Address from './Address'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 
 
 export default function UserInfo() {
   const [active, setActive] = useState(true)
+  const [ userDetail, setUserDetail ] = useState('')
+  const [ userPhone, setUserPhone ] = useState(0)
+  const [ userPhoneMid, setUserPhoneMid ] = useState(0)
+  const [ userPhoneEnd, setUserPhoneEnd ] = useState(0)
   const phoneNumbers = ['02', '031', '032', '033','041','042','043','044','051',
   '052','053','054','055','061','062','063','064','070','010','011','016','017','018','019']
-
   const [address, setAddress] = useState({
     postcode: '',
     defaultAddr: ''
   })
+
+  const idUser = useSelector((state) => state.join.userID)
+  console.log(idUser)
+
+  const modiUser = async() => {
+    let body = {
+      UserDetail: userDetail,
+      UserPhone: userPhone,
+      UserPhoneMid: userPhoneMid,
+      UserPhoneEnd: userPhoneEnd,
+      UserPostCode: address.postcode,
+      UserDefault: address.defaultAddr,
+      idUser: idUser
+    }
+
+    try {
+      const res = await axios.patch(
+        'http://localhost:5000/api/users', body)
+        if(res.data.code === 200) {
+          alert(res.data.msg)
+          window.location.replace('/')
+        } else {
+          alert('회원가입 도중 오류가 발생하였습니다.')
+        }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <UserInfoBase>
       <UserInfoInner>
@@ -44,6 +78,7 @@ export default function UserInfo() {
                 type="text"
                 placeholder="선택 입력 가능"
                 required
+                onChange={(e) => {setUserDetail(e.target.value)}}
               />
             </FormContent>
 
@@ -51,7 +86,7 @@ export default function UserInfo() {
               <FormLabel>
                 전화번호
               </FormLabel>
-              <PhoneSelect>
+              <PhoneSelect onChange={(e) => setUserPhone(e.target.value)}>
                 {
                   phoneNumbers.map((phoneNumber) => (
                     <PhoneOption>{phoneNumber}</PhoneOption>
@@ -63,6 +98,7 @@ export default function UserInfo() {
                 id="phone"
                 type="text"
                 required
+                onChange={(e) => setUserPhoneMid(e.target.value)}
                 />
               </Phone>
               <Phone>
@@ -70,11 +106,12 @@ export default function UserInfo() {
                 id="phone"
                 type="text"
                 required
+                onChange={(e) => setUserPhoneEnd(e.target.value)}
                 />
               </Phone>
             </FormContent>
-            <SignUpBtn>회원가입 완료</SignUpBtn>
-            <SignUpBtn className="next">다음에 작성할게요.</SignUpBtn>
+            <SignUpBtn type="button" onClick={modiUser}>회원가입 완료</SignUpBtn>
+            <SignUpBtn className="next" type="button" onClick={() => {window.location.replace('/')}}>다음에 작성할게요.</SignUpBtn>
         </UserInfoContent>
       </UserInfoInner>
     </UserInfoBase>

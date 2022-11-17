@@ -5,24 +5,26 @@ const axios = require('axios');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
-exports.list = (req, res) => {
+exports.list = async (req, res) => {
   const { access_token } = req.query;
   let UserEmail = ''
   let UserName = ''
 
-  axios.get('https://kapi.kakao.com/v2/user/me',
-  {
-    headers: {
-      'Authorization': `Bearer ${access_token}`,
-      'Content-type': 'application/x-www-form-urlencoded;charset=utf-8' 
-    }
-  })
-  .then((res) => {
+  try {
+    const res = await axios.get('https://kapi.kakao.com/v2/user/me',
+    {
+      headers: {
+        'Authorization': `Bearer ${access_token}`,
+        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8' 
+      }
+    })
     UserEmail = res.data.kakao_account.email
     UserName = res.data.properties.nickname
-  })
+  } catch(error) {
+    console.log(error)
+  }
   sql = "select * from mydb_mall.User where UserEmail = ? ";
-  conn.query(sql, [ UserEmail ],(err,rows) => { 
+  conn.query(sql, [UserEmail],(err,rows) => { 
     if(err) throw err;
 
     if(rows.length === 0) {

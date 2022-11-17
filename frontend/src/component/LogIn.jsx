@@ -58,7 +58,7 @@ export default function LogIn() {
             <span>간편 로그인/회원가입</span>
           </SignInTitle>
           <SignInUpBtn type="button" className="kakao" onClick={signinWithKakao}>
-            <SnsIcon></SnsIcon>카카오로 3초만에 가입하기
+            <SnsIcon></SnsIcon>카카오로 3초만에 시작하기
           </SignInUpBtn>
           <Link to="/signup">
             <SignInUpBtn className="email">이메일로 가입하기</SignInUpBtn>
