@@ -12,7 +12,7 @@ export default function (state={}, action) {
     
     case LOGOUT_AUTH:
       return {
-        ...state, 
+        ...state,
         token: null }
       break
 

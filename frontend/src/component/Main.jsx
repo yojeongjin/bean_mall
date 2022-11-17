@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import mainbg from '../assets/mainbgimg.png'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
+import { getCart, verifiedAuth } from '../redux/actions/cart_actions'
+
 export default function Main() {
+  const token = useSelector((state) => state.auth.token)
+  const idUser = useSelector((state) => state.cart.idUser)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(verifiedAuth({
+      headers: { 'm-access-token': token }
+    }))
+    dispatch(getCart(idUser))
+  })
   return (
     <MainSection>
       <MainInner>

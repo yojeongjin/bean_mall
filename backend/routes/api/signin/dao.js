@@ -19,13 +19,14 @@ exports.view = (req,res) => {
     } else {
       const { idUser,UserName } = rows[0];
       const secret = process.env.SECRETKEY
-  
+      
       const token = jwt.sign(
         { idUser: idUser, UserName: UserName },
         secret
       )
       return res.send({
         result: { jwt: token },
+        idUser: idUser,
         success: true,
         code: 200,
         msg:'로그인 성공'

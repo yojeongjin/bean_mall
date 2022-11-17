@@ -5,8 +5,7 @@ import kakao from '../assets/kakaoicon.png'
 
 import { useDispatch } from 'react-redux'
 import { loginAuth } from '../redux/actions/auth_actions'
-import { verifiedAuth } from '../redux/actions/cart_actions'
-import { REST_API_KEY, REDIRECT_URI} from '../kakaoAuth'
+import { REST_API_KEY, REDIRECT_URI } from '../kakaoAuth'
 
 export default function LogIn() {
   const [email, setEmail] = useState('')
@@ -26,9 +25,6 @@ export default function LogIn() {
         if (res.payload.success === true) {
           const token = res.payload.result.jwt
           localStorage.setItem('m-access-token', token)
-          dispatch(verifiedAuth({
-            headers: { 'm-access-token': token }
-          }))
           window.location.replace('/')
         } else {
           alert(res.payload.msg)
