@@ -20,7 +20,6 @@ export default function UserInfo() {
   })
 
   const idUser = useSelector((state) => state.join.userID)
-  console.log(idUser)
 
   const modiUser = async() => {
     let body = {

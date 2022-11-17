@@ -94,9 +94,10 @@ exports.list = (req,res) => {
 
 
 exports.modi = (req,res) => { 
-	const { UserPostCode, UserDefault, UserDetail, UserPhone, UserPhoneMid, UserPhoneEnd, idUser }  = req.body
-	sql = "update mydb_mall.User set UserPostCode = ?,UserDefault = ?, UserDetail = ?, UserPhone = ?,  UserPhoneMid = ?, UserPhoneEnd = ? where idUser = ?";
-	conn.query(sql,[ UserPostCode, UserDefault, UserDetail, UserPhone, UserPhoneMid, UserPhoneEnd, idUser ],(err,rows)=>{
+	const { UserEmail, UserPw, UserRePw, UserName, UserPostCode, UserDefault, UserDetail, UserPhone, UserPhoneMid, UserPhoneEnd, idUser }  = req.body
+	sql = 
+  "update mydb_mall.User set UserEmail = ? , UserPw = ?, UserRePw = ? , UserName = ?, UserPostCode = ?,UserDefault = ?, UserDetail = ?, UserPhone = ?,  UserPhoneMid = ?, UserPhoneEnd = ? where idUser = ?";
+	conn.query(sql,[ UserEmail, UserPw, UserRePw, UserName, UserPostCode, UserDefault, UserDetail, UserPhone, UserPhoneMid, UserPhoneEnd, idUser ],(err,rows)=>{
 		if(err) throw err;
 
     res.send({

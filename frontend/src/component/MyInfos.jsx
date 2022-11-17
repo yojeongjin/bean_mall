@@ -12,14 +12,16 @@ export default function MyInfos() {
   const token = useSelector((state) => state.auth.token)
   const idUser = useSelector((state) => state.cart.idUser)
 
-  const [pw, setPw] = useState('')
-  const [rePw, setRePw]  = useState('')
-  const [name, setName] = useState('')
-  const [ userDetail, setUserDetail ] = useState('')
-  const [ userPhone, setUserPhone ] = useState(0)
-  const [ userPhoneMid, setUserPhoneMid ] = useState(0)
-  const [ userPhoneEnd, setUserPhoneEnd ] = useState(0)
+  const [ UserEmail, setUserEmail ] = useState('')
+  const [ UserName, setUserName ] = useState('')
+  const [ UserPw, setUserPw ] = useState('')
+  const [ UserRePw, setUserRePw ] = useState('')
+  const [ UserDetail, setUserDetail ] = useState('')
+  const [ UserPhone, setUserPhone ] = useState(0)
+  const [ UserPhoneMid, setUserPhoneMid ] = useState(0)
+  const [ UserPhoneEnd, setUserPhoneEnd ] = useState(0)
 
+  
   const phoneNumbers = ['02', '031', '032', '033','041','042','043','044','051',
   '052','053','054','055','061','062','063','064','070','010','011','016','017','018','019']
   const [address, setAddress] = useState({
@@ -29,7 +31,6 @@ export default function MyInfos() {
 
   const [ openForm, setOpenForm ] = useState(true)
   const [ openCheck, setOpenCheck ] = useState(false)
-  const [ userInfo, setUserInfo ] = useState([])
 
   const goToForm = () => {
     setOpenForm(true)
@@ -39,17 +40,53 @@ export default function MyInfos() {
     setOpenForm(false)
     setOpenCheck(true)
   }
-
-
+  
   useEffect(() => {
     axios.get('http://localhost:5000/api/getuser', {params: {userIdx: idUser}})
     .then((res) => {
-      setUserInfo(res.data.data[0])
-      setName(res.data.data[0].UserName)
-      setPw(res.data.data[0].UserPw)
-      setRePw(res.data.data[0].UserRePw)
+      setUserEmail(res.data.data[0].UserEmail)
+      setUserName(res.data.data[0].UserName)
+      setUserPw(res.data.data[0].UserPw)
+      setUserRePw(res.data.data[0].UserRePw)
+      setUserDetail(res.data.data[0].UserDetail)
+      setUserPhone(res.data.data[0].UserPhone)
+      setUserPhoneMid(res.data.data[0].UserPhoneMid)
+      setUserPhoneEnd(res.data.data[0].UserPhoneEnd)
+      setAddress({
+        postcode: res.data.data[0].UserPostCode,
+        defaultAddr: res.data.data[0].UserDefault
+      })
     })
   },[])
+
+  const modiUser = async() => {
+
+    let body = {
+      idUser: idUser,
+      UserEmail: UserEmail,
+      UserName: UserName,
+      UserPw: UserPw,
+      UserRePw: UserRePw,
+      UserDefault: address.defaultAddr,
+      UserDetail: UserDetail,
+      UserPostCode: address.postcode,
+      UserPhone: UserPhone,
+      UserPhoneMid: UserPhoneMid,
+      UserPhoneEnd: UserPhoneEnd
+    }
+
+    try {
+      const res = await axios.patch(
+        'http://localhost:5000/api/users', body)
+        if(res.data.code === 200) {
+          alert('수정이 완료되었습니다.')
+        } else {
+          alert('회원가입 도중 오류가 발생하였습니다.')
+        }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   if (token !== null) {
     return (
@@ -93,11 +130,9 @@ export default function MyInfos() {
                   <Input 
                   id="name"
                   type="text"
-                  value={name}
+                  value={UserName}
                   required
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
+                  onChange={(e)=>{setUserName(e.target.value)}}
                   />
               </InputContainer>  
               </FormContent>
@@ -110,7 +145,7 @@ export default function MyInfos() {
                   <Input 
                   id="email"
                   type="text"
-                  value={userInfo.UserEmail}
+                  value={UserEmail}
                   disabled
                   />
               </InputContainer>  
@@ -124,11 +159,9 @@ export default function MyInfos() {
                   <Input 
                   id="password"
                   type="password"
-                  value={pw}
+                  value={UserPw}
                   required
-                  onChange={(e) => {
-                    setPw(e.target.value);
-                  }}
+                  onChange={(e)=>{setUserPw(e.target.value)}}
                   />
               </InputContainer> 
               </FormContent>
@@ -141,11 +174,9 @@ export default function MyInfos() {
                   <Input 
                   id="repassword"
                   type="password"
-                  value={rePw}
+                  value={UserRePw}
                   required
-                  onChange={(e) => {
-                    setRePw(e.target.value);
-                  }}
+                  onChange={(e)=>{setUserRePw(e.target.value)}}
                   />
               </InputContainer> 
               </FormContent>
@@ -155,7 +186,7 @@ export default function MyInfos() {
                   <em>*</em> 전화번호
                 </FormLabel>
                 <InputContainer className="post">
-                  <PhoneSelect>
+                  <PhoneSelect defaultValue={UserPhone} onChange={(e)=>{setUserPhone(e.target.value)}}>
                     {
                       phoneNumbers.map((phoneNumber) => (
                         <PhoneOption>{phoneNumber}</PhoneOption>
@@ -163,11 +194,23 @@ export default function MyInfos() {
                     }
                   </PhoneSelect>
                   <Phone>
-                    <PhoneInput />
+                    <PhoneInput 
+                    id="phone"
+                    type="number"
+                    value={UserPhoneMid}
+                    required
+                    onChange={(e) => setUserPhoneMid(e.target.value)}
+                    />
                   </Phone>
   
                   <Phone>
-                    <PhoneInput />
+                    <PhoneInput 
+                    id="phone"
+                    type="number"
+                    value={UserPhoneEnd}
+                    required
+                    onChange={(e) => setUserPhoneEnd(e.target.value)}
+                    />
                   </Phone>
                 </InputContainer>
               </FormContent>
@@ -199,12 +242,14 @@ export default function MyInfos() {
                   <Input 
                     id="address"
                     type="text"
+                    value={UserDetail}
                     required
+                    onChange={(e)=>{setUserDetail(e.target.value)}} 
                   />
                 </InputContainer>
               </FormContent>
   
-              <ModifyBtn type="submit">회원정보 수정하기</ModifyBtn>
+              <ModifyBtn type="button" onClick={modiUser}>회원정보 수정하기</ModifyBtn>
             </Form>
           }
           </InfoSection>
