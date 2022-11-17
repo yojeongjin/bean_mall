@@ -1,6 +1,7 @@
 export const LOGIN_AUTH = "LOGIN_AUTH"
 export const LOGOUT_AUTH = "LOGOUT_AUTH"
 export const VERIFIED_AUTH = "VERIFIED_AUTH"
+export const KAKAO_AUTH  = "KAKAO_AUTH"
 
 
 
