@@ -32,17 +32,17 @@ exports.list = async (req, res) => {
       conn.query(sql,[UserEmail, UserName],(err,rows)=>{
         if(err) throw err; 
 
-        const idUser = rows.idUser;
+        const userIdx = rows.insertId;
         const secret = process.env.SECRETKEY
 
         const token = jwt.sign(
-          { idUser: idUser, UserName: UserName },
+          { userIdx: userIdx, UserName: UserName },
           secret 
         )
   
         return res.send({
           result: { jwt: token },
-          data: rows,
+          userIdx: userIdx,
           success: true,
           code: 200,
           msg:'회원가입 성공!'
@@ -53,12 +53,12 @@ exports.list = async (req, res) => {
       const secret = process.env.SECRETKEY
   
       const token = jwt.sign(
-        { idUser: idUser, UserName: UserName },
+        { userIdx: idUser, UserName: UserName },
         secret
       )
       return res.send({
         result: { jwt: token },
-        data: rows,
+        idUser: idUser,
         success: true,
         code: 200,
         msg:'로그인 성공'

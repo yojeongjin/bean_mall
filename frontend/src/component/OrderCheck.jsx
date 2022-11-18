@@ -68,8 +68,8 @@ margin-top: 50px;
 `
 const CheckTitle = styled.h2`
 width: 100%;
-font-size: 14px;
-font-weight: bold;
+font-size: 18px;
+font-weight: 600;
 color: #333;
 display: inline-block;
 padding: 0 0 10px;

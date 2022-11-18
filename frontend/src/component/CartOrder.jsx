@@ -222,7 +222,7 @@ width: 35%;
 }
 `
 
-const CartList = styled.ul`
+const CartList = styled.ol`
 
 `
 

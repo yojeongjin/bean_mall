@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import axios from 'axios'
 import Address from './Address'
 import OrderCheck from './OrderCheck'
+import FAQ from './FAQ'
+import Inquiry from './Inquiry'
+import InquiryList from './InquiryList'
 
 import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
@@ -31,14 +34,47 @@ export default function MyInfos() {
 
   const [ openForm, setOpenForm ] = useState(true)
   const [ openCheck, setOpenCheck ] = useState(false)
+  const [ openFAQ, setOpenFAQ ] = useState(false)
+  const [ openInquiry, setOpenInquiry ] = useState(false)
+  const [ openInquiryList, setOpenInquiryList ] = useState(false)
 
   const goToForm = () => {
     setOpenForm(true)
     setOpenCheck(false)
+    setOpenFAQ(false)
+    setOpenInquiry(false)
+    setOpenInquiryList(false)
   }
   const goToCheck = () => {
     setOpenForm(false)
     setOpenCheck(true)
+    setOpenFAQ(false)
+    setOpenInquiry(false)
+    setOpenInquiryList(false)
+  }
+
+  const goToFAQ = () => {
+    setOpenForm(false)
+    setOpenCheck(false)
+    setOpenFAQ(true)
+    setOpenInquiry(false)
+    setOpenInquiryList(false)
+  }
+
+  const goToInquiry = () => {
+    setOpenForm(false)
+    setOpenCheck(false)
+    setOpenFAQ(false)
+    setOpenInquiry(true)
+    setOpenInquiryList(false)
+  }
+
+  const goToInquiryList = () => {
+    setOpenForm(false)
+    setOpenCheck(false)
+    setOpenFAQ(false)
+    setOpenInquiry(false)
+    setOpenInquiryList(true)
   }
   
   useEffect(() => {
@@ -60,7 +96,6 @@ export default function MyInfos() {
   },[])
 
   const modiUser = async() => {
-
     let body = {
       idUser: idUser,
       UserEmail: UserEmail,
@@ -75,16 +110,24 @@ export default function MyInfos() {
       UserPhoneEnd: UserPhoneEnd
     }
 
-    try {
-      const res = await axios.patch(
-        'http://localhost:5000/api/users', body)
-        if(res.data.code === 200) {
-          alert('수정이 완료되었습니다.')
-        } else {
-          alert('회원가입 도중 오류가 발생하였습니다.')
-        }
-    } catch (err) {
-      console.log(err)
+    if (UserName === '') {
+      alert('이름을 입력해주세요.')
+    } else if (UserPw === '') {
+      alert('비밀번호를 입력해주세요.')
+    } else if (UserRePw === '') {
+      alert('비밀번호를 확인해주세요.')
+    } else {
+      try {
+        const res = await axios.patch(
+          'http://localhost:5000/api/users', body)
+          if(res.data.code === 200) {
+            alert('수정이 완료되었습니다.')
+          } else {
+            alert('회원가입 도중 오류가 발생하였습니다.')
+          }
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 
@@ -104,20 +147,23 @@ export default function MyInfos() {
                 <span>주문내역</span>
               </MyInfoB>
               <MyInfoSpan onClick={goToCheck}>주문조회</MyInfoSpan>
-              <MyInfoSpan>상품리뷰</MyInfoSpan>
+              <MyInfoSpan>교환 / 반품</MyInfoSpan>
   
               <MyInfoB>
                 <span>고객서비스</span>
               </MyInfoB>
-              <MyInfoSpan>자주 묻는 질문</MyInfoSpan>
-              <MyInfoSpan>1:1 문의하기</MyInfoSpan>
-              <MyInfoSpan>상품문의내역</MyInfoSpan>
+              <MyInfoSpan onClick={goToFAQ}>자주 묻는 질문</MyInfoSpan>
+              <MyInfoSpan onClick={goToInquiry}>1:1 문의하기</MyInfoSpan>
+              <MyInfoSpan onClick={goToInquiryList}>상품문의내역</MyInfoSpan>
   
             </MyInfoNav>
           </MyInfoMenu>
   
           <InfoSection>
             {openCheck && <OrderCheck />}
+            {openFAQ && <FAQ />}
+            {openInquiry && <Inquiry />}
+            {openInquiryList && <InquiryList /> }
   
             {openForm && 
   

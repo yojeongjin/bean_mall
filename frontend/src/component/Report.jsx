@@ -33,6 +33,7 @@ export default function Report() {
           <ReportInfo>
             <ReportH1>A skin of many moods</ReportH1>
 
+
             <ReportSpan>Explore an expanded selection of products<br></br>
             suited to combination skin, including<br></br>
             formulations to cleanse, treat and hydrate<br></br>
@@ -46,6 +47,8 @@ export default function Report() {
           {/* <CarouselBtn onClick={setPrev}>
             <RiArrowDropLeftLine />
           </CarouselBtn> */}
+
+          
           <CarouselList>
             {
               carouselImgs.map((carouselImg, idx) => (
@@ -96,21 +99,21 @@ display: flex;
 margin: 0 50px 0 30px;
 `
 const ReportH1 = styled.h1`
+font-family: 'Com4';
 position: absolute;
 top: 80px;
 display: inline-block;
-font-family: 'Com4';
 color: #252525;
 font-size: 32px;
 `
 
 const ReportSpan = styled.span`
+font-family: 'AppleSDGothicNeo';
 position: absolute;
 top: 150px;
-display: block;
+display: inline-block;
 color: #252525;
 font-size: 15px;
-font-family: 'AppleSDGothicNeo';
 `
 
 const ReportSelect = styled.span`
