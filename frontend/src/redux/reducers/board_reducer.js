@@ -1,5 +1,6 @@
 import { ADD_TO_BOARD } from "../actions/types";
 import { GET_LIST } from "../actions/types";
+import { DELETE_BOARD } from "../actions/types";
 
 export default function (state={}, action) {
   switch(action.type) {
@@ -13,6 +14,11 @@ export default function (state={}, action) {
       return {
         ...state,
       getList: action.payload}
+      break
+
+    case DELETE_BOARD:
+      return {
+        ...state}
       break
 
       default:

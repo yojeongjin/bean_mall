@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { getList } from '../redux/actions/board_actions'
+import { deleteBoard } from '../redux/actions/board_actions'
 
 export default function InquiryList() {
   const dispatch = useDispatch()
@@ -25,10 +26,21 @@ export default function InquiryList() {
   const showContent = (user) => {
     if(idUser !== user) {
       alert('비밀글입니다.')
-      setIsContent(false)
     } else {
       setIsContent(!isContent)
     }
+  }
+
+  const deleteInquiry = (idBoard) => {
+    dispatch(deleteBoard(idBoard))
+    .then((res) => {
+      if(res.payload.success) {
+        alert(res.payload.msg)
+        window.location.reload()
+      } else {
+        alert('삭제를 완료하지 못하였습니다.')
+      }
+    })
   }
 
   const InquiryLists = 
@@ -44,6 +56,7 @@ export default function InquiryList() {
         <InquiryTr className="contents" isClicked={list.idUser === idUser ? false : true} >
           <InquiryTd isContent={isContent} className="contents"></InquiryTd>
           <InquiryTd isContent={isContent} className="contents">{list.BoardContents}</InquiryTd>
+          <InquiryTd isContent={isContent} className="delete"><span onClick={()=> {deleteInquiry(list.idBoard)}}>삭제하기</span></InquiryTd>
         </InquiryTr>
       </>
     ))
@@ -137,16 +150,30 @@ color: #666;
 padding: 18px 10px;
 border-bottom: 1px solid #ddd;
 text-align: center;
-
+cursor: pointer;
 
 &.num {
-  width: 15%;
+  width: 10%;
 }
 &.name {
-  width: 10%;
+  width: 15%;
 }
 &.contents {
   display: ${(props) => props.isContent ? 'none' : 'display'};
   color: black;
+  white-space: pre-wrap;
+  cursor: default;
+}
+&.delete {
+  display: ${(props) => props.isContent ? 'none' : 'display'};
+  position: relative;
+  cursor: default;
+  > span {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+  }
 }
 `

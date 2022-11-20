@@ -12,3 +12,4 @@ export const DELETE_CART = "DELETE_CART"
 
 export const ADD_TO_BOARD = "ADD_TO_BOARD"
 export const GET_LIST = "GET_LIST"
+export const DELETE_BOARD = "DELETE_BOARD"

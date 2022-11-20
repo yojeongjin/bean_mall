@@ -24,3 +24,13 @@ exports.list = (req,res) => {
 		res.send({success:true,data:row})
 	})
 }
+
+exports.delete = (req,res) => { 
+  const { idBoard } = req.query
+
+	conn.query("delete from mydb_mall.Board where idBoard = ? ",[idBoard], (err,row) => { 
+		if(err) throw err;
+
+		res.send({success:true,msg:'삭제되었습니다.'})
+	})
+}

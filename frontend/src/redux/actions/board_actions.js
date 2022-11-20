@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { ADD_TO_BOARD } from './types'
 import { GET_LIST } from './types'
+import { DELETE_BOARD } from './types'
 
 
 export function addToBoard(body) {
@@ -17,6 +18,17 @@ export function getList() {
           .then (res => res.data)
   return {
     type: GET_LIST,
+    payload: res
+  }
+}
+
+export function deleteBoard (idBoard) {
+  const res = axios.delete('http://localhost:5000/api/board', {params: {
+    idBoard: idBoard
+  }})
+  .then (res => res.data)
+  return {
+    type: DELETE_BOARD,
     payload: res
   }
 }
