@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import Loading from './Loading'
 
 export default function Prototype() {
 
+  const [ loading, setLoading ] = useState(null)
   const titles = ['전체보기', '스킨케어', '바디&핸드', '헤어', '향수']
   const skincares = ['토너', '세럼', '에센스', '로션']
   const bodys = ['바디로션', '핸드', '바디클렌저']
@@ -14,13 +16,15 @@ export default function Prototype() {
   const [category, setCategory]  = useState('')
 
   useEffect(() => {
+    setLoading(true)
     getProducts()
   },[])
-  
-  const getProducts = () => {
+   
+  const getProducts = async () => {
     axios.get('http://localhost:5000/api/products')
     .then((res) => {
       setProductsInfos(res.data.data)
+      setLoading(false)
     })
     .catch((err) => {
       console.log(err)
@@ -87,9 +91,10 @@ export default function Prototype() {
     })
   }
 
-
+  
   return (
     <ProductBase>
+      {loading && <Loading /> }
       <ProductInner>
         <ProductTitle>
           {

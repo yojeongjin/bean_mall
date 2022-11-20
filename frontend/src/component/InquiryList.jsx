@@ -54,9 +54,11 @@ export default function InquiryList() {
           <InquiryTd className="name">{list.BoardWriter}</InquiryTd>
         </InquiryTr>
         <InquiryTr className="contents" isClicked={list.idUser === idUser ? false : true} >
-          <InquiryTd isContent={isContent} className="contents"></InquiryTd>
+          <InquiryTd isContent={isContent} className="contents">{list.BoardDate}</InquiryTd>
           <InquiryTd isContent={isContent} className="contents">{list.BoardContents}</InquiryTd>
-          <InquiryTd isContent={isContent} className="delete"><span onClick={()=> {deleteInquiry(list.idBoard)}}>삭제하기</span></InquiryTd>
+          <InquiryTd isContent={isContent} className="delete">
+            <button onClick={()=> {deleteInquiry(list.idBoard)}}>삭제하기</button>
+          </InquiryTd>
         </InquiryTr>
       </>
     ))
@@ -168,12 +170,13 @@ cursor: pointer;
   display: ${(props) => props.isContent ? 'none' : 'display'};
   position: relative;
   cursor: default;
-  > span {
+  > button {
     cursor: pointer;
     position: absolute;
     bottom: 0;
     margin-bottom: 10px;
     border-bottom: 1px solid black;
+    padding: 0 0;
   }
 }
 `
