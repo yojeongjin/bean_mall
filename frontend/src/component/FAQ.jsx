@@ -58,7 +58,6 @@ export default function FAQ() {
                 </CBox>
 
               </FAQItem>
-              <FAQItem></FAQItem>
             </FAQlist>
           </FAQSection>
         </FAQContent>

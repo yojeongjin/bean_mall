@@ -88,6 +88,7 @@ const GlobalStyles = createGlobalStyle`
   }
   button {
     border: 0 none;
+    outline:none;
     background: transparent;
     cursor: pointer;
     -webkit-border-radius: 0;

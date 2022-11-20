@@ -32,6 +32,7 @@ export default function (state={}, action) {
     case VERIFIED_AUTH:
       return {
         ...state, 
+        userName: action.payload.result.UserName,
         idUser: action.payload.result.userIdx}
       break
 

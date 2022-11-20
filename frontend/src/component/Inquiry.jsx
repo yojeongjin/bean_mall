@@ -1,8 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { addToBoard } from '../redux/actions/board_actions'
 
 export default function Inquiry() {
+  const dispatch = useDispatch()
+
+  const [ title, setTitle ] = useState('')
+  const [ content, setContent ] = useState('')
+
+  const UserName = useSelector((state) => state.cart.userName)
+  const idUser = useSelector((state) => state.cart.idUser)
+
+  const addInquiry = () => {
+    let body = {
+      BoardTitle: title,
+      BoardContents: content,
+      UserName: UserName,
+      idUser: idUser
+    }
+
+    dispatch(addToBoard(body))
+    .then((res) => {
+      alert(res.payload.msg)
+      window.location.reload()
+    })
+  }
+
   return (
     <InquiryBase>
       <InquiryInner>
@@ -17,7 +41,12 @@ export default function Inquiry() {
                     <label>제목</label>
                   </WriteDt>
                   <WriteDd>
-                    <input></input>
+                    <input 
+                      id="dd"
+                      type="text"
+                      required
+                      onChange={(e) => {setTitle(e.target.value)}}
+                    />
                   </WriteDd>
                 </WriteDl>
               </FormWrap>
@@ -28,14 +57,14 @@ export default function Inquiry() {
                     <label>내용</label>
                   </WriteDt>
                   <WriteDd>
-                    <textarea></textarea>
+                    <textarea onChange={(e) => {setContent(e.target.value)}}></textarea>
                   </WriteDd>
                 </WriteDl>
               </FormWrap>
             </InquiryForm>
 
             <ButtonWrap>
-              <InquiryBtn>문의하기</InquiryBtn>
+              <InquiryBtn onClick={addInquiry}>문의하기</InquiryBtn>
             </ButtonWrap>
 
           </InquirySection>
@@ -132,4 +161,5 @@ height: 38px;
 font-size: 12px;
 background: #484847;
 color: #fff;
+
 `

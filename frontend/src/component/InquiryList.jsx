@@ -1,8 +1,57 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-
+import { getList } from '../redux/actions/board_actions'
 
 export default function InquiryList() {
+  const dispatch = useDispatch()
+  const idUser = useSelector((state) => state.cart.idUser)
+
+
+  const [ lists, setLists ] = useState([])
+  const [ isContent, setIsContent ] = useState(true)
+
+
+  useEffect(() => {
+    dispatch(getList())
+    .then((res) => {
+      const data = res.payload.data
+      let sortData = data.sort((a,b) => {return b.idBoard - a.idBoard});
+      setLists(sortData)
+    })
+  },[])
+
+
+  const showContent = (user) => {
+    if(idUser !== user) {
+      alert('비밀글입니다.')
+      setIsContent(false)
+    } else {
+      setIsContent(!isContent)
+    }
+  }
+
+  const InquiryLists = 
+<InquiryTbody>
+  {
+    lists.map(list => (
+      <>
+        <InquiryTr key={list.idBoard} onClick={()=>{showContent(list.idUser)}}>
+          <InquiryTd className="num">{list.idBoard}</InquiryTd>
+          <InquiryTd>{list.BoardTitle}</InquiryTd>
+          <InquiryTd className="name">{list.BoardWriter}</InquiryTd>
+        </InquiryTr>
+        <InquiryTr className="contents" isClicked={list.idUser === idUser ? false : true} >
+          <InquiryTd isContent={isContent} className="contents"></InquiryTd>
+          <InquiryTd isContent={isContent} className="contents">{list.BoardContents}</InquiryTd>
+        </InquiryTr>
+      </>
+    ))
+  }
+</InquiryTbody>
+
+
+
   return (
     <InquiryBase>
       <InquiryInner>
@@ -18,13 +67,7 @@ export default function InquiryList() {
                   <InquiryTh>작성자</InquiryTh>
                 </InquiryTr>
               </InquiryThead>
-              <InquiryTbody>
-                <InquiryTr>
-                  <InquiryTd className="num">1</InquiryTd>
-                  <InquiryTd>제목</InquiryTd>
-                  <InquiryTd className="name">작성자</InquiryTd>
-                </InquiryTr>
-              </InquiryTbody>
+              {InquiryLists}
 
             </InquiryTable>
           </InquirySection>
@@ -71,6 +114,9 @@ vertical-align: middle;
 `
 const InquiryTr = styled.tr`
 display: table-row;
+&.contents {
+  display: ${(props) => props.isClicked ? 'none' : 'display'};
+}
 `
 
 const InquiryTh =styled.th`
@@ -92,10 +138,15 @@ padding: 18px 10px;
 border-bottom: 1px solid #ddd;
 text-align: center;
 
+
 &.num {
   width: 15%;
 }
 &.name {
-  width: 20%;
+  width: 10%;
+}
+&.contents {
+  display: ${(props) => props.isContent ? 'none' : 'display'};
+  color: black;
 }
 `
