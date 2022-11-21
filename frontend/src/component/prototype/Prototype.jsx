@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { useDispatch } from 'react-redux'
+import { getProduct } from '../../redux/actions/product_actions'
+import { allProducts } from '../../redux/actions/product_actions'
+
 import Loading from '../Loading'
 import Skincare from './Skincare'
 import Body from './Body'
 import Hair from './Hair'
 import Perfume from './Perfume'
-import { useDispatch } from 'react-redux'
-import { getProduct } from '../../redux/actions/product_actions'
-import { allProducts } from '../../redux/actions/product_actions'
 
 
 export default function Prototype() {
@@ -71,8 +72,8 @@ export default function Prototype() {
   <ProductMenu>
     {
       productsInfos.map(productsInfo => (
-        <Link to={"/product/" + productsInfo.idProducts}>
-          <ProductList key={productsInfo.idProducts}>
+        <Link to={"/product/" + productsInfo.idProducts}  key={productsInfo.idProducts}>
+          <ProductList>
             <img src={productsInfo.ProductsImg} alt="제품사진" />
             <ProductExp>
               <div className='exptitle'>{productsInfo.ProductsName}</div>
@@ -87,6 +88,13 @@ export default function Prototype() {
     }
   </ProductMenu>
 
+  const showAll = () => {
+    setAllproduct(true)
+    setSkincare(false)
+    setBody(false)
+    setHair(false)
+    setPerfume(false)
+  }
 
   const goToSkincare = () => {
     setAllproduct(false)
@@ -125,7 +133,7 @@ export default function Prototype() {
       {loading && <Loading /> }
       <ProductInner>
         <ProductTitle>
-          <Title><span>전체보기</span></Title>
+          <Title onClick={()=>{showAll()}}><span>전체보기</span></Title>
           <Title onClick={()=>{goToSkincare()}}><span>스킨케어</span></Title>
           <Title onClick={()=>{goToBody()}}><span>바디&핸드</span></Title>
           <Title onClick={()=>{goToHair()}}><span>헤어</span></Title>
@@ -184,7 +192,7 @@ margin-top: 20px;
 `
 
 const ProductMenu = styled.ul`
-margin-top: 5px;
+margin-top: 25px;
 display: flex;
 flex-wrap: wrap;
 display: flex;
@@ -194,13 +202,16 @@ align-items: center;
 
 const ProductList = styled.li`
 width: 250px;
-height: 360px;
-padding-bottom: 15px;
+height: 380px;
+padding-bottom: 25px;
 cursor: pointer;
+flex-direction: column;
+display: flex;
+justify-content: center;
+align-items: center;
 > img {
-  margin-left: 50px;
-  width: 60%;
-  height: 90%;
+  width: 40%;
+  height: 100%;
 }
 &:hover {
   background-color: #c5bbb3;
@@ -208,7 +219,6 @@ cursor: pointer;
 `
 
 const ProductExp = styled.div`
-width: 250px;
 height: 50px;
 font-size:14px;
 > .exptitle {

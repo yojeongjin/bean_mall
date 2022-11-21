@@ -6,13 +6,13 @@ export default function (state={}, action) {
     case GET_PRODUCT:
       return {
         ...state,
-      Products: action.payload}
+      Products: action.payload.data}
       break
 
     case ALL_PRODUCT:
       return {
         ...state,
-      AllProducts: action.payload}
+      AllProducts: action.payload.data}
       break
 
       default:

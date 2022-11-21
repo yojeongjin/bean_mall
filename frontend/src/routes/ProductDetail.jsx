@@ -180,8 +180,8 @@ display: flex;
 justify-content: center;
 align-items: center;
 > img {
-  width: 60%;
-  height: 100%;
+  width: 45%;
+  height: 120%;
 }
 `
 

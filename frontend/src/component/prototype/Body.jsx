@@ -1,16 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 
 export default function Body() {
+  const [ bodyProducts, setBodyProducts ] = useState([])
+  const products = useSelector((state) => state.product.Products)
+  const bodys = products.filter(product => product.ProductsFilters === '바디&핸드')
+  const body = bodys.filter(body => body.ProductsCategory === '바디')
+  const hand = bodys.filter(body => body.ProductsCategory === '핸드')
+
+  useEffect(() => {
+    setBodyProducts(bodys)
+  },[])
+
+  const allBodyHand =
+  <ProductMenu>
+    {
+      bodyProducts.map(bodyProduct => (
+        <Link to={"/product/" + bodyProduct.idProducts}  key={bodyProduct.idProducts}>
+        <ProductList>
+          <img src={bodyProduct.ProductsImg} alt="제품사진" />
+          <ProductExp>
+            <div className='exptitle'>{bodyProduct.ProductsName}</div>
+            <div className='expetc'>
+              <span>{bodyProduct.ProductsSize1} / </span>
+              <span> {bodyProduct.ProductsPrice1}</span>
+            </div>
+          </ProductExp>
+        </ProductList>
+      </Link>
+      ))
+    }
+  </ProductMenu>
+
   return (
     <BodyBase>
       <Inner>
         <ProductCategory>
-          <button>핸드</button>
-          <button>바디로션</button>
-          <button>바디클렌저</button>
+          <button type='button' onClick={()=>{setBodyProducts(hand)}}>핸드</button>
+          <button type='button' onClick={()=>{setBodyProducts(body)}}>바디</button>
         </ProductCategory>
+        <ProductContent>
+          {allBodyHand}
+        </ProductContent>
       </Inner>
     </BodyBase>
   )
@@ -21,7 +55,6 @@ background-color: #e1d8d1;
 `
 const Inner = styled.div`
 margin: 0 auto;
-height: 100vh;
 `
 
 const ProductCategory = styled.div`
@@ -35,5 +68,51 @@ font-size: 13px;
 color: #555;
 > button {
   flex: 1;
+}
+`
+
+const ProductContent = styled.div`
+margin-top: 20px;
+`
+
+const ProductMenu = styled.ul`
+margin-top: 5px;
+display: flex;
+flex-wrap: wrap;
+display: flex;
+justify-content: center;
+align-items: center;
+`
+
+const ProductList = styled.li`
+width: 250px;
+height: 380px;
+padding-bottom: 15px;
+cursor: pointer;
+flex-direction: column;
+display: flex;
+justify-content: center;
+align-items: center;
+> img {
+  width: 40%;
+  height: 100%;
+}
+&:hover {
+  background-color: #c5bbb3;
+}
+`
+
+const ProductExp = styled.div`
+width: 250px;
+height: 50px;
+font-size:14px;
+> .exptitle {
+  font-weight: 500;
+  text-align: center;
+}
+> .expetc {
+  text-align: center;
+  font-size:12px;
+  color:#7c7c7c;
 }
 `
