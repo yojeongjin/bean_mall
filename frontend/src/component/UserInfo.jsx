@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Address from './Address'
+import Address from './myinfos/Address'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 

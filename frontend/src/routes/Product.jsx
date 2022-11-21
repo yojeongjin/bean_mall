@@ -1,5 +1,5 @@
 import React from 'react'
-import Prototype from "../component/Prototype"
+import Prototype from "../component/prototype/Prototype"
 
 
 

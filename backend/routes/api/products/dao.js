@@ -19,7 +19,7 @@ exports.filter = (req,res) => {
 			if(err) throw err;
 			res.send({success:true,data:rows})
 		})
-	} else {
+	} else if (page, size){
 		sql = "select * from mydb_mall.Products order by idProducts asc limit ? , ?";
 		conn.query(sql,[page, size],(err,row) => { 
 			if(err) throw err;

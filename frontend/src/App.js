@@ -9,7 +9,7 @@ import SignIn from './routes/SignIn';
 import SignUp from './routes/SignUp';
 import Mypage from './routes/Mypage';
 import Cart from './routes/Cart';
-import Header from './component/Header';
+import Header from './component/Home/Header';
 import KakaoLogin from './routes/KakaoLogin';
 
 function App() {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToBoard } from '../redux/actions/board_actions'
+import { addToBoard } from '../../redux/actions/board_actions'
 
 export default function Inquiry() {
   const dispatch = useDispatch()

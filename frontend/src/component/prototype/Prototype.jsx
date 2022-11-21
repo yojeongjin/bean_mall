@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
-import Loading from './Loading'
+import Loading from '../Loading'
 
 export default function Prototype() {
   const [ loading, setLoading ] = useState(null)
@@ -10,6 +10,7 @@ export default function Prototype() {
   const skincares = ['토너', '세럼', '에센스', '로션']
   const bodys = ['바디로션', '핸드', '바디클렌저']
   const hairs = ['샴푸', '트리트먼트', '오일']
+  const perfume = ['']
   const [productsInfos, setProductsInfos] = useState([])
   const [categoryTypes, setcategoryTypes] = useState([])
   const [category, setCategory]  = useState('')
@@ -105,8 +106,8 @@ export default function Prototype() {
       setcategoryTypes(bodys)
     } else if (title === '헤어') {
       setcategoryTypes(hairs)
-    } else {
-      setcategoryTypes('')
+    } else if (title === '향수') {
+      setcategoryTypes(perfume)
     }
 
     setCategory(title)
@@ -207,8 +208,8 @@ padding-bottom: 15px;
 cursor: pointer;
 > img {
   margin-left: 50px;
-  width: 60%;
-  height: 90%;
+  width: 65%;
+  height: 85%;
 }
 &:hover {
   background-color: #c5bbb3;

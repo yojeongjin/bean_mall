@@ -1,12 +1,11 @@
 import React from 'react'
-import Header from "../component/Header";
-import Main from "../component/Main";
-import Report from "../component/Report";
-import HomeVideo from "../component/HomeVideo";
-import PerfumeReport from "../component/PerfumeReport";
-import Gift from "../component/Gift";
-import Footer from "../component/Footer";
-
+import Header from '../component/Home/Header';
+import Main from '../component/Home/Main';
+import Report from '../component/Home/Report';
+import HomeVideo from '../component/Home/HomeVideo';
+import PerfumeReport from '../component/Home/PerfumeReport';
+import Gift from '../component/Home/Gift';
+import Footer from '../component/Home/Footer';
 
 export default function Home() {
   return (

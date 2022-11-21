@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../assets/logoname.png'
+import logo from '../../assets/logoname.png'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { logoutAuth } from '../redux/actions/auth_actions'
-import { persistor } from '../redux/create'
+import { logoutAuth } from '../../redux/actions/auth_actions'
+import { persistor } from '../../redux/create'
 
 
 

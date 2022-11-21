@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import giftbg from '../assets/giftbg.png'
+import giftbg from '../../assets/giftbg.png'
 
 
 export default function Gift() {

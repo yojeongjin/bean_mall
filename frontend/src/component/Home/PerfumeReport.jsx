@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
-import bodyimg from '../assets/perfumebgbg.png'
+import bodyimg from '../../assets/perfumebgbg.png'
 
 
 export default function PerfumeReport() {

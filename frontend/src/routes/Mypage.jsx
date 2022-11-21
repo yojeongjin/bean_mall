@@ -1,5 +1,5 @@
 import React from 'react'
-import MyInfos from "../component/MyInfos";
+import MyInfos from "../component/myinfos/MyInfos";
 
 export default function Mypage() {
   return (

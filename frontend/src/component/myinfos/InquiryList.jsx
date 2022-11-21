@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { getList } from '../redux/actions/board_actions'
-import { deleteBoard } from '../redux/actions/board_actions'
+import { getList } from '../../redux/actions/board_actions'
+import { deleteBoard } from '../../redux/actions/board_actions'
 
 export default function InquiryList() {
   const dispatch = useDispatch()
