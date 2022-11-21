@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import Loading from './Loading'
 
 export default function Prototype() {
-
   const [ loading, setLoading ] = useState(null)
   const titles = ['전체보기', '스킨케어', '바디&핸드', '헤어', '향수']
   const skincares = ['토너', '세럼', '에센스', '로션']
@@ -14,22 +13,57 @@ export default function Prototype() {
   const [productsInfos, setProductsInfos] = useState([])
   const [categoryTypes, setcategoryTypes] = useState([])
   const [category, setCategory]  = useState('')
+  const [page, setPage] = useState(0)
+  const [size, setSize] = useState(8)
+  const [pageSize, setPageSize] = useState(0)
 
   useEffect(() => {
+    let body = {
+      page: page,
+      size: size
+    }
     setLoading(true)
-    getProducts()
+    getProducts(body)
   },[])
-   
-  const getProducts = async () => {
-    axios.get('http://localhost:5000/api/products')
+
+  useEffect(() => {
+    window.addEventListener('scroll', getMoreProducts)
+    return() => {
+      window.removeEventListener('scroll', getMoreProducts)
+    }
+  },[page,size,pageSize])
+
+  const getProducts = (body) => {
+    axios.post('http://localhost:5000/api/products',body)
     .then((res) => {
-      setProductsInfos(res.data.data)
+      if(body.loadMore) {
+        setProductsInfos(prev => [...prev, ...res.data.data])
+      } else {
+        setProductsInfos(res.data.data)
+      }
       setLoading(false)
+      setPageSize(res.data.data.length)
     })
     .catch((err) => {
       console.log(err)
     })
   }
+
+  const getMoreProducts = () => {
+    if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight  - 10) {
+      if(pageSize >= size) {
+        let currentPage = page + size
+        let body = {
+          page: currentPage,
+          size: size,
+          loadMore: true
+        }
+        getProducts(body)
+        setPage(currentPage)
+      }
+    }
+  }
+
   const allProducts = 
   <ProductMenu>
     {
@@ -90,7 +124,6 @@ export default function Prototype() {
       console.log(err)
     })
   }
-
   
   return (
     <ProductBase>

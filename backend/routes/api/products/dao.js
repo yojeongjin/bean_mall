@@ -1,17 +1,11 @@
 const db = require('../../../config/db'); //db설정 호출
 const conn =  db.init(); //db 연결
 
-exports.list = (req,res) => { //리스트 모듈 router 에서 호출
-	conn.query("select * from mydb_mall.Products",(err,row) => { //쿼리 실행
-		if(err) throw err;
-		res.send({success:true,data:row})
-	})
-}
-
 exports.filter = (req,res) => {
 	let filter = req.body.filter
 	let category = req.body.category
-
+	let page = req.body.page
+	let size = req.body.size
 
 	if (filter) {
 		sql = "select * from mydb_mall.Products where ProductsFilters = ? ";
@@ -24,6 +18,12 @@ exports.filter = (req,res) => {
 		conn.query(sql,[category],(err,rows) => { 
 			if(err) throw err;
 			res.send({success:true,data:rows})
+		})
+	} else {
+		sql = "select * from mydb_mall.Products order by idProducts asc limit ? , ?";
+		conn.query(sql,[page, size],(err,row) => { 
+			if(err) throw err;
+			res.send({success:true,data:row})
 		})
 	}
 }

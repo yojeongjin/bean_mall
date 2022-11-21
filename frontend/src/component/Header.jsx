@@ -122,9 +122,7 @@ top: 0;
 width: 100%;
 height: 50px;
 z-index: 9;
-// background-color: #f6f5f0;
 background-color: ${(props) => props.isHome ? '#f6f5f0' : 'rgb(246, 245, 240, 0.5)'};
-// background-color: #181818;
 opacity: ${(props) => props.isActive ? 1 : 0};
 transition: 0.5s ease;`
 
