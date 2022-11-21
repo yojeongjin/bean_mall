@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import Loading from '../Loading'
+import Skincare from './Skincare'
+import Body from './Body'
+import Hair from './Hair'
+import Perfume from './Perfume'
+import { useDispatch } from 'react-redux'
+import { getProduct } from '../../redux/actions/product_actions'
+import { allProducts } from '../../redux/actions/product_actions'
+
 
 export default function Prototype() {
+  const dispatch = useDispatch()
+
   const [ loading, setLoading ] = useState(null)
-  const titles = ['전체보기', '스킨케어', '바디&핸드', '헤어', '향수']
-  const skincares = ['토너', '세럼', '에센스', '로션']
-  const bodys = ['바디로션', '핸드', '바디클렌저']
-  const hairs = ['샴푸', '트리트먼트', '오일']
-  const perfume = ['']
   const [productsInfos, setProductsInfos] = useState([])
-  const [categoryTypes, setcategoryTypes] = useState([])
-  const [category, setCategory]  = useState('')
   const [page, setPage] = useState(0)
   const [size, setSize] = useState(8)
   const [pageSize, setPageSize] = useState(0)
+
+  const [allProduct, setAllproduct] = useState(true)
+  const [skincare, setSkincare] = useState(false)
+  const [body, setBody] = useState(false)
+  const [hair, setHair] = useState(false)
+  const [perfume, setPerfume] = useState(false)
 
   useEffect(() => {
     let body = {
@@ -24,7 +32,13 @@ export default function Prototype() {
       size: size
     }
     setLoading(true)
-    getProducts(body)
+    dispatch(getProduct())
+    dispatch(allProducts(body))
+    .then((res) => {
+      body.loadMore ? setProductsInfos(prev => [...prev, ...res.payload.data]) : setProductsInfos(res.payload.data)
+      setLoading(false)
+      setPageSize(res.payload.data.length)
+    })
   },[])
 
   useEffect(() => {
@@ -34,21 +48,6 @@ export default function Prototype() {
     }
   },[page,size,pageSize])
 
-  const getProducts = (body) => {
-    axios.post('http://localhost:5000/api/products',body)
-    .then((res) => {
-      if(body.loadMore) {
-        setProductsInfos(prev => [...prev, ...res.data.data])
-      } else {
-        setProductsInfos(res.data.data)
-      }
-      setLoading(false)
-      setPageSize(res.data.data.length)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
 
   const getMoreProducts = () => {
     if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight  - 10) {
@@ -59,13 +58,16 @@ export default function Prototype() {
           size: size,
           loadMore: true
         }
-        getProducts(body)
+        dispatch(allProducts(body))
+        .then((res) => {
+          body.loadMore ? setProductsInfos(prev => [...prev, ...res.payload.data]) : setProductsInfos(res.payload.data)
+        })
         setPage(currentPage)
       }
     }
   }
 
-  const allProducts = 
+  const showAllProducts = 
   <ProductMenu>
     {
       productsInfos.map(productsInfo => (
@@ -85,71 +87,56 @@ export default function Prototype() {
     }
   </ProductMenu>
 
-  const getFilter = (title) => {
-    let body = {
-      filter: title
-    }
-    if (title === '전체보기') {
-      window.location.replace("/product")
-    }
 
-    axios.post('http://localhost:5000/api/products', body)
-    .then((res) => {
-      setProductsInfos(res.data.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-    if (title === '스킨케어') {
-      setcategoryTypes(skincares)
-    } else if (title === '바디&핸드') {
-      setcategoryTypes(bodys)
-    } else if (title === '헤어') {
-      setcategoryTypes(hairs)
-    } else if (title === '향수') {
-      setcategoryTypes(perfume)
-    }
+  const goToSkincare = () => {
+    setAllproduct(false)
+    setSkincare(true)
+    setBody(false)
+    setHair(false)
+    setPerfume(false)
+  }
 
-    setCategory(title)
-  } 
-
-  const getCategory = (categoryType) => {
-    let body = {
-      category: categoryType
-    }
-    axios.post('http://localhost:5000/api/products', body)
-    .then((res) => {
-      setProductsInfos(res.data.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  const goToBody = () => {
+    setAllproduct(false)
+    setSkincare(false)
+    setBody(true)
+    setHair(false)
+    setPerfume(false)
   }
   
+  const goToHair = () => {
+    setAllproduct(false)
+    setSkincare(false)
+    setBody(false)
+    setHair(true)
+    setPerfume(false)
+  }
+
+  const goToPerfume = () => {
+    setAllproduct(false)
+    setSkincare(false)
+    setBody(false)
+    setHair(false)
+    setPerfume(true)
+  }
+
   return (
     <ProductBase>
       {loading && <Loading /> }
       <ProductInner>
         <ProductTitle>
-          {
-            titles.map((title,idx) => (
-              <button key={idx} onClick={()=>{getFilter(title)}}>
-                <TitleSpan isTitle = {category === title}>{title}</TitleSpan>
-              </button>
-            ))
-          }
+          <Title><span>전체보기</span></Title>
+          <Title onClick={()=>{goToSkincare()}}><span>스킨케어</span></Title>
+          <Title onClick={()=>{goToBody()}}><span>바디&핸드</span></Title>
+          <Title onClick={()=>{goToHair()}}><span>헤어</span></Title>
+          <Title onClick={()=>{goToPerfume()}}><span>향수</span></Title>
         </ProductTitle>
-        <ProductCategory>
-          {
-            categoryTypes.map((categoryType,idx) => (
-              <button key={idx} onClick={() => {getCategory(categoryType)}}>
-                <span>{categoryType}</span>
-              </button>
-            ))
-          }
-        </ProductCategory>
         <ProductContent>
-          {allProducts}
+          {allProduct && showAllProducts}
+          {skincare && <Skincare />}
+          {body && <Body />}
+          {hair && <Hair />}
+          {perfume && <Perfume />}
         </ProductContent>
       </ProductInner>
     </ProductBase>
@@ -178,15 +165,19 @@ justify-content: center;
 align-items: center;
 font-size: 14px;
 color: #1e1e1e;
-> button {
-  flex: 1;
-}
 `
-const TitleSpan = styled.span`
-border-bottom: ${(props) => props.isTitle ? '1px solid black' : 'none'};
-&:hover {
-  border-bottom: 1px solid black;
-}
+
+const Title = styled.div`
+flex: 1;
+text-align: center;
+cursor: pointer;
+// border-bottom: ${(props) => props.isTitle ? '1px solid black' : 'none'};
+
+// > span {
+//   &:hover {
+//     border-bottom: 1px solid black;
+//   }
+// }
 `
 const ProductContent = styled.div`
 margin-top: 20px;
@@ -208,8 +199,8 @@ padding-bottom: 15px;
 cursor: pointer;
 > img {
   margin-left: 50px;
-  width: 65%;
-  height: 85%;
+  width: 60%;
+  height: 90%;
 }
 &:hover {
   background-color: #c5bbb3;
@@ -229,26 +220,4 @@ font-size:14px;
   font-size:12px;
   color:#7c7c7c;
 }
-`
-
-const ProductCategory = styled.div`
-width: 60%;
-height: 50px;
-margin: 0 auto;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 13px;
-color: #555;
-> button {
-  flex: 1;
-  > span {
-    display: block;
-    &:hover {
-      color: black;
-      scale: 1.1;
-    }
-  }
-}
-
 `
