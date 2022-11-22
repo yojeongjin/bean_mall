@@ -7,6 +7,8 @@ import { getCart } from '../redux/actions/cart_actions'
 import { patchCart } from '../redux/actions/cart_actions'
 import { deleteCart } from '../redux/actions/cart_actions'
 
+import Paypal from './Paypal'
+
 export default function CartOrder() {
   const dispatch = useDispatch()
   const token = useSelector((state) => state.auth.token)
@@ -48,6 +50,9 @@ export default function CartOrder() {
   const deleteItem = (cartId) => {
 
     dispatch(deleteCart(cartId))
+    .then((res) => {
+      alert(res.payload.msg)
+    })
   }
 
   let calculateTotal = (cartDatas) => {
@@ -172,7 +177,8 @@ if(token !== null) {
     
                 <CartBtnGroup>
                   <CartBtn>주문하기</CartBtn>
-                  <CartBtn className="keep">쇼핑 계속하기</CartBtn>
+                  <PaypalBtn><Paypal /></PaypalBtn>
+                  <KeepBtn>쇼핑 계속하기</KeepBtn>
                 </CartBtnGroup>
     
     
@@ -355,10 +361,9 @@ color: #333;
 font-size: 15px;
 `
 
-const CartBtnGroup = styled.div`
-
+const PaypalBtn = styled.div`
+width: 100%;
 `
-
 const CartBtn = styled.button`
 width: 100%;
 height: 50px;
@@ -367,15 +372,36 @@ margin-top: 10px;
 font-size: 13px;
 background-color: #807974;
 color: #fff;
+`
+const KeepBtn = styled.button`
+width: 100%;
+height: 50px;
+background-color: #c5bbb3;
+border: 1px solid #c5bbb3;
+color: #252525;
+margin-top: 10px;
+font-size: 13px;
+`
+
+const CartBtnGroup = styled.div`
+position: relative;
 &:hover {
-  background-color: #443f3c;
-}
-&.keep {
-  background-color: transparent;
-  color: #000;
-  &:hover {
-    border: 1px solid #c5bbb3;
-    background-color: #c5bbb3;
+  ${PaypalBtn} {
+    display: block;
+  }
+  ${CartBtn} {
+    background-color: transparent;
+    border: none;
+  }
+  ${KeepBtn} {
+    margin-top: 50px;
   }
 }
+  ${PaypalBtn} {
+    position: absolute;
+    margin-top: 12px;
+    top: 0;
+    display: none;
+  }
+
 `
