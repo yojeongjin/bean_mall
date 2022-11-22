@@ -10,8 +10,8 @@ export default function Gift() {
         <GiftContent>
           <span>메시지 각인 및 선물 포장 서비스</span>
           <h1>특별한 선물에 각별함까지 담는 법</h1>
-          <p>진심을 담은 선물옵션으로 특별한 선물을 전하세요. <br></br>
-            각인서비스를 이용하여 자신만의 이야기를 새겨보세요. </p>
+          <p>진심을 담은 선물옵션으로 특별한 선물을 전하거나 <br></br>
+            선물 메시지를 이용하여 자신만의 이야기를 새겨보세요. </p>
           <p>주문하신 모든 제품에 대해 선물 포장 서비스를 제공해 드립니다.</p>
         </GiftContent>
       </GiftInner>
@@ -35,7 +35,6 @@ width: 500px;
 height: 100%;
 margin: 0 auto;
 font-family: 'AppleSDGothicNeo';
-
 > span {
   font-size: 13px;
   font-weight: 500;

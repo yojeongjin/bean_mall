@@ -6,38 +6,59 @@ export default function Footer() {
   return (
     <FooterBase>
       <FooterInner>
-        <FooterCopyRight></FooterCopyRight>
-        <FooterMenu></FooterMenu>
-        <FooterInfo></FooterInfo>
+        <FooterCopyRight>
+          <h1>Theine</h1>
+          <div className='h4'>
+            <h4>•Theine•</h4>
+            <h4>president: O</h4>
+          </div>
+          <p>License 12345678 2022-Yongin- 1234</p>
+          <p>000 - 1234 - 5678</p>
+          <p>theine@gmail.com</p>
+          <p>© 2022 Theine . All rights reserved.</p>
+        </FooterCopyRight>
       </FooterInner>
     </FooterBase>
   )
 }
 
 const FooterBase = styled.section`
-background-color: #dfd8d4;
+background-color: #766d67;
+font-family: 'AppleSDGothicNeo';
+font-size: 12px;
 color: #bcb6b1;
 `
 
 const FooterInner = styled.div`
-width: 1100px;
+width: 1300px;
 height: 200px;
 position: relative;
 margin: 0 auto;
-display: flex;
 `
 
 const FooterCopyRight = styled.div`
-flex: 1;
-border: 1px solid #bcb6b1;
-`
+padding: 50px 0 0;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+>h1 {
+  font-family: 'Orelo';
+  font-size: 32px;
+}
 
-const FooterMenu = styled.div`
-flex: 1;
-border: 1px solid #bcb6b1;
-`
+> div {
+  font-family: 'Orelo';
+  margin-bottom: 5px;
+  display: flex;
+  > h4 {
+    padding: 2px 7px;
+  }
+}
 
-const FooterInfo = styled.div`
-flex: 1;
-border: 1px solid #bcb6b1;
+> p {
+  &:last-child {
+    color: #333;
+  }
+}
 `

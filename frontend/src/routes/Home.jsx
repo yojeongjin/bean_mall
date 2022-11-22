@@ -5,7 +5,6 @@ import Report from '../component/Home/Report';
 import HomeVideo from '../component/Home/HomeVideo';
 import PerfumeReport from '../component/Home/PerfumeReport';
 import Gift from '../component/Home/Gift';
-import Footer from '../component/Home/Footer';
 
 export default function Home() {
   return (
@@ -16,7 +15,6 @@ export default function Home() {
       <PerfumeReport />
       <HomeVideo />
       <Gift />
-      <Footer />
     </>
   )
 }

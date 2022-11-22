@@ -9,9 +9,16 @@ import AppleSDGothicNeoSB from './AppleSDGothicNeoSB.ttf'
 import AppleSDGothicNeoT from './AppleSDGothicNeoT.ttf'
 import AppleSDGothicNeoUL from './AppleSDGothicNeoUL.ttf'
 
+import Orelo from './Orelo-SemiWide-Light.ttf'
+
 const GlobalStyles = createGlobalStyle`
   ${reset}
 
+  @font-face {
+    font-family: 'Orelo';
+    src: local('Orelo');
+    src: url(${Orelo}) format('truetype');
+  }
 
   @font-face {
     font-family: 'Com4';

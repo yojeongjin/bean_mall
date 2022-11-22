@@ -11,6 +11,7 @@ import Mypage from './routes/Mypage';
 import Cart from './routes/Cart';
 import Header from './component/Home/Header';
 import KakaoLogin from './routes/KakaoLogin';
+import Footer from './component/Home/Footer';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/" exact component= {Home} />
         <Route component={NotFound} />
       </Switch>
+    <Footer />
     </BrowserRouter>
   );
 }
