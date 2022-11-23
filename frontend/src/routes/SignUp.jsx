@@ -1,3 +1,4 @@
+import React from 'react'
 import { Route } from "react-router-dom";
 import Join from "../component/Join";
 import UserInfo from "../component/UserInfo";

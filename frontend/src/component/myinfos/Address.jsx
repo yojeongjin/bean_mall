@@ -30,7 +30,7 @@ export default function Address({setAddress}) {
     width: '400px',
     top: '-50px',
     left: '60px',
-    zIndex: '30'
+    zIndex: '30',
   }
 
   return (

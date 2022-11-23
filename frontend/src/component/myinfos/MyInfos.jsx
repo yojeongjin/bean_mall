@@ -335,13 +335,13 @@ margin-top: 100px;
 const InfoSection = styled.section`
   margin: 100px 0 0 20px;
   width: 74%;
-`;
+`
 
 const MyInfoNav = styled.nav`
   margin-top: 50px;
   padding-bottom: 11px;
   text-align: center;
-`;
+`
 
 const MyInfoB = styled.b`
   display: block;
@@ -350,7 +350,7 @@ const MyInfoB = styled.b`
   font-weight: 600;
   font-size: 13px;
   margin-top: 0;
-`;
+`
 
 const MyInfoSpan = styled.span`
   font-size: 12px;
@@ -358,7 +358,7 @@ const MyInfoSpan = styled.span`
   display: block;
   margin: 5px 0 7px 0;
   cursor: pointer;
-`;
+`
 
 const Form = styled.form`
 margin: 50px 100px;
@@ -371,7 +371,7 @@ const FormContent = styled.div`
   &.default_address{
     margin-top: -10px;
   }
-`;
+`
 
 const FormLabel = styled.label`
   font-size: 14px;
@@ -387,7 +387,7 @@ const FormLabel = styled.label`
   > em {
     color: red;
   }
-`;
+`
 
 const InputContainer = styled.div`
   width: 75%;
@@ -396,7 +396,7 @@ const InputContainer = styled.div`
   &.post {
     display: flex;
   }
-`;
+`
 
 const Input = styled.input`
   width: 100%;
@@ -408,7 +408,7 @@ const Input = styled.input`
   padding: 0 10px;
   font-size: 14px;
   outline: none;
-`;
+`
 
 const PhoneSelect = styled.select`
   width: 70px;

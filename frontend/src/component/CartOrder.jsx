@@ -8,7 +8,7 @@ import { patchCart } from '../redux/actions/cart_actions'
 import { deleteCart } from '../redux/actions/cart_actions'
 
 
-export default function CartOrder() {
+export default function CartOrder({match}) {
   const dispatch = useDispatch()
   const token = useSelector((state) => state.auth.token)
   const idUser = useSelector((state) => state.cart.idUser)
@@ -30,6 +30,9 @@ export default function CartOrder() {
     })
   },[])
   
+  const goToOrder = () => {
+    window.location.href = `${match.url}/order`
+  }
 
 
   const change = (e, id) => {
@@ -148,14 +151,13 @@ if(token !== null) {
         <CartBase>
           <CartInner>
             <CartPage>
-
               <CartSectionLt>
                 {detailCarts}
               </CartSectionLt>
 
               <CartSectionRt>
                 <h2>결제내역</h2>
-                
+
                 <PriceGroup>
                   <PriceList>
                     <div className="label">주문금액</div>
@@ -175,7 +177,7 @@ if(token !== null) {
                 </PriceGroup>
     
                 <CartBtnGroup>
-                  <CartBtn>주문하기</CartBtn>
+                  <CartBtn onClick={()=>{goToOrder()}}>주문하기</CartBtn>
                   <CartBtn className="keep">쇼핑 계속하기</CartBtn>
                 </CartBtnGroup>
     
@@ -202,10 +204,6 @@ font-size: 12px;
 const CartInner = styled.div`
 width: 1100px;
 margin: 0 auto;
-// display: flex;
-// justify-content: center;
-// align-items: center;
-// flex-direction: column;
 `
 
 const CartPage = styled.div`
