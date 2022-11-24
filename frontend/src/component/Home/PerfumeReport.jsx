@@ -30,9 +30,6 @@ export default function PerfumeReport() {
             </BodyBtn>
           </Link>
         </BodyContent>
-        {/* <BodyFloat>
-          <img src={perfume} alt="향수"/>
-        </BodyFloat> */}
       </BodyInner>
     </BodyBase>
   )

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import icon from '../assets/icon.png'
+import { getUser } from '../redux/actions/join_actions'
 
 import { getOrderItem } from '../redux/actions/order_actions'
 
@@ -11,7 +12,11 @@ export default function Order() {
   const dispatch = useDispatch()
   const idUser = useSelector((state) => state.cart.idUser)
 
+  const [ recipientNumber, setRecipientNumber ] = useState('')
+  const [ recipient, setRecipient ] = useState('')
+  const [ isCheck, setIsCheck ] = useState(false)
   const [ orderItems, setOrderItems ] = useState([])
+  const [ userInfo, setUserInfo ] = useState([])
   const [ show, setShow ] = useState(true)
   const [address, setAddress] = useState({
     postcode: '',
@@ -24,6 +29,10 @@ export default function Order() {
     dispatch(getOrderItem(idUser))
     .then((res) => {
       setOrderItems(res.payload)
+    })
+    dispatch(getUser(idUser))
+    .then((res) => {
+      setUserInfo(res.payload.data[0])
     })
   },[])
 
@@ -48,6 +57,16 @@ export default function Order() {
     }
   </OrderInfo>
 
+  const handleCheckbox = (e) => {
+    if(e.target.checked) {
+      setIsCheck(true)
+      setRecipient(userInfo.UserName)
+      setRecipientNumber(`${userInfo.UserPhone}${userInfo.UserPhoneMid}${userInfo.UserPhoneEnd}`)
+    } else {
+      setIsCheck(false)
+    }
+  }
+
   return (
     <OrderBase>
       <OrderInner>
@@ -70,9 +89,9 @@ export default function Order() {
 
           <ContentWrap>
             <UserContents>
-              <h3>이름</h3>
-              <p>01012345678</p>
-              <p>jungjin46@naver.com</p>
+              <h3>{userInfo.UserName}</h3>
+              <p>{`${userInfo.UserPhone}${userInfo.UserPhoneMid}${userInfo.UserPhoneEnd}`}</p>
+              <p>{userInfo.UserEmail}</p>
             </UserContents>
           </ContentWrap>
         </Section>
@@ -81,35 +100,50 @@ export default function Order() {
           <SectionTitle style={{display:'flex'}}>
             <h1>수령인 정보</h1>
             <CheckBox>
-              <Input type="checkbox" />
+              <Input type="checkbox" id="all_class_checkbox" onClick={(e) => {handleCheckbox(e)}} checked={isCheck} />
               <FormLabel>주문자 정보와 동일</FormLabel>
             </CheckBox>
           </SectionTitle>
+          {isCheck !== true && 
+            <ContentWrap>
+              <RecipientContents>
+                <InputContainer>
+                  <FormLabel>성함</FormLabel>
+                  <Input 
+                    id="name"
+                    type="text"
+                    required
+                    placeholder="수령인 성함을 입력해주세요."
+                  />
+                </InputContainer>
+                <InputContainer>
+                  <FormLabel>연락처</FormLabel>
+                  <Input 
+                    id="phonenumber"
+                    type="number"
+                    required
+                    placeholder="수령인 연락처를 입력해주세요."
+                  />
+                  <span>('-' 기호를 빼고 입력해주세요.)</span>
+                </InputContainer>
+              </RecipientContents>
+            </ContentWrap>
+          }
+          {isCheck && 
+            <ContentWrap>
+              <RecipientContents>
+                <InputContainer>
+                  <FormLabel>성함</FormLabel>
+                  <FormPostCode>{recipient}</FormPostCode>
+                </InputContainer>
+                <InputContainer>
+                  <FormLabel>연락처</FormLabel>
+                  <FormPostCode>{recipientNumber}</FormPostCode>
+                </InputContainer>
+              </RecipientContents>
+            </ContentWrap>          
+          }
 
-          <ContentWrap>
-            <RecipientContents>
-
-              <InputContainer>
-                <FormLabel>성함</FormLabel>
-                <Input 
-                  id="name"
-                  type="text"
-                  required
-                  placeholder="수령인 성함을 입력해주세요."
-                />
-              </InputContainer>
-              <InputContainer>
-                <FormLabel>연락처</FormLabel>
-                <Input 
-                  id="phonenumber"
-                  type="number"
-                  required
-                  placeholder="수령인 연락처를 입력해주세요."
-                />
-              </InputContainer>
-
-            </RecipientContents>
-          </ContentWrap>
         </Section>
 
         <Section className='delivery'>
@@ -180,7 +214,7 @@ export default function Order() {
                   </InputContainer>
 
                   <InputContainer>
-                    <FormPostCode>안뇽</FormPostCode>
+                    <FormPostCode></FormPostCode>
                     <span>기본 주소</span>
                   </InputContainer>
 
@@ -395,18 +429,28 @@ p {
 }
 `
 
-const RecipientContents = styled.div`
+const FormPostCode = styled.div`
+width: 300px;
+height: 28px;
+font-size: 13px;
+border-bottom: 1px solid #252525;
+margin-right: 8px;
+padding-top: 3px;
+`
 
+const RecipientContents = styled.div`
 ${InputContainer} {
   display: flex;
-  align-items: center;
   margin: 15px 0;
 }
 ${Input} {
-  width: 170px;
+  width: 190px;
+  padding: 0 10px;
 }
-${FormLabel} {
-
+${FormPostCode} {
+  width: 100px;
+  text-align: center;
+  color: #555;
 }
 `
 
@@ -428,7 +472,7 @@ height: 40px;
 font-size: 13px;
 margin: 0 auto;
 cursor: pointer;
-border-bottom: 1px solid #e5e7eb;
+border-bottom: 2px solid #858585;
 `
 
 const NavItem = styled.li`
@@ -440,13 +484,13 @@ justify-content: center;
 &:first-child {
   background-color: ${(props) => props.isClick ? '#cdcdcd' : 'transparent'};
   color: ${(props) => props.isClick ? '#333' : 'black'};
-  border: ${(props) => props.isClick ? 'none' : '1px solid #e5e7eb'};
+  border: ${(props) => props.isClick ? 'none' : '2px solid #858585'};
   border-bottom: none;
 }
 &: last-child {
   background-color: ${(props) => props.isClick ? 'tarnsparent' : '#cdcdcd'};
   color: ${(props) => props.isClick ? 'black' : '#333'};
-  border: ${(props) => props.isClick ? '1px solid #e5e7eb' : 'none'};
+  border: ${(props) => props.isClick ? '2px solid #858585' : 'none'};
   border-bottom: none;
 }
 
@@ -454,15 +498,6 @@ justify-content: center;
   width: 18px;
   height: 18px;
 }
-`
-
-const FormPostCode = styled.div`
-width: 300px;
-height: 28px;
-font-size: 13px;
-border-bottom: 1px solid #252525;
-margin-right: 8px;
-padding-top: 3px;
 `
 
 const PayCheck = styled.div`

@@ -20,6 +20,7 @@ export default function PerfumeInfo() {
   const getInfo = (body) => {
     axios.post('http://localhost:5000/api/perfume', body)
     .then((res) => {
+      console.log(res)
       if(body.loadMore) {
         setInfo([...infos, ...res.data.data])
       } else {

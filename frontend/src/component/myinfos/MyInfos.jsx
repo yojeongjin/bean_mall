@@ -78,7 +78,7 @@ export default function MyInfos() {
   }
   
   useEffect(() => {
-    axios.get('http://localhost:5000/api/getuser', {params: {userIdx: idUser}})
+    axios.get('http://localhost:5000/api/getuser', {params: {idUser: idUser}})
     .then((res) => {
       setUserEmail(res.data.data[0].UserEmail)
       setUserName(res.data.data[0].UserName)

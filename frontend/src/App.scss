@@ -22,6 +22,7 @@
   vertical-align:baseline;
   background-repeat: no-repeat;
   background-size:contain;
+  justify-content: flex-start;
   width: 100%;
   height: inherit;
   flex-wrap: wrap;
@@ -30,7 +31,7 @@
   & :hover {
     color: #a9a9a9;
     margin-top: 50px;
-    background-color: #cdcdcd;
+    background-color: #d6d6d6;
     color:#f7f2f2;
     background-color: #443f3c;
     box-sizing: border-box;
