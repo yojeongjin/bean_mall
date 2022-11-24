@@ -166,10 +166,11 @@ position: relative;
 display: flex;
 justify-content: center;
 align-items: center;
+padding: 20px 0;
 `
 
 const DetailContent = styled.div`
-width: 80%;
+width: 90%;
 height: 550px;
 margin-top: 70px;
 display: flex;
@@ -179,9 +180,10 @@ flex: 1;
 display: flex;
 justify-content: center;
 align-items: center;
+margin-right: 30px;
 > img {
-  width: 45%;
-  height: 120%;
+  width: 35%;
+  height: 100%;
 }
 `
 
@@ -242,7 +244,7 @@ font-size: 15px;
 const AddCartBtn = styled.button`
 border: 1px solid #333;
 padding: 13px 160px;
-margin-top: 30px;
+margin-top: 30px ;
 &:hover {
   background-color: #c5bbb3;
   border: 1px solid #c5bbb3;

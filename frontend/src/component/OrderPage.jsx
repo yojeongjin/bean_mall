@@ -25,10 +25,13 @@ export default function Order() {
   const [ inputAddress, setInputAddress ] = useState('')
   const [ changeAddress, setChangeAddress ] = useState(false)
 
+  const [ totlaPrice, setTotalPrice ] = useState('')
+
   useEffect(() => {
     dispatch(getOrderItem(idUser))
     .then((res) => {
       setOrderItems(res.payload)
+      calculateTotal(res.payload)
     })
     dispatch(getUser(idUser))
     .then((res) => {
@@ -67,6 +70,16 @@ export default function Order() {
     }
   }
 
+
+  let calculateTotal = (orderItems) => {
+    let total = 0;
+
+    orderItems.map(orderItem => {
+      return total += orderItem.price *  orderItem.quantity
+    })
+    setTotalPrice(total)
+  }
+
   return (
     <OrderBase>
       <OrderInner>
@@ -78,7 +91,7 @@ export default function Order() {
           </SectionTitle>
           <OrderInfoWrap isShow={show}>
             {orderItemList}
-            <OrderAmount>총 가격 : 300,000원</OrderAmount>
+            <OrderAmount>총 금액 : {totlaPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</OrderAmount>
           </OrderInfoWrap>
         </Section>
 

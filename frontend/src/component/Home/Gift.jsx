@@ -22,11 +22,11 @@ export default function Gift() {
 const GiftBase = styled.section`
 background-image: url(${giftbg});
 background-color: #fdfdf3;
+background-repeat: no-repeat;
 `
 const GiftInner = styled.div`
 width: 1100px;
-height: 300px;
-position: relative;
+height: 330px;
 margin: 0 auto;
 `
 

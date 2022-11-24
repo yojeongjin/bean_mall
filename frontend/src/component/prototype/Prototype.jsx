@@ -179,13 +179,6 @@ const Title = styled.div`
 flex: 1;
 text-align: center;
 cursor: pointer;
-// border-bottom: ${(props) => props.isTitle ? '1px solid black' : 'none'};
-
-// > span {
-//   &:hover {
-//     border-bottom: 1px solid black;
-//   }
-// }
 `
 const ProductContent = styled.div`
 margin-top: 20px;
@@ -211,7 +204,7 @@ justify-content: center;
 align-items: center;
 > img {
   width: 40%;
-  height: 100%;
+  height: 90%;
 }
 &:hover {
   background-color: #c5bbb3;
