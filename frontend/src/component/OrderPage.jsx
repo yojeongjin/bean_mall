@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import icon from '../assets/icon.png'
+
+import { getOrderItem } from '../redux/actions/order_actions'
 
 import Address from './myinfos/Address'
 
 export default function Order() {
+  const dispatch = useDispatch()
+  const idUser = useSelector((state) => state.cart.idUser)
 
+  const [ orderItems, setOrderItems ] = useState([])
   const [ show, setShow ] = useState(true)
   const [address, setAddress] = useState({
     postcode: '',
@@ -13,6 +19,34 @@ export default function Order() {
   })
   const [ inputAddress, setInputAddress ] = useState('')
   const [ changeAddress, setChangeAddress ] = useState(false)
+
+  useEffect(() => {
+    dispatch(getOrderItem(idUser))
+    .then((res) => {
+      setOrderItems(res.payload)
+    })
+  },[])
+
+  const orderItemList = 
+  <OrderInfo>
+    {
+      orderItems.map(orderItem => (
+        <OrderList>
+          <OrderThumbnail>
+            <img src={orderItem.ProductImg} alt='제품사진' />
+          </OrderThumbnail>
+          <OrderContents>
+            <OrderContentsWrap>
+              <h3>{orderItem.ProductName}</h3>
+              <p>{orderItem.ProductSize}</p>
+              <p>수량 : {orderItem.quantity} 개</p>
+            </OrderContentsWrap>
+          </OrderContents>
+          <OrderRightColumn>{(orderItem.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</OrderRightColumn>
+        </OrderList>
+      ))
+    }
+  </OrderInfo>
 
   return (
     <OrderBase>
@@ -24,22 +58,7 @@ export default function Order() {
             <ToggleBtn isShow={show}></ToggleBtn>
           </SectionTitle>
           <OrderInfoWrap isShow={show}>
-            <OrderInfo>
-              <OrderList>
-                <OrderThumbnail>
-                  <img src={'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%92%E1%85%B4%E1%86%AB%E1%84%89%E1%85%A2%E1%86%A8%E1%84%92%E1%85%A2%E1%86%AB%E1%84%83%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%B7.webp'} alt='제품사진' />
-                </OrderThumbnail>
-                <OrderContents>
-                  <OrderContentsWrap>
-                    <h3>드 머라구 핸드크림</h3>
-                    <p>사이즈</p>
-                    <p>수량</p>
-                  </OrderContentsWrap>
-                </OrderContents>
-                <OrderRightColumn>가격</OrderRightColumn>
-              </OrderList>
-
-            </OrderInfo>
+            {orderItemList}
             <OrderAmount>총 가격 : 300,000원</OrderAmount>
           </OrderInfoWrap>
         </Section>

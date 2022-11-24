@@ -6,12 +6,14 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import { getCart } from '../redux/actions/cart_actions'
 import { patchCart } from '../redux/actions/cart_actions'
 import { deleteCart } from '../redux/actions/cart_actions'
+import { orderInfo } from '../redux/actions/order_actions'
 
 
 export default function CartOrder({match}) {
   const dispatch = useDispatch()
   const token = useSelector((state) => state.auth.token)
   const idUser = useSelector((state) => state.cart.idUser)
+  const cartData = useSelector((state) => state.cart.getCartInfo)
 
   const [ isDatas, setIsDatas ] = useState([])
   const [ id, setId ] = useState(0)
@@ -19,6 +21,7 @@ export default function CartOrder({match}) {
   const [ total, setTotal ] = useState(0)
   const [ allPayment, setAllPayment ] = useState(0)
   const [ fee, setFee ] = useState(0)
+  const [ deleteId, setDeleteId ] = useState(false)
 
   const quantitys = [1,2,3,4,5,6,7,8,9,10]
 
@@ -30,8 +33,20 @@ export default function CartOrder({match}) {
     })
   },[])
   
+  useEffect(()=>{
+    dispatch(getCart(idUser))
+    .then((res) => {
+      setIsDatas(res.payload)
+      calculateTotal(res.payload)
+    })
+  },[cartQuantity,deleteId,dispatch,idUser])
+
   const goToOrder = () => {
     window.location.href = `${match.url}/order`
+    let body= {
+      orders: cartData
+    }
+    dispatch(orderInfo(body))
   }
 
 
@@ -54,7 +69,9 @@ export default function CartOrder({match}) {
     dispatch(deleteCart(cartId))
         .then((res) => {
       alert(res.payload.msg)
+      setDeleteId(true)
     })
+
   }
 
   let calculateTotal = (cartDatas) => {
@@ -373,11 +390,12 @@ color: #fff;
   background-color: #443f3c;
 }
 &.keep {
-  background-color: transparent;
+  background-color: #c5bbb3;
+  border: 1px solid #c5bbb3;
   color: #000;
   &:hover {
     border: 1px solid #c5bbb3;
-    background-color: #c5bbb3;
+    background-color: transparent;
   }
 }
 `

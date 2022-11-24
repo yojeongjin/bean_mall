@@ -3,6 +3,7 @@ export const LOGOUT_AUTH = "LOGOUT_AUTH"
 export const VERIFIED_AUTH = "VERIFIED_AUTH"
 export const KAKAO_AUTH  = "KAKAO_AUTH"
 export const JOIN_AUTH = "JOIN_AUTH"
+export const GET_USER = "GET_USER"
 
 
 export const ADD_TO_CART = "ADD_TO_CART"
@@ -16,3 +17,6 @@ export const DELETE_BOARD = "DELETE_BOARD"
 
 export const GET_PRODUCT = "GET_PRODUCT"
 export const ALL_PRODUCT = "ALL_PRODUCT"
+
+export const ORDER_INFO = "ORDER_INFO"
+export const GET_ORDER_ITEM = "GET_ORDER_ITEM"
