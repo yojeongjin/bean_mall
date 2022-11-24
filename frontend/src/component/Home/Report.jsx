@@ -73,7 +73,7 @@ background-color: #fdfdf3;`
 
 
 const Inner = styled.div`
-width: 1300px;
+width: 1200px;
 height: 746px;
 margin: 0 auto;
 position: relative;`
@@ -85,7 +85,7 @@ display: flex;
 
 const ReportInfo = styled.div`
 position: relative;
-width: 50%;
+width: 40%;
 flex-direction: column;
 display: flex;
 margin: 0 50px 0 30px;
@@ -137,7 +137,7 @@ cursor: pointer;
 `
 
 const CarouselList = styled.ul`
-width: 100%;
+width: 70%;
 height: 100%;
 display: flex;
 overflow: hidden;`

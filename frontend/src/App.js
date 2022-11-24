@@ -12,12 +12,14 @@ import Cart from './routes/Cart';
 import Header from './component/Home/Header';
 import KakaoLogin from './routes/KakaoLogin';
 import Footer from './component/Home/Footer';
+import ScrollToTop from './component/ScrollToTop';
 
 function App() {
   return (
     <BrowserRouter>
     <GlobalStyles />
     <Header />
+    <ScrollToTop />
       <Switch>
         <Route path="/kakaoLogin" component= {KakaoLogin} />
         <Route path="/cart" component= {Cart} />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 export default function PerfumeInfo() {
   const [ infos, setInfo ] = useState([])
@@ -46,16 +47,18 @@ export default function PerfumeInfo() {
 
 
   const renderInfo = infos.map((info, idx) => (
-      <PerfumeNotice key={idx} isOdd = {idx % 2 === 1} >
+      <PerfumeNotice key={info.idPerfume} isOdd = {idx % 2 === 1} >
         <PerfumeImg isOdd = {idx % 2 === 1}>
           <img src={info.PerfumeImg} alt="향수 이미지"/>
         </PerfumeImg>
         <PerfumeExp isOdd = {idx % 2 === 1}>
-          <ExpTitle isOdd = {idx % 2 === 1}>
-            <h1>{info.PerfumeName}</h1>
-            <ExpDirectR isOdd = {idx % 2 === 1}> → </ExpDirectR>
-            <ExpDirectL isOdd = {idx % 2 === 1}> ← </ExpDirectL>
-          </ExpTitle>
+          <Link to={"/product/" + info.idProducts}>
+            <ExpTitle isOdd = {idx % 2 === 1}>
+              <h1>{info.PerfumeName}</h1>
+              <ExpDirectR isOdd = {idx % 2 === 1}> → </ExpDirectR>
+              <ExpDirectL isOdd = {idx % 2 === 1}> ← </ExpDirectL>
+            </ExpTitle>
+          </Link>
           <p>
             {info.PerfumeDesc}
           </p>
@@ -166,7 +169,7 @@ const ExpTitle = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: ${(props) => props.isOdd ? 'row-reverse' : 'row'}; 
-
+  cursor: pointer;
   > h1 {
     display: block;
   }
