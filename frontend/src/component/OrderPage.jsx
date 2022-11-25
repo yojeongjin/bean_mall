@@ -24,8 +24,8 @@ export default function Order() {
   })
   const [ inputAddress, setInputAddress ] = useState('')
   const [ changeAddress, setChangeAddress ] = useState(false)
-
   const [ totlaPrice, setTotalPrice ] = useState('')
+  const [ checkNull, setCheckNull ] = useState(false)
 
   useEffect(() => {
     dispatch(getOrderItem(idUser))
@@ -35,9 +35,31 @@ export default function Order() {
     })
     dispatch(getUser(idUser))
     .then((res) => {
-      setUserInfo(res.payload.data[0])
+      const infos = res.payload.data[0]
+
+      if(infos.UserPhone === null && infos.UserPhoneMid === null && infos.UserPhoneEnd === null && infos.UserPostCode === null) {
+        infos.UserPhone = '기존에 작성한'
+        infos.UserPhoneMid = ' 전화번호가 없습니다.'
+        infos.UserPhoneEnd = ' 마이페이지에서 연락처를 작성해주세요.'
+        infos.UserPostCode = ''
+        infos.UserDefault = ''
+        setAddress({
+          postcode:infos.UserPostCode,
+          defaultAddr:infos.UserDefault
+        })
+        setUserInfo(infos)
+        setCheckNull(true)
+      } else {
+        setUserInfo(infos)
+        setCheckNull(false)
+        setAddress({
+          postcode:infos.UserPostCode,
+          defaultAddr:infos.UserDefault
+        })
+      }
     })
   },[])
+
 
   const orderItemList = 
   <OrderInfo>
@@ -142,7 +164,21 @@ export default function Order() {
               </RecipientContents>
             </ContentWrap>
           }
-          {isCheck && 
+          {isCheck && checkNull &&
+            <ContentWrap>
+              <RecipientContents>
+                <InputContainer>
+                  <FormLabel>성함</FormLabel>
+                  <FormPostCode>{recipient}</FormPostCode>
+                </InputContainer>
+                <InputContainer>
+                  <FormLabel>연락처</FormLabel>
+                  <FormPostCode>연락처를 기재해주세요.</FormPostCode>
+                </InputContainer>
+              </RecipientContents>
+            </ContentWrap>          
+          }
+          {isCheck && checkNull !== true &&
             <ContentWrap>
               <RecipientContents>
                 <InputContainer>
@@ -154,7 +190,7 @@ export default function Order() {
                   <FormPostCode>{recipientNumber}</FormPostCode>
                 </InputContainer>
               </RecipientContents>
-            </ContentWrap>          
+            </ContentWrap>       
           }
 
         </Section>
@@ -461,7 +497,7 @@ ${Input} {
   padding: 0 10px;
 }
 ${FormPostCode} {
-  width: 100px;
+  width: 150px;
   text-align: center;
   color: #555;
 }

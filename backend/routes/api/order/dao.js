@@ -3,7 +3,7 @@ const conn =  db.init(); //db 연결
 
 exports.add = (req,res) => {
   const {orders} = req.body
-
+  
   const value = orders.map(order => {
     return [order.idUser, order.CartProductsId, order.CartQuantity, order.CartPrice, order.CartName, order.CartSize, order.CartImg]
   })
