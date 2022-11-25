@@ -24,10 +24,11 @@ export default function Order() {
   })
   const [ inputAddress, setInputAddress ] = useState('')
   const [ changeAddress, setChangeAddress ] = useState(false)
-  const [ totlaPrice, setTotalPrice ] = useState('')
+  const [ totlaPrice, setTotalPrice ] = useState(0)
   const [ checkNull, setCheckNull ] = useState(false)
 
   useEffect(() => {
+    paymentWithJquery()
     dispatch(getOrderItem(idUser))
     .then((res) => {
       setOrderItems(res.payload)
@@ -60,6 +61,80 @@ export default function Order() {
     })
   },[])
 
+  const paymentWithJquery = () => {
+    const jquery = document.createElement("script")
+    jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js"
+    const iamport = document.createElement("script")
+    iamport.src = "https://cdn.iamport.kr/js/iamport.payment-1.1.7.js"
+    document.head.appendChild(jquery)
+    document.head.appendChild(iamport)
+    return () => {
+      document.head.removeChild(jquery)
+      document.head.removeChild(iamport)
+    }
+  }
+
+  const createOrderName = () => {
+    if(orderItems.length === 1) {
+      return orderItems.ProductName[0]
+    } else {
+      return `${orderItems[0].ProductName} 외 ${orderItems.length - 1}개`
+    }
+  }
+
+  const createOrderNum = () => {
+    const date = new Date()
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, "0")
+    const day = String(date.getDate()).padStart(2, "0")
+
+    let orderNum = year + month + day;
+    for (let i = 0; i < 10; i++) {
+      orderNum += Math.floor(Math.random() * 8);
+    }
+    return orderNum
+  }
+
+  const onClickPayment = () => {
+    if(address.postcode === '' || inputAddress === '') {
+      return alert('주소를 작성해주세요.')
+    } else if (recipient === '') {
+      return alert('수령인 성함을 입력해주세요.')
+    } else if (recipientNumber === '') {
+      return alert('수령인 연락처를 입력해주세요.')
+    }
+
+    const IMP = window.IMP
+    IMP.init("imp60534226")
+    const data = {
+      pg: "html5_inicis", 
+      pay_method: "card", 
+      merchant_uid: createOrderNum(), 
+      name: createOrderName(), 
+      amount: totlaPrice,
+      buyer_name: userInfo.UserName,
+      buyer_email: userInfo.UserEmail,
+    }
+    IMP.request_pay(data, callback)
+  }
+
+  const callback = (res) => {
+    const { success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount,status } = res
+    if (success) {
+      alert("결제 성공");
+    } else {
+      alert(`결제 실패 : ${error_msg}`)
+      console.log(res)
+    }
+  }
+
+  const handleChange = () => {
+    setChangeAddress(!changeAddress)
+    setAddress({
+      postcode: '',
+      defaultAddr: ''
+    })
+  }
 
   const orderItemList = 
   <OrderInfo>
@@ -149,6 +224,7 @@ export default function Order() {
                     type="text"
                     required
                     placeholder="수령인 성함을 입력해주세요."
+                    onChange={(e)=>{setRecipient(e.target.value)}}
                   />
                 </InputContainer>
                 <InputContainer>
@@ -158,6 +234,7 @@ export default function Order() {
                     type="number"
                     required
                     placeholder="수령인 연락처를 입력해주세요."
+                    onChange={(e)=>{setRecipientNumber(e.target.value)}}
                   />
                   <span>('-' 기호를 빼고 입력해주세요.)</span>
                 </InputContainer>
@@ -205,11 +282,11 @@ export default function Order() {
               <FormContent>
                 <NavWrap>
                   <NavList>
-                    <NavItem onClick={() => {setChangeAddress(false)}} isClick={changeAddress}>
+                    <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
                       <img src={icon} alt="포인터" />
                       기본배송지
                     </NavItem>
-                    <NavItem onClick={() => {setChangeAddress(true)}} isClick={changeAddress}>
+                    <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
                       <img src={icon} alt="포인터" />
                       배송지 변경하기
                     </NavItem>
@@ -245,11 +322,11 @@ export default function Order() {
                 <FormContent>
                   <NavWrap>
                     <NavList>
-                      <NavItem onClick={() => {setChangeAddress(false)}} isClick={changeAddress}>
+                      <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
                         <img src={icon} alt="포인터" />
                         기본배송지
                       </NavItem>
-                      <NavItem onClick={() => {setChangeAddress(true)}} isClick={changeAddress}>
+                      <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
                         <img src={icon} alt="포인터" />
                         배송지 변경하기
                       </NavItem>
@@ -263,7 +340,7 @@ export default function Order() {
                   </InputContainer>
 
                   <InputContainer>
-                    <FormPostCode></FormPostCode>
+                    <FormPostCode>{address.defaultAddr}</FormPostCode>
                     <span>기본 주소</span>
                   </InputContainer>
 
@@ -285,7 +362,7 @@ export default function Order() {
 
         <Section className='payment'>
           <PayCheck>
-            <CheckoutBtn type="button">결제하기</CheckoutBtn>
+            <CheckoutBtn type="button" onClick={()=>{onClickPayment()}}>결제하기</CheckoutBtn>
           </PayCheck>
         </Section>
       </OrderInner>

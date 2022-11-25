@@ -21,6 +21,8 @@ exports.add = (req,res) => {
   })
 }
 
+
+
 exports.list = (req,res) => { 
 	const { idUser }  = req.query
 
