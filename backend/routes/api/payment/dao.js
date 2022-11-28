@@ -2,10 +2,11 @@ const db = require('../../../config/db'); //db설정 호출
 const conn =  db.init(); //db 연결
 
 exports.add = (req,res) => {
-	const { imp_uid, merchant_uid, pay_method, paid_amount } = req.body
+	const { imp_uid, merchant_uid, pay_method, paid_amount, UserName, UserEmail, Recipient, RecipientNumber, postcode, defaultAdd, detailAdd  } = req.body
 
-  sql = "insert into mydb_mall.Payment (imp_uid, merchant_uid, pay_method, paid_amount) values (?, ?, ?, ?)";
-  conn.query(sql,[ imp_uid, merchant_uid, pay_method, paid_amount ],(err,rows)=>{
+
+  sql = "insert into mydb_mall.Payment (imp_uid, merchant_uid, pay_method, paid_amount, UserName, UserEmail, Recipient, RecipientNumber, postcode, defaultAdd, detailAdd) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  conn.query(sql,[ imp_uid, merchant_uid, pay_method, paid_amount, UserName, UserEmail, Recipient, RecipientNumber, postcode, defaultAdd, detailAdd ],(err,rows)=>{
     if(err) throw err;
 
     res.send({

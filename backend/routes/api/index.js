@@ -9,6 +9,7 @@ const getuser = require('./getuser')
 const board = require('./board')
 const order = require('./order')
 const payment = require('./payment')
+const history = require('./history')
 
 router.use("/perfume",perfume); 
 router.use("/products",products); 
@@ -19,7 +20,8 @@ router.use("/kakao", kakao);
 router.use("/getuser", getuser);
 router.use("/board", board);
 router.use("/order", order);
-router.use("/payment", payment)
+router.use("/payment", payment);
+router.use("/history", history);
 
 router.all('*',(req, res)=>{
 	res.status(404).send({success:false, msg:`api unknown uri ${req.path}`});

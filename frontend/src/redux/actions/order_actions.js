@@ -2,6 +2,7 @@ import axios from 'axios'
 import { ORDER_INFO } from './types'
 import { GET_ORDER_ITEM } from './types'
 import { ORDER_COMPLETION } from './types'
+import { ADD_HISTORY } from './types'
 
 export function orderInfo(body) {
   const res = axios.post('http://localhost:5000/api/order', body)
@@ -29,6 +30,16 @@ export function orderCompletion(body) {
   
   return {
     type: ORDER_COMPLETION,
+    payload: res
+  }
+}
+
+export function addHistory(body) {
+  const res = axios.post('http://localhost:5000/api/history', body)
+  .then (res => res.data)
+  
+  return {
+    type: ADD_HISTORY,
     payload: res
   }
 }

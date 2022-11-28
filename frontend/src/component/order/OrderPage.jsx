@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import icon from '../../assets/icon.png'
-import { deleteCart } from '../../redux/actions/cart_actions'
+import { deleteCart } from '../../redux/actions/join_actions'
 import { getUser } from '../../redux/actions/join_actions'
-import { getOrderItem, orderCompletion } from '../../redux/actions/order_actions'
+import { addHistory, getOrderItem, orderCompletion } from '../../redux/actions/order_actions'
 
 import Address from '../myinfos/Address'
 
 
-export default function Order() {
+export default function Order({match}) {
+
   const dispatch = useDispatch()
   const idUser = useSelector((state) => state.cart.idUser)
 
@@ -119,6 +120,7 @@ export default function Order() {
     IMP.request_pay(data, callback)
   }
 
+
   const callback = (res) => {
     const { success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount } = res
     if (success) {
@@ -126,11 +128,29 @@ export default function Order() {
         imp_uid: imp_uid,
         merchant_uid: merchant_uid,
         pay_method: pay_method,
-        paid_amount: paid_amount
+        paid_amount: paid_amount,
+        UserName: userInfo.UserName,
+        UserEmail: userInfo.UserEmail,
+        Recipient: recipient,
+        RecipientNumber: recipientNumber,
+        postcode: address.postcode,
+        defaultAdd: address.defaultAddr,
+        detailAdd: inputAddress
+      }
+      let orderHistory = orderItems.map((orderItem) => {
+        let historyItem = {...orderItem}
+        historyItem.imp_uid = imp_uid
+        return historyItem
+      })
+      let history = {
+        history: orderHistory
       }
       dispatch(orderCompletion(body))
+      dispatch(addHistory(history))
       dispatch(deleteCart(idUser))
       alert("결제 성공")
+
+      window.location.href = `${match.url}/completed`
     } else {
       alert(`결제 실패 : ${error_msg}`)
     }
@@ -142,6 +162,7 @@ export default function Order() {
       postcode: '',
       defaultAddr: ''
     })
+    setInputAddress('')
   }
 
   const orderItemList = 
@@ -258,7 +279,14 @@ export default function Order() {
                 </InputContainer>
                 <InputContainer>
                   <FormLabel>연락처</FormLabel>
-                  <FormPostCode>연락처를 기재해주세요.</FormPostCode>
+                  <Input 
+                    id="phonenumber"
+                    type="number"
+                    required
+                    placeholder="수령인 연락처를 입력해주세요."
+                    onChange={(e)=>{setRecipientNumber(e.target.value)}}
+                  />
+                  <span>('-' 기호를 빼고 입력해주세요.)</span>
                 </InputContainer>
               </RecipientContents>
             </ContentWrap>          

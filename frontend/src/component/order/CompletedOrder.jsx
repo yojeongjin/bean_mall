@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 export default function CompletedOrder() {
 
+
   return(
     <CompletedOrderBase>
       <Inner>

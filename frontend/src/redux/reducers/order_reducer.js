@@ -1,6 +1,7 @@
 import { ORDER_INFO } from "../actions/types";
 import { GET_ORDER_ITEM } from "../actions/types";
 import { ORDER_COMPLETION } from "../actions/types";
+import { ADD_HISTORY } from "../actions/types";
 
 export default function(state={}, action) {
   switch(action.type) {
@@ -21,6 +22,13 @@ export default function(state={}, action) {
         ...state, 
         ordered: action.payload}
       break
+
+    case ADD_HISTORY:
+      return {
+        ...state, 
+        getHistory: action.payload}
+      break
+  
 
       default:
         return state;
