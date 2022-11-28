@@ -11,10 +11,20 @@ exports.add = (req,res) => {
 
     res.send({
       success: true,
+      payment_token: imp_uid,
       data: rows,
       code: 200,
       msg:'결제가 완료되었습니다.'
     })
     
   })
+}
+
+exports.list = (req,res) => { 
+	const { imp_uid }  = req.query
+
+	conn.query("select * from mydb_mall.Payment where imp_uid = ?",[ imp_uid ],(err,row) => { 
+		if(err) throw err;
+		res.send(row)
+	})
 }

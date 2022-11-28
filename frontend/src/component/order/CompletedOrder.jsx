@@ -1,8 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { getPaymentInfo } from '../../redux/actions/order_actions'
 
 export default function CompletedOrder() {
 
+  const dispatch = useDispatch()
+  const paymentId = useSelector((state) => state.order.paymentToken)
+
+  const [ paymentInfo, setPaymentInfo ] = useState([])
+
+  useEffect(() => {
+    dispatch(getPaymentInfo(paymentId))
+    .then((res) => {
+      setPaymentInfo(res.payload[0])
+    })
+  },[])
 
   return(
     <CompletedOrderBase>
@@ -12,23 +26,20 @@ export default function CompletedOrder() {
         
         <OrderNumber>
           <Subheading>주문 일자</Subheading>
-          <Contents>2022-10-27</Contents>
+          <Contents>{paymentInfo.createdAt.split('T')[0]}</Contents>
 
           <Subheading>주문 번호</Subheading>
-          <Contents>202232847932</Contents>
+          <Contents>{paymentInfo.merchant_uid}</Contents>
         </OrderNumber>
 
         <InfoSection>
           <SubTitle>구매자 정보</SubTitle>
           <InfoContents>
             <Subheading>주문자
-              <span>주문자</span>
-            </Subheading>
-            <Subheading>연락처
-              <span>주문자</span>
+              <span>{paymentInfo.UserName}</span>
             </Subheading>
             <Subheading>이메일
-              <span>주문자</span>
+              <span>{paymentInfo.UserEmail}</span>
             </Subheading>
           </InfoContents>
         </InfoSection>
@@ -37,13 +48,13 @@ export default function CompletedOrder() {
           <SubTitle>배송지 정보</SubTitle>
           <InfoContents>
             <Subheading>수령인
-              <span>주문자</span>
+              <span>{paymentInfo.Recipient}</span>
             </Subheading>
             <Subheading>연락처
-              <span>주문자</span>
+              <span>0{paymentInfo.RecipientNumber}</span>
             </Subheading>
             <Subheading>배송지
-              <span>주문자</span>
+              <span>{`${paymentInfo.postcode} ${paymentInfo.defaultAdd} ${paymentInfo.detailAdd}`}</span>
             </Subheading>
           </InfoContents>
         </InfoSection>
@@ -51,21 +62,20 @@ export default function CompletedOrder() {
         <InfoSection>
           <SubTitle>주문 금액 상세</SubTitle>
           <InfoContents>
-            <SubheadingInline>주문 금액
-              <span>얼마얼마</span>
+            <SubheadingInline>결제 방식
+              <span>{paymentInfo.pay_method}</span>
             </SubheadingInline>
-            + 
-            <SubheadingInline>배송비
-              <span>얼마얼마</span>
-            </SubheadingInline>
-            =
             <SubheadingInline>총 주문 금액
-              <span>얼마</span>
+              <span>{paymentInfo.paid_amount} 원</span>
             </SubheadingInline>
           </InfoContents>
         </InfoSection>
-
        </CompletedContents>
+
+       <CartBtnGroup>
+          <CartBtn>홈으로 돌아가기</CartBtn>
+          <CartBtn className="keep">쇼핑 계속하기</CartBtn>
+        </CartBtnGroup>
       </Inner>
     </CompletedOrderBase>
   )
@@ -75,21 +85,18 @@ export default function CompletedOrder() {
 
 const CompletedOrderBase = styled.div`
 background-color: #ddd6d0;
-margin-top: 50px;
 `
 const Inner = styled.div`
 width: 1100px;
 margin: 0 auto;
-border: 1px solid black;
 height: 100vh;
+padding-top: 60px;
 `
 const CompletedContents = styled.div`
-border: 1px solid black;
 margin: 50px 0 0  50px;
 `
 
 const Title = styled.h1`
-border: 1px solid #fff;
 font-size: 17px;
 font-weight: 600;
 `
@@ -120,22 +127,21 @@ const Contents = styled.p`
 `
 
 const OrderNumber = styled.div`
-border: 1px solid red;
 display: flex;
 padding: 10px 15px;
 margin: 7px 0 30px 0;
 font-size: 14px;
+border-bottom: 1px solid #aaa;
 ${Subheading} {
   margin-right: 5px;
 }
 
 ${Contents} {
-  margin-right: 10px;
+  margin: 0 10px 15px 0;
 }
 `
 
 const InfoContents = styled.div`
-border: 1px solid orange;
 padding: 10px 15px;
 ${Subheading} {
   padding: 10px 0;
@@ -146,6 +152,35 @@ ${Subheading} {
   }
 `
 const InfoSection = styled.section`
-border: 1px solid #fff;
 margin-bottom: 20px;
+border-bottom: 1px solid #aaa;
+`
+
+
+const CartBtnGroup = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+`
+
+const CartBtn = styled.button`
+width: 30%;
+height: 50px;
+border: 1px solid #807974;
+margin: 20px 10px 0 0;
+font-size: 13px;
+background-color: #807974;
+color: #fff;
+&:hover {
+  background-color: #443f3c;
+}
+&.keep {
+  background-color: #c5bbb3;
+  border: 1px solid #c5bbb3;
+  color: #000;
+  &:hover {
+    border: 1px solid #c5bbb3;
+    background-color: transparent;
+  }
+}
 `

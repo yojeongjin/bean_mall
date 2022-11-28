@@ -20,3 +20,12 @@ exports.add = (req,res) => {
     
   })
 }
+
+exports.list = (req,res) => { 
+	const { imp_uid }  = req.query
+
+	conn.query("select * from mydb_mall.History where imp_uid = ?",[ imp_uid ],(err,row) => { 
+		if(err) throw err;
+		res.send(row)
+	})
+}
