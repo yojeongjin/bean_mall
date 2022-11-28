@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { ORDER_INFO } from './types'
 import { GET_ORDER_ITEM } from './types'
+import { ORDER_COMPLETION } from './types'
 
 export function orderInfo(body) {
   const res = axios.post('http://localhost:5000/api/order', body)
@@ -22,3 +23,12 @@ export function getOrderItem(idUser) {
   }
 }
 
+export function orderCompletion(body) {
+  const res = axios.post('http://localhost:5000/api/payment', body)
+  .then (res => res.data)
+  
+  return {
+    type: ORDER_COMPLETION,
+    payload: res
+  }
+}

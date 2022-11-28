@@ -20,3 +20,5 @@ export const ALL_PRODUCT = "ALL_PRODUCT"
 
 export const ORDER_INFO = "ORDER_INFO"
 export const GET_ORDER_ITEM = "GET_ORDER_ITEM"
+
+export const ORDER_COMPLETION = "ORDER_COMPLETION"

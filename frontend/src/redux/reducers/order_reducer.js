@@ -1,5 +1,6 @@
 import { ORDER_INFO } from "../actions/types";
 import { GET_ORDER_ITEM } from "../actions/types";
+import { ORDER_COMPLETION } from "../actions/types";
 
 export default function(state={}, action) {
   switch(action.type) {
@@ -13,6 +14,12 @@ export default function(state={}, action) {
       return {
         ...state, 
         orderItem: action.payload}
+      break
+
+    case ORDER_COMPLETION:
+      return {
+        ...state, 
+        ordered: action.payload}
       break
 
       default:

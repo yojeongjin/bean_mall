@@ -130,7 +130,7 @@ export default function ProductDetail(props) {
 
             <DetailPrice>
               <Title>가격</Title>
-              <Price>{getPrice}</Price>
+              <Price>{getPrice} 원</Price>
             </DetailPrice>
 
             <AddCartBtn type="button" onClick={clickCart}>카트에 추가하기</AddCartBtn>

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import icon from '../assets/icon.png'
-import { getUser } from '../redux/actions/join_actions'
+import icon from '../../assets/icon.png'
+import { deleteCart } from '../../redux/actions/cart_actions'
+import { getUser } from '../../redux/actions/join_actions'
+import { getOrderItem, orderCompletion } from '../../redux/actions/order_actions'
 
-import { getOrderItem } from '../redux/actions/order_actions'
+import Address from '../myinfos/Address'
 
-import Address from './myinfos/Address'
 
 export default function Order() {
   const dispatch = useDispatch()
@@ -119,12 +120,19 @@ export default function Order() {
   }
 
   const callback = (res) => {
-    const { success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount,status } = res
+    const { success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount } = res
     if (success) {
-      alert("결제 성공");
+      let body = {
+        imp_uid: imp_uid,
+        merchant_uid: merchant_uid,
+        pay_method: pay_method,
+        paid_amount: paid_amount
+      }
+      dispatch(orderCompletion(body))
+      dispatch(deleteCart(idUser))
+      alert("결제 성공")
     } else {
       alert(`결제 실패 : ${error_msg}`)
-      console.log(res)
     }
   }
 

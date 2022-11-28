@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 
-import { getCart } from '../redux/actions/cart_actions'
-import { patchCart } from '../redux/actions/cart_actions'
-import { deleteCart } from '../redux/actions/cart_actions'
-import { orderInfo } from '../redux/actions/order_actions'
+import { getCart } from '../../redux/actions/cart_actions'
+import { patchCart } from '../../redux/actions/cart_actions'
+import { deleteCart } from '../../redux/actions/cart_actions'
+import { orderInfo } from '../../redux/actions/order_actions'
 
 
 export default function CartOrder({match}) {
@@ -32,6 +32,7 @@ export default function CartOrder({match}) {
       calculateTotal(res.payload)
     })
   },[])
+
   
   useEffect(()=>{
     dispatch(getCart(idUser))
@@ -48,7 +49,6 @@ export default function CartOrder({match}) {
     }
     dispatch(orderInfo(body))
   }
-
 
   const change = (e, id) => {
     setCartQuantity(e.target.value)
@@ -81,13 +81,13 @@ export default function CartOrder({match}) {
       return total += cartData.CartPrice * cartData.CartQuantity
     })
     setTotal(total)
-    if (total < 30000) {
-      const totalPayment = total + 3000
-      setAllPayment(totalPayment)
-      setFee(3000)
-    } else {
-      setAllPayment(total)
-    }
+    // if (total < 30000) {
+    //   const totalPayment = total + 3000
+    //   setAllPayment(totalPayment)
+    //   setFee(3000)
+    // } else {
+    //   setAllPayment(total)
+    // }
   }
 
   const detailCarts =             

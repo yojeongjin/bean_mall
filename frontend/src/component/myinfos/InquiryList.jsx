@@ -16,7 +16,12 @@ export default function InquiryList() {
   useEffect(() => {
     dispatch(getList())
     .then((res) => {
-      const data = res.payload.data
+      const resDatas = res.payload.data
+      const data = resDatas.map(resData => {
+        resData.BoardDate = resData.BoardDate.split('T')[0]
+        console.log(resData)
+        return resData
+      })
       let sortData = data.sort((a,b) => {return b.idBoard - a.idBoard});
       setLists(sortData)
     })

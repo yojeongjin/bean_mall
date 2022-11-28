@@ -15,6 +15,7 @@ export default function OrderCheck() {
                 <CheckTr>
                   <CheckTh>상품정보</CheckTh>
                   <CheckTh>진행상태</CheckTh>
+                  <CheckTh className="date">주문일자</CheckTh>
                 </CheckTr>
               </CheckThead>
               <CheckTbody>
@@ -36,7 +37,7 @@ export default function OrderCheck() {
                   </CheckTd>
                   <CheckTd>
                     <div className="tdbtns">
-                      <button>구매평 작성</button>
+                      <button>주문 취소</button>
                     </div>
                     <div className="tdbtns">
                       <button>반품 / 교환</button>
@@ -97,6 +98,10 @@ const CheckTh = styled.th`
 padding: 10px 10px;
 text-align: left;
 font-size: 14px;
+
+&.date {
+  text-align: end;
+}
 `
 const CheckTbody = styled.tbody`
 display: table-row-group;
