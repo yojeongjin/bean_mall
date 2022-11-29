@@ -16,12 +16,9 @@ exports.add = (req,res) => {
       success: true,
       data: rows,
       code: 200,
-      msg:'.'
     })
   })
 }
-
-
 
 exports.list = (req,res) => { 
 	const { idUser }  = req.query
@@ -32,3 +29,12 @@ exports.list = (req,res) => {
 	})
 }
 
+exports.delete = (req,res) => { 
+	const { idUser }  = req.query
+	sql = "delete from mydb_mall.Order where idUser = ? ";
+	conn.query(sql,[ idUser ],(err,rows)=>{
+		if(err) throw err;
+
+		res.send({success:true, msg:'삭제되었습니다.'})
+	})
+}

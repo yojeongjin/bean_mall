@@ -52,7 +52,7 @@ export default function Header() {
     return () => {
       window.removeEventListener("scroll", updateScroll);
     }
-  })
+  },[countCartItem])
 
 	if (token === null) {
     return (

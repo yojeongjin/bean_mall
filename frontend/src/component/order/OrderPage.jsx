@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import icon from '../../assets/icon.png'
-import { deleteCart } from '../../redux/actions/join_actions'
+import { deleteAllCart } from '../../redux/actions/join_actions'
 import { getUser } from '../../redux/actions/join_actions'
-import { addHistory, getOrderItem, orderCompletion } from '../../redux/actions/order_actions'
+import { addHistory, deleteAllOrder, getOrderItem, orderCompletion } from '../../redux/actions/order_actions'
 
 import Address from '../myinfos/Address'
 
@@ -61,6 +61,9 @@ export default function Order({match}) {
         })
       }
     })
+    return () => {
+      dispatch(deleteAllOrder(idUser))
+    }
   },[])
 
   const paymentWithJquery = () => {
@@ -153,7 +156,7 @@ export default function Order({match}) {
       }
       dispatch(orderCompletion(body))
       dispatch(addHistory(history))
-      dispatch(deleteCart(idUser))
+      dispatch(deleteAllCart(idUser))
       alert("결제 성공")
 
       window.location.href = `${match.url}/completed`

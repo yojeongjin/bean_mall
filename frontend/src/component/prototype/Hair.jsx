@@ -26,7 +26,7 @@ export default function Hair() {
             <div className='exptitle'>{hairProduct.ProductsName}</div>
             <div className='expetc'>
               <span>{hairProduct.ProductsSize1} / </span>
-              <span> {hairProduct.ProductsPrice1}</span>
+              <span> {hairProduct.ProductsPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</span>
             </div>
           </ProductExp>
         </ProductList>

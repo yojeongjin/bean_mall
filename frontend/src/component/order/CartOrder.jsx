@@ -31,16 +31,9 @@ export default function CartOrder({match}) {
       setIsDatas(res.payload)
       calculateTotal(res.payload)
     })
-  },[])
-
-  
-  useEffect(()=>{
-    dispatch(getCart(idUser))
-    .then((res) => {
-      setIsDatas(res.payload)
-      calculateTotal(res.payload)
-    })
   },[cartQuantity,deleteId,dispatch,idUser])
+
+
 
   const goToOrder = () => {
     window.location.href = `${match.url}/order`

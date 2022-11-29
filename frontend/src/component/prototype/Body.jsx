@@ -26,7 +26,7 @@ export default function Body() {
             <div className='exptitle'>{bodyProduct.ProductsName}</div>
             <div className='expetc'>
               <span>{bodyProduct.ProductsSize1} / </span>
-              <span> {bodyProduct.ProductsPrice1}</span>
+              <span> {bodyProduct.ProductsPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</span>
             </div>
           </ProductExp>
         </ProductList>

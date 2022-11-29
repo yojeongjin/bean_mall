@@ -19,7 +19,7 @@ export default function Perfume() {
             <div className='exptitle'>{perfume.ProductsName}</div>
             <div className='expetc'>
               <span>{perfume.ProductsSize1} / </span>
-              <span> {perfume.ProductsPrice1}</span>
+              <span> {perfume.ProductsPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</span>
             </div>
           </ProductExp>
         </ProductList>

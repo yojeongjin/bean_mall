@@ -79,7 +79,7 @@ export default function Prototype() {
               <div className='exptitle'>{productsInfo.ProductsName}</div>
               <div className='expetc'>
                 <span>{productsInfo.ProductsSize1} / </span>
-                <span> {productsInfo.ProductsPrice1}</span>
+                <span> {productsInfo.ProductsPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</span>
               </div>
             </ProductExp>
           </ProductList>

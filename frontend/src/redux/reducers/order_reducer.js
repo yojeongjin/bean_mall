@@ -4,6 +4,7 @@ import { ORDER_COMPLETION } from "../actions/types";
 import { ADD_HISTORY } from "../actions/types";
 import { GET_PAYMENT_INFO } from "../actions/types";
 import { GET_HISTORY } from "../actions/types";
+import { DELETE_ALL_ORDER } from "../actions/types";
 
 export default function(state={}, action) {
   switch(action.type) {
@@ -42,6 +43,11 @@ export default function(state={}, action) {
         ...state, 
         historySuccess: action.payload}
       break
+    
+    case DELETE_ALL_ORDER:
+      return {...state}
+      break
+  
 
       default:
         return state;

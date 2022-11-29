@@ -17,6 +17,6 @@ exports.delete = (req,res) => {
 	conn.query(sql,[ idUser ],(err,rows)=>{
 		if(err) throw err;
 
-		res.send({data: rows, success:true, msg:'삭제되었습니다.'})
+		res.send({success:true, msg:'삭제되었습니다.'})
 	})
 }

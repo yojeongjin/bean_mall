@@ -27,7 +27,7 @@ export default function Skincare() {
             <div className='exptitle'>{skincareProduct.ProductsName}</div>
             <div className='expetc'>
               <span>{skincareProduct.ProductsSize1} / </span>
-              <span> {skincareProduct.ProductsPrice1}</span>
+              <span> {skincareProduct.ProductsPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</span>
             </div>
           </ProductExp>
         </ProductList>
