@@ -58,9 +58,9 @@ export function getPaymentInfo(imp_uid) {
   }
 }
 
-export function getHistory(imp_uid) {
+export function getHistory(idUser) {
   const res = axios.get('http://localhost:5000/api/history', {params: {
-    imp_uid: imp_uid
+    idUser: idUser
   }})
   .then (res => res.data)
   

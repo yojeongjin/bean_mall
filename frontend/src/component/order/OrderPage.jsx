@@ -120,6 +120,11 @@ export default function Order({match}) {
     IMP.request_pay(data, callback)
   }
 
+  let orderHistory = orderItems.map(orderItem => {
+    let historyItem = {...orderItem, ...orderItem.imp='333'}
+    return historyItem.imp = '333 '
+  })
+  console.log(orderHistory)
 
   const callback = (res) => {
     const { success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount } = res
@@ -140,6 +145,7 @@ export default function Order({match}) {
       let orderHistory = orderItems.map((orderItem) => {
         let historyItem = {...orderItem}
         historyItem.imp_uid = imp_uid
+        historyItem.merchant_uid = merchant_uid
         return historyItem
       })
       let history = {

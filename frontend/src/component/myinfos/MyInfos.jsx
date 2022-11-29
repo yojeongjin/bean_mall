@@ -317,7 +317,6 @@ font-weight: 400;
 `
 const MyInfoInner = styled.div`
 width: 1100px;
-height: 100vh;
 margin: 0 auto;
 position: relative;
 display: flex;

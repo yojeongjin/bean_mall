@@ -10,13 +10,18 @@ export default function CompletedOrder() {
   const paymentId = useSelector((state) => state.order.paymentToken)
 
   const [ paymentInfo, setPaymentInfo ] = useState([])
+  const [ orderDate, setOrderDate ] = useState('')
 
   useEffect(() => {
     dispatch(getPaymentInfo(paymentId))
     .then((res) => {
-      setPaymentInfo(res.payload[0])
+      const data = res.payload[0]
+      setPaymentInfo(data)
+      const date = data.createdAt.split('T')[0]
+      setOrderDate(date)
     })
   },[])
+
 
   return(
     <CompletedOrderBase>
@@ -26,7 +31,7 @@ export default function CompletedOrder() {
         
         <OrderNumber>
           <Subheading>주문 일자</Subheading>
-          <Contents>{paymentInfo.createdAt.split('T')[0]}</Contents>
+          <Contents>{orderDate}</Contents>
 
           <Subheading>주문 번호</Subheading>
           <Contents>{paymentInfo.merchant_uid}</Contents>
