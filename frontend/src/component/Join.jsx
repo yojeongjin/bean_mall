@@ -155,7 +155,6 @@ export default function Join ({match}) {
 }
 
 const SignUpBase = styled.div `
-background-color: #ddd6d0;
 font-family: 'AppleSDGothicNeo';
 `
 

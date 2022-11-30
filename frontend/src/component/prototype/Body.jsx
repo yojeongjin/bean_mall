@@ -51,7 +51,6 @@ export default function Body() {
 }
 
 const BodyBase = styled.section`
-background-color: #e1d8d1;
 `
 const Inner = styled.div`
 margin: 0 auto;

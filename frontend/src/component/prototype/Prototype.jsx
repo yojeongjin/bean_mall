@@ -152,7 +152,6 @@ export default function Prototype() {
 }
 
 const ProductBase = styled.section`
-background-color: #e1d8d1;
 margin-top: 50px;
 border-top: 1px solid black;
 `

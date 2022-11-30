@@ -22,7 +22,7 @@ export default function Footer() {
   )
 }
 
-const FooterBase = styled.section`
+const FooterBase = styled.footer`
 background-color: #766d67;
 font-family: 'AppleSDGothicNeo';
 font-size: 12px;
@@ -32,7 +32,6 @@ color: #bcb6b1;
 const FooterInner = styled.div`
 width: 1300px;
 height: 200px;
-position: relative;
 margin: 0 auto;
 `
 

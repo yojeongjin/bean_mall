@@ -418,7 +418,6 @@ export default function Order({match}) {
 
 
 const OrderBase = styled.div`
-background-color: #ddd6d0;
 font-family: 'AppleSDGothicNeo';
 margin-top: 50px;
 `

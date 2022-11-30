@@ -68,7 +68,6 @@ export default function FAQ() {
 
 
 const FAQBase = styled.div`
-background-color: #ddd6d0;
 font-family: 'AppleSDGothicNeo';
 `
 

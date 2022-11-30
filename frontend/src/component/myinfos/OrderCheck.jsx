@@ -112,7 +112,6 @@ export default function OrderCheck() {
 }
 
 const CheckBase = styled.div`
-background-color: #ddd6d0;
 `
 const CheckInner = styled.div`
 margin: 0 auto;
@@ -149,7 +148,7 @@ border-bottom: 1px solid #333;
 `
 
 const SpanSeciton = styled.div`
-font-size: 13px;
+font-size: 14px;
 text-align: end;
 `
 const TdWrap = styled.div`

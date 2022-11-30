@@ -11,7 +11,7 @@ export default function HomeVideo() {
 }
 
 
-const VideoBase = styled.div`
+const VideoBase = styled.section`
 width: 70%;
 width: 100%;
 height: 400px;

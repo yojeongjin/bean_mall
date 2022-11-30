@@ -18,21 +18,23 @@ function App() {
   return (
     <BrowserRouter>
     <GlobalStyles />
-    <Header />
-    <ScrollToTop />
-      <Switch>
-        <Route path="/kakaoLogin" component= {KakaoLogin} />
-        <Route path="/cart" component= {Cart} />
-        <Route path="/mypage" component= {Mypage} />
-        <Route path="/signup" component= {SignUp} />
-        <Route path="/signin" component= {SignIn} />
-        <Route path="/product/:idx" component= {ProductDetail} />
-        <Route path="/perfumeinfo" component= {PerfumeInfo} />
-        <Route path="/product" component= {Product} />
-        <Route path="/" exact component= {Home} />
-        <Route component={NotFound} />
-      </Switch>
-    <Footer />
+      <Header />
+      <ScrollToTop />
+        <main>
+          <Switch>
+            <Route path="/kakaoLogin" component= {KakaoLogin} />
+            <Route path="/cart" component= {Cart} />
+            <Route path="/mypage" component= {Mypage} />
+            <Route path="/signup" component= {SignUp} />
+            <Route path="/signin" component= {SignIn} />
+            <Route path="/product/:idx" component= {ProductDetail} />
+            <Route path="/perfumeinfo" component= {PerfumeInfo} />
+            <Route path="/product" component= {Product} />
+            <Route path="/" exact component= {Home} />
+            <Route component={NotFound} />
+          </Switch>
+        </main>
+      <Footer />
     </BrowserRouter>
   );
 }

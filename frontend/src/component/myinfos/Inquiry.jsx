@@ -75,7 +75,6 @@ export default function Inquiry() {
 }
 
 const InquiryBase = styled.div`
-background-color: #ddd6d0;
 font-family: 'AppleSDGothicNeo';
 `
 

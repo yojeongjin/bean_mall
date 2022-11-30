@@ -91,8 +91,7 @@ export default function PerfumeInfo() {
 }
 
 
-const PerfumeInfoBase = styled.div `
-background-color: #ddd6d0;
+const PerfumeInfoBase = styled.section`
 font-family: 'AppleSDGothicNeo';
 margin-top: 50px;
 border-top: 1px solid black;
@@ -103,7 +102,7 @@ width: 100%;
 height: 80px;
 `
 
-const PerfumeInner = styled.div `
+const PerfumeInner = styled.div`
 width: 1100px;
 height: 100%;
 margin: 0 auto;

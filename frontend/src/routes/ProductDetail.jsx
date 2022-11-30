@@ -152,7 +152,6 @@ export default function ProductDetail(props) {
 
 
 const DetailBase = styled.section`
-background-color: #e1d8d1;
 margin-top: 50px;
 height: 100vh;
 border-top: 1px solid black;

@@ -62,7 +62,7 @@ export default function CartOrder({match}) {
     dispatch(deleteCart(cartId))
         .then((res) => {
       alert(res.payload.msg)
-      setDeleteId(true)
+      setDeleteId(!deleteId)
     })
 
   }
@@ -205,7 +205,6 @@ if(token !== null) {
 
 
 const CartBase = styled.div`
-background-color: #ddd6d0;
 font-family: 'AppleSDGothicNeo';
 margin-top: 50px;
 font-size: 12px;

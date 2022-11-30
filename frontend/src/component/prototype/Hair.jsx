@@ -52,7 +52,6 @@ export default function Hair() {
 }
 
 const HairBase = styled.section`
-background-color: #e1d8d1;
 `
 const Inner = styled.div`
 margin: 0 auto;

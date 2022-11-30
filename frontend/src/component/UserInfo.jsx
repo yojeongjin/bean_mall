@@ -119,7 +119,6 @@ export default function UserInfo() {
 
 
 const UserInfoBase = styled.div`
-background-color: #ddd6d0;
 font-family: 'AppleSDGothicNeo';
 `
 

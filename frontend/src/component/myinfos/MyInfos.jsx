@@ -309,7 +309,6 @@ export default function MyInfos() {
 }
 
 const MyInfoBase = styled.div`
-background-color: #ddd6d0;
 margin-top: 50px;
 border-top: 1px solid black;
 font-family: 'AppleSDGothicNeo';

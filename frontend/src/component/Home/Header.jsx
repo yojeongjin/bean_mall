@@ -14,7 +14,6 @@ export default function Header() {
   const countCartItem = useSelector((state)=> state.cart.cart)
   const token = useSelector((state) => state.auth.token)
 
-
   const logout = () => {
     dispatch(logoutAuth({
       headers: { 'm-access-token': token }

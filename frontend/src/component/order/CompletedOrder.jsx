@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { getPaymentInfo } from '../../redux/actions/order_actions'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 export default function CompletedOrder() {
 
@@ -78,8 +79,12 @@ export default function CompletedOrder() {
        </CompletedContents>
 
        <CartBtnGroup>
-          <CartBtn>홈으로 돌아가기</CartBtn>
-          <CartBtn className="keep">쇼핑 계속하기</CartBtn>
+          <CartBtn type="button">
+            <Link to="/">홈으로 돌아가기</Link>
+          </CartBtn>
+          <CartBtn className="keep" type="button">
+            <Link to="/product">쇼핑 계속하기</Link>
+          </CartBtn>
         </CartBtnGroup>
       </Inner>
     </CompletedOrderBase>
@@ -89,7 +94,6 @@ export default function CompletedOrder() {
 
 
 const CompletedOrderBase = styled.div`
-background-color: #ddd6d0;
 `
 const Inner = styled.div`
 width: 1100px;
@@ -184,8 +188,7 @@ color: #fff;
   border: 1px solid #c5bbb3;
   color: #000;
   &:hover {
-    border: 1px solid #c5bbb3;
-    background-color: transparent;
+    color: #e6e6e6;
   }
 }
 `
