@@ -6,6 +6,7 @@ import { ADD_HISTORY } from './types'
 import { GET_PAYMENT_INFO } from './types'
 import { GET_HISTORY } from './types'
 import { DELETE_ALL_ORDER } from './types'
+import { DELETE_HISTORY } from './types'
 
 export function orderInfo(body) {
   const res = axios.post('http://localhost:5000/api/order', body)
@@ -79,6 +80,18 @@ export function deleteAllOrder(idUser) {
   
   return {
     type: DELETE_ALL_ORDER,
+    payload: res
+  }
+}
+
+export function deleteHistory(merchant_uid) {
+  const res = axios.delete('http://localhost:5000/api/history', {params: {
+    merchant_uid: merchant_uid
+  }})
+  .then (res => res.data)
+  
+  return {
+    type: DELETE_HISTORY,
     payload: res
   }
 }

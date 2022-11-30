@@ -5,6 +5,7 @@ import { ADD_HISTORY } from "../actions/types";
 import { GET_PAYMENT_INFO } from "../actions/types";
 import { GET_HISTORY } from "../actions/types";
 import { DELETE_ALL_ORDER } from "../actions/types";
+import { DELETE_HISTORY } from "../actions/types";
 
 
 export default function(state={}, action) {
@@ -49,6 +50,10 @@ export default function(state={}, action) {
       return {...state}
       break
 
+    case DELETE_HISTORY:
+      return {...state}
+      break
+  
       default:
         return state;
   }

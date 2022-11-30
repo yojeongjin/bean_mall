@@ -29,3 +29,12 @@ exports.list = (req,res) => {
 		res.send(row)
 	})
 }
+
+exports.delete = (req,res) => { 
+	const { merchant_uid }  = req.query
+  
+	conn.query("delete from mydb_mall.History where merchant_uid = ?",[ merchant_uid ],(err,row) => { 
+		if(err) throw err;
+		res.send(row)
+	})
+}

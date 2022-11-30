@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { getHistory } from '../../redux/actions/order_actions'
+import { deleteHistory, getHistory } from '../../redux/actions/order_actions'
 
 import Modal from '../Modal'
 
@@ -28,6 +28,10 @@ export default function OrderCheck() {
       setOrderNumbers(orderNum)
     })
   },[])
+
+  useEffect(() => {
+    dispatch(deleteHistory(historyNumber))
+  },[dispatch, orderStatus, historyNumber])
 
   const orderGroup = (data, key) => {
     return data.reduce((carry,el) => {
@@ -79,7 +83,7 @@ export default function OrderCheck() {
       )
     } return arr
   }
-
+  
   const history = 
   <CheckTable>
     {
@@ -89,7 +93,7 @@ export default function OrderCheck() {
             <CheckTr>
               <CheckTh style={{width: '40%'}}>상품정보</CheckTh>
               <CheckTh style={{width: '30%'}}>진행상태</CheckTh>
-              <CheckTh style={{width: '30%'}}>주문 번호 {orderNumber}</CheckTh>
+              <CheckTh style={{width: '30%', textAlign:'center'}}>주문 번호 {orderNumber}</CheckTh>
             </CheckTr>
           </CheckThead>
           <CheckTbody>
