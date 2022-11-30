@@ -13,10 +13,12 @@ import Header from './component/Home/Header';
 import KakaoLogin from './routes/KakaoLogin';
 import Footer from './component/Home/Footer';
 import ScrollToTop from './component/ScrollToTop';
+import AlwaysScrollTop from './routes/AlwaysScrollTop'
 
 function App() {
   return (
     <BrowserRouter>
+    <AlwaysScrollTop />
     <GlobalStyles />
       <Header />
       <ScrollToTop />

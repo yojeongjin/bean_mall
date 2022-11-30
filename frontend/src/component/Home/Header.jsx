@@ -61,34 +61,65 @@ export default function Header() {
       <Hamburger />
     )
   } else {
-    return (
-      <HeaderBase  isActive = {scroll <= 80} isHome = {window.location.pathname === '/'}>
-        <HeaderInner>
-            <HeaderMain>
-              <HeaderMainList>
-                <Link to="/"><MenuListSpan>Main</MenuListSpan></Link>
-                <Link to="/product"><MenuListSpan>Products</MenuListSpan></Link>
-                <Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link>
-              </HeaderMainList>
-            </HeaderMain>
-              <AnotherHeaderLogo>
-              <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
-            </AnotherHeaderLogo>
-            <HeaderMain>
-              <HeaderMainList>
-                <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
-                <MenuListSpan className="logout" onClick={logout} >Logout</MenuListSpan>
-                <Link to="/cart">
-                  <MenuListSpan>Cart
-                    <span className="cart-num">{countCartItem}</span>
-                  </MenuListSpan>
-
-                </Link>
-              </HeaderMainList>
-            </HeaderMain>
-        </HeaderInner>
-      </HeaderBase>
-    )
+    if (token === null) {
+      return (
+        <HeaderBase  isActive = {scroll <= 80} isHome = {window.location.pathname === '/'} >
+          <HeaderInner>
+              <HeaderMain>
+                <HeaderMainList>
+                  <Link to="/"><MenuListSpan>Main</MenuListSpan></Link>
+                  <Link to="/product"><MenuListSpan>Products</MenuListSpan></Link>
+                  <Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link>
+                </HeaderMainList>
+              </HeaderMain>
+                <AnotherHeaderLogo>
+                <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
+              </AnotherHeaderLogo>
+              <HeaderMain>
+                <HeaderMainList>
+                  <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
+                  <Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link>
+                  <Link to="/cart">
+                    <MenuListSpan>Cart
+                      <span className="cart-num">0</span>
+                    </MenuListSpan>
+    
+                  </Link>
+                </HeaderMainList>
+              </HeaderMain>
+          </HeaderInner>
+        </HeaderBase>
+      )
+    } else {
+      return (
+        <HeaderBase  isActive = {scroll <= 80}>
+          <HeaderInner>
+              <HeaderMain>
+                <HeaderMainList>
+                  <Link to="/"><MenuListSpan>Main</MenuListSpan></Link>
+                  <Link to="/product"><MenuListSpan>Products</MenuListSpan></Link>
+                  <Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link>
+                </HeaderMainList>
+              </HeaderMain>
+                <AnotherHeaderLogo>
+                <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
+              </AnotherHeaderLogo>
+              <HeaderMain>
+                <HeaderMainList>
+                  <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
+                  <MenuListSpan className="logout" onClick={logout} >Logout</MenuListSpan>
+                  <Link to="/cart">
+                    <MenuListSpan>Cart
+                      <span className="cart-num">{countCartItem}</span>
+                    </MenuListSpan>
+  
+                  </Link>
+                </HeaderMainList>
+              </HeaderMain>
+          </HeaderInner>
+        </HeaderBase>
+      )
+    }
   }
 }
 

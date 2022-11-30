@@ -25,6 +25,7 @@ const HeaderBase = styled.header`
 position: fixed;
 top: 30px;
 right: 60px;
+border: 1px solid #fff;
 `
 const HeaderBtn = styled.button`
 
