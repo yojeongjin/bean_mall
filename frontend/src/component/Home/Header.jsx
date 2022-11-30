@@ -5,6 +5,9 @@ import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutAuth } from '../../redux/actions/auth_actions'
 import { persistor } from '../../redux/create'
+import { useLocation } from 'react-router-dom/cjs/react-router-dom'
+
+import Hamburger from './Hamburger'
 
 
 
@@ -53,38 +56,13 @@ export default function Header() {
     }
   },[countCartItem])
 
-	if (token === null) {
+	if (useLocation().pathname === '/') {
     return (
-      <HeaderBase  isActive = {scroll <= 80} isHome = {window.location.pathname === '/'} >
-        <HeaderInner>
-            <HeaderMain>
-              <HeaderMainList>
-                <Link to="/"><MenuListSpan>Main</MenuListSpan></Link>
-                <Link to="/product"><MenuListSpan>Products</MenuListSpan></Link>
-                <Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link>
-              </HeaderMainList>
-            </HeaderMain>
-              <AnotherHeaderLogo>
-              <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
-            </AnotherHeaderLogo>
-            <HeaderMain>
-              <HeaderMainList>
-                <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
-                <Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link>
-                <Link to="/cart">
-                  <MenuListSpan>Cart
-                    <span className="cart-num">0</span>
-                  </MenuListSpan>
-  
-                </Link>
-              </HeaderMainList>
-            </HeaderMain>
-        </HeaderInner>
-      </HeaderBase>
+      <Hamburger />
     )
   } else {
     return (
-      <HeaderBase  isActive = {scroll <= 80}>
+      <HeaderBase  isActive = {scroll <= 80} isHome = {window.location.pathname === '/'}>
         <HeaderInner>
             <HeaderMain>
               <HeaderMainList>
@@ -121,8 +99,9 @@ top: 0;
 width: 100%;
 height: 50px;
 z-index: 9;
-background-color: ${(props) => props.isHome ? '#f6f5f0' : 'rgb(246, 245, 240, 0.5)'};
-opacity: ${(props) => props.isActive ? 1 : 0};
+background-color: #f6f5f080;
+display: ${(props) => props.isHome ? 'none' : 'show'};
+// opacity: ${(props) => props.isActive ? 1 : 0};
 transition: 0.5s ease;`
 
 const HeaderInner = styled.div`

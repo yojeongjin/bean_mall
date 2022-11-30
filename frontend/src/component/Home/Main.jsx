@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import mainbg from '../../assets/mainbgimg.png'
+import mainbg from '../../assets/ibgimg900.png'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 import { getCart, verifiedAuth } from '../../redux/actions/cart_actions'
@@ -43,9 +43,9 @@ export default function Main() {
 
 const MainSection = styled.section`
 background-image: url(${mainbg});
-margin-top: 50px;
-height: 700px;
+height: 800px;
 font-family: 'AppleSDGothicNeo';
+background-attachment: fixed;
 `
 
 const MainInner = styled.div`
@@ -56,7 +56,7 @@ position: relative;
 
 const MainContent = styled.div`
 position: absolute;
-top: 150px;
+top: 210px;
 left: 50px;
 width: 500px;
 height: 300px;
@@ -65,10 +65,10 @@ height: 300px;
 const MainTitle = styled.div`
 color: #c8c8c8;
 > h1 {
-  font-size: 27px;
+  font-size: 32px;
 }
 >h3 {
-  font-size: 15px;
+  font-size: 20px;
 }
 > p {
   font-size: 13px;
@@ -81,7 +81,7 @@ border: 1px solid #c8c8c8;
 font-size: 14px;
 color: #c8c8c8;
 margin-top: 35px;
-padding: 10px 13px;
+padding: 10px 13px 15px;
 &:hover {
   background-color: #6b645bc2;
   border: 1px solid #6b645bc2;
@@ -90,6 +90,7 @@ padding: 10px 13px;
   display: inline-block;
   font-size: 17px;
   font-weight: 700;
+  text-align: center;
   color: #c8c8c8;
   margin-left: 20px;
 }

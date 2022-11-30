@@ -147,7 +147,6 @@ export default function MyInfos() {
                 <span>주문내역</span>
               </MyInfoB>
               <MyInfoSpan onClick={goToCheck}>주문조회</MyInfoSpan>
-              <MyInfoSpan>교환 / 반품</MyInfoSpan>
   
               <MyInfoB>
                 <span>고객서비스</span>

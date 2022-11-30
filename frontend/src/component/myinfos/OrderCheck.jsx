@@ -110,7 +110,6 @@ export default function OrderCheck() {
               <CheckTd>
                 <div className="tdbtns">
                   <button onClick={()=>{modalOpen(orderNumber)}}>주문 취소</button>
-                  <button>반품 / 교환</button>
                   <button>배송 조회</button>
                 </div>
               </CheckTd>

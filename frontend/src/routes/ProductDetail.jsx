@@ -132,8 +132,11 @@ export default function ProductDetail(props) {
               <Title>가격</Title>
               <Price>{getPrice} 원</Price>
             </DetailPrice>
+                
+            <BtnWrap>
+              <AddCartBtn type="button" onClick={clickCart}>카트에 추가하기</AddCartBtn>
+            </BtnWrap>
 
-            <AddCartBtn type="button" onClick={clickCart}>카트에 추가하기</AddCartBtn>
           </Detail>
         </>
       ))
@@ -201,7 +204,7 @@ const DetailExp = styled.div`
 border-bottom: 1px solid black;
 margin: 20px auto;
 padding-bottom: 25px;
-font-size: 15px;
+font-size: 13px;
 color: #252525;
 `
 
@@ -238,15 +241,17 @@ margin-bottom: 10px;
 const DetailPrice = styled.div`
 `
 const Price = styled.span`
-font-size: 15px;
+font-size: 14px;
 `
 const AddCartBtn = styled.button`
-border: 1px solid #333;
+background-color: #c5bbb3;
+border: 1px solid #c5bbb3;
 padding: 13px 160px;
-margin-top: 30px ;
+margin-top: 40px ;
+font-size: 14px;
+
 &:hover {
-  background-color: #c5bbb3;
-  border: 1px solid #c5bbb3;
+  color: #fff;
 }
 `
 
@@ -267,6 +272,12 @@ const QuantityOption = styled.option`
 
 const Title = styled.h3`
 font-weight: 500;
-font-size: 15px;
+font-size: 14px;
 padding-bottom: 2px;
+`
+
+const BtnWrap = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
 `

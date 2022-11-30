@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
-import Com4 from './COM4t-Fine-Regular.ttf.woff'
+import Com4 from './COM4t-Fine-Regular.ttf'
+
 
 import AppleSDGothicNeoL from './AppleSDGothicNeoL.ttf'
 import AppleSDGothicNeoH from './AppleSDGothicNeoH.ttf'
