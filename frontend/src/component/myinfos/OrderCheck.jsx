@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { getHistory } from '../../redux/actions/order_actions'
 
+import Modal from '../Modal'
 
 export default function OrderCheck() {
 
@@ -11,6 +12,9 @@ export default function OrderCheck() {
 
   const [ orderHistories, setOrderHistories ] = useState([])
   const [ orderNumbers, setOrderNumbers ] = useState([])
+  const [ openModal, setOpenModal ] = useState(false)
+  const [ orderStatus, setOrderStatus ] = useState(true)
+  const [ historyNumber, setHistoryNumber ] = useState('')
 
   useEffect(() => {
     dispatch(getHistory(idUser))
@@ -36,6 +40,21 @@ export default function OrderCheck() {
       return carry
     },{})
   }
+
+  const modalOpen = (orderNumber) => {
+    setOpenModal(true)
+    setHistoryNumber(orderNumber)
+    console.log(orderNumber)
+  }
+
+  const modalClose = () => {
+    setOpenModal(false)
+  }
+
+  const isCancel = () => {
+    setOrderStatus(false)
+  }
+
 
   const orderList = (orderNumber) => {
     let arr = []
@@ -68,20 +87,25 @@ export default function OrderCheck() {
         <>
           <CheckThead>
             <CheckTr>
-              <CheckTh>상품정보</CheckTh>
-              <CheckTh>진행상태</CheckTh>
-              <SpanSeciton>주문 번호 {orderNumber}</SpanSeciton>
+              <CheckTh style={{width: '40%'}}>상품정보</CheckTh>
+              <CheckTh style={{width: '30%'}}>진행상태</CheckTh>
+              <CheckTh style={{width: '30%'}}>주문 번호 {orderNumber}</CheckTh>
             </CheckTr>
           </CheckThead>
           <CheckTbody>
             <CheckTr>
               {orderList(orderNumber)}
               <CheckTd>
-              <div className="tdstatus">상품준비중</div>
+                {
+                  historyNumber === orderNumber && orderStatus !== true ? 
+                  <div className="tdstatus">주문취소</div>
+                  :
+                  <div className="tdstatus">상품 준비중</div>
+                }
               </CheckTd>
               <CheckTd>
                 <div className="tdbtns">
-                  <button>주문 취소</button>
+                  <button onClick={()=>{modalOpen(orderNumber)}}>주문 취소</button>
                   <button>반품 / 교환</button>
                   <button>배송 조회</button>
                 </div>
@@ -107,6 +131,7 @@ export default function OrderCheck() {
           </CheckTableSection>
         </CheckContent>
       </CheckInner>
+    {openModal && <Modal isCancel={isCancel} close={modalClose} />}
     </CheckBase>
   )
 }
@@ -138,7 +163,7 @@ width: 100%;
 
 const CheckTable = styled.table`
 margin: 25px auto;
-width: 90%;
+width: 95%;
 `
 
 
@@ -147,10 +172,7 @@ display: table-header-group;
 border-bottom: 1px solid #333;
 `
 
-const SpanSeciton = styled.div`
-font-size: 14px;
-text-align: end;
-`
+
 const TdWrap = styled.div`
 display: ${(props) => props.isOrderNum ? 'block' : 'none'};
 margin-left: 10px;

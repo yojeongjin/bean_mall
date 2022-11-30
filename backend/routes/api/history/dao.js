@@ -24,7 +24,7 @@ exports.add = (req,res) => {
 exports.list = (req,res) => { 
 	const { idUser }  = req.query
 
-	conn.query("select * from mydb_mall.History where idUser = ?",[ idUser ],(err,row) => { 
+	conn.query("select * from mydb_mall.History where idUser = ? ",[ idUser ],(err,row) => { 
 		if(err) throw err;
 		res.send(row)
 	})

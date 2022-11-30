@@ -6,6 +6,7 @@ import { GET_PAYMENT_INFO } from "../actions/types";
 import { GET_HISTORY } from "../actions/types";
 import { DELETE_ALL_ORDER } from "../actions/types";
 
+
 export default function(state={}, action) {
   switch(action.type) {
     case ORDER_INFO:
@@ -47,7 +48,6 @@ export default function(state={}, action) {
     case DELETE_ALL_ORDER:
       return {...state}
       break
-  
 
       default:
         return state;
