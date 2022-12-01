@@ -7,6 +7,7 @@ import { addToCart } from '../redux/actions/cart_actions'
 export default function ProductDetail(props) {
   const idx = Number(props.match.params.idx)
   const idUser = useSelector((state) => state.cart.idUser)
+    const token = useSelector((state) => state.auth.token)
 
   const dispatch = useDispatch()
 
@@ -67,23 +68,27 @@ export default function ProductDetail(props) {
   },[value, quantity,ProductsPrice1,ProductsPrice2,ProductsSize1])
 
   const clickCart = () => {
-    let body = {
-      CartName: ProductsName,
-      CartImg: ProductsImg,
-      CartFilters: ProductsFilters,
-      CartSize: value,
-      CartPrice: price,
-      CartQuantity: quantity,
-      CartProductsId: idProducts,
-      idUser: idUser
+    if (token !==  null) {
+      let body = {
+        CartName: ProductsName,
+        CartImg: ProductsImg,
+        CartFilters: ProductsFilters,
+        CartSize: value,
+        CartPrice: price,
+        CartQuantity: quantity,
+        CartProductsId: idProducts,
+        idUser: idUser
+      }
+      dispatch(addToCart(body))
+      .then((res) => {
+        alert(res.payload.msg)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    } else {
+      window.location.href = '/signin'
     }
-    dispatch(addToCart(body))
-    .then((res) => {
-      alert(res.payload.msg)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
   }
 
 
@@ -142,7 +147,7 @@ export default function ProductDetail(props) {
       ))
     }
 </DetailContent>
-
+  
   return (
     <DetailBase>
       <DetailInner>
