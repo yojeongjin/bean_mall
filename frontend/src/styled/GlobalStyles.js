@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
 import Com4 from './COM4t-Fine-Regular.ttf'
-
+import Gortesque from './Grotesque_Light.ttf'
 
 import AppleSDGothicNeoL from './AppleSDGothicNeoL.ttf'
 import AppleSDGothicNeoH from './AppleSDGothicNeoH.ttf'
@@ -14,6 +14,12 @@ import Orelo from './Orelo-SemiWide-Light.ttf'
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
+
+  @font-face {
+    font-family: 'Gortesque';
+    src: local('Gortesque');
+    src: url(${Gortesque}) format('truetype');
+  }
 
   @font-face {
     font-family: 'Orelo';

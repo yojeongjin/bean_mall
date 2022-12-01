@@ -37,12 +37,13 @@ export default function PerfumeReport() {
 const BodyBase = styled.section`
 // background-color: #dfd8d4;
 background-color: #d6d9dc;
+font-family: 'AppleSDGothicNeo';
 `
 
 const BodyInner = styled.div`
 position: relative;
 width: 1300px;
-height: 700px;
+height: 750px;
 margin: 0 auto;
 display: flex;
 align-items: center;
@@ -50,21 +51,16 @@ justify-content: center;
 `
 
 const BodyImg = styled.div`
-// width: 450px;
-// height: 500px;
-width: 550px;
-height: 600px;
+flex: 1;
+margin-left: 125px;
 > img {
-  width: 100%;
-  height:100%;
+  width: 500px;
+  height: 650px;
 }
 `
 
 const BodyContent = styled.div`
-margin-left: 150px;
-width: 460px;
-height: 450px;
-font-family: 'AppleSDGothicNeo';
+flex: 1;
 color: #21262b;
 > span {
   font-size: 13px;
