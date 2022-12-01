@@ -54,7 +54,7 @@ export default function Header() {
     return () => {
       window.removeEventListener("scroll", updateScroll);
     }
-  },[countCartItem])
+  },[])
 
 	if (useLocation().pathname === '/') {
     return (

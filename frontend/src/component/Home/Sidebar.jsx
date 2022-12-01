@@ -1,12 +1,17 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutAuth } from '../../redux/actions/auth_actions'
+import { persistor } from '../../redux/create'
 
 export default function Sidebar(props) {
 
   const { setOpenSide } = props
 
   const outside = useRef()
+  const dispatch = useDispatch()
+  const token = useSelector((state) => state.auth.token)
 
   useEffect(() => {
     document.addEventListener('mousedown', handleOutside);
@@ -14,6 +19,19 @@ export default function Sidebar(props) {
       document.removeEventListener('mousedown', handleOutside);
     };
   })
+
+  const logout = () => {
+    dispatch(logoutAuth({
+      headers: { 'm-access-token': token }
+    }))
+    .then(res => {
+      if (res.payload.success === true) {
+        localStorage.removeItem('m-access-token', token)
+        persistor.purge()
+        window.location.replace('/')
+      }
+    })
+  }
 
   const handleOutside = (e) => {
     if(!outside.current.contains(e.target)) {
@@ -25,19 +43,31 @@ export default function Sidebar(props) {
     setOpenSide(false)
   }
 
-  return (
-    <SidebarBase ref={outside}>
-      <SidebarList>
-        <SidebarItem><Link to="/product">Products</Link></SidebarItem>
-        <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
-        <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
-        <SidebarItem><Link to="/cart">Cart</Link></SidebarItem>
-        <SidebarItem><Link to="/signin">Login</Link></SidebarItem>
-        
-        
-      </SidebarList>
-    </SidebarBase>
-  )
+  if (token === null) {
+    return (
+      <SidebarBase ref={outside}>
+        <SidebarList>
+          <SidebarItem><Link to="/product">Products</Link></SidebarItem>
+          <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
+          <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
+          <SidebarItem><Link to="/cart">Cart</Link></SidebarItem>
+          <SidebarItem><Link to="/signin">Login</Link></SidebarItem>
+        </SidebarList>
+      </SidebarBase>
+    )
+  } else  {
+    return (
+      <SidebarBase ref={outside}>
+        <SidebarList>
+          <SidebarItem><Link to="/product">Products</Link></SidebarItem>
+          <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
+          <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
+          <SidebarItem><Link to="/cart">Cart</Link></SidebarItem>
+          <SidebarItem onClick={logout} style={{cursor: 'pointer'}}>Logout</SidebarItem>
+        </SidebarList>
+      </SidebarBase>
+    )
+  }
 }
 
 
