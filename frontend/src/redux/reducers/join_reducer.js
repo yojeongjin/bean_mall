@@ -1,6 +1,5 @@
 import { JOIN_AUTH } from "../actions/types";
 import { GET_USER } from "../actions/types";
-import { DELETE_ALL_CART } from "../actions/types";
 
 export default function (state={}, action) {
   switch(action.type) {
@@ -17,10 +16,7 @@ export default function (state={}, action) {
         userInfo: action.payload}
         break
 
-      case DELETE_ALL_CART:
-        return {
-          ...state
-        }
+
 
       default:
         return state;

@@ -66,24 +66,21 @@ export default function Header() {
         <HeaderBase  isActive = {scroll <= 80} isHome = {window.location.pathname === '/'} >
           <HeaderInner>
               <HeaderMain>
-                <HeaderMainList>
-                  <Link to="/"><MenuListSpan>Main</MenuListSpan></Link>
-                  <Link to="/product"><MenuListSpan>Products</MenuListSpan></Link>
-                  <Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link>
-                </HeaderMainList>
+                <HeaderMainList><Link to="/"><MenuListSpan>Main</MenuListSpan></Link></HeaderMainList>
+                <HeaderMainList><Link to="/product"><MenuListSpan>Products</MenuListSpan></Link></HeaderMainList>
+                <HeaderMainList><Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link></HeaderMainList>
               </HeaderMain>
-                <AnotherHeaderLogo>
+              <AnotherHeaderLogo>
                 <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
               </AnotherHeaderLogo>
               <HeaderMain>
+                <HeaderMainList><Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link></HeaderMainList>
+                <HeaderMainList><Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link></HeaderMainList>
                 <HeaderMainList>
-                  <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
-                  <Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link>
                   <Link to="/cart">
                     <MenuListSpan>Cart
                       <span className="cart-num">0</span>
                     </MenuListSpan>
-    
                   </Link>
                 </HeaderMainList>
               </HeaderMain>
@@ -95,24 +92,21 @@ export default function Header() {
         <HeaderBase  isActive = {scroll <= 80}>
           <HeaderInner>
               <HeaderMain>
-                <HeaderMainList>
-                  <Link to="/"><MenuListSpan>Main</MenuListSpan></Link>
-                  <Link to="/product"><MenuListSpan>Products</MenuListSpan></Link>
-                  <Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link>
-                </HeaderMainList>
+                <HeaderMainList><Link to="/"><MenuListSpan>Main</MenuListSpan></Link></HeaderMainList>
+                <HeaderMainList><Link to="/product"><MenuListSpan>Products</MenuListSpan></Link></HeaderMainList>
+                <HeaderMainList><Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link></HeaderMainList>
               </HeaderMain>
-                <AnotherHeaderLogo>
+              <AnotherHeaderLogo>
                 <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
               </AnotherHeaderLogo>
               <HeaderMain>
+                <HeaderMainList><Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link></HeaderMainList>
+                <HeaderMainList><MenuListSpan className="logout" onClick={logout} >Logout</MenuListSpan></HeaderMainList>
                 <HeaderMainList>
-                  <Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link>
-                  <MenuListSpan className="logout" onClick={logout} >Logout</MenuListSpan>
                   <Link to="/cart">
                     <MenuListSpan>Cart
                       <span className="cart-num">{countCartItem}</span>
                     </MenuListSpan>
-  
                   </Link>
                 </HeaderMainList>
               </HeaderMain>

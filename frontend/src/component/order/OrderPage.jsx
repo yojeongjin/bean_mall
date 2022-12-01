@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import icon from '../../assets/icon.png'
-import { deleteAllCart } from '../../redux/actions/join_actions'
+import { deleteAllCart } from '../../redux/actions/cart_actions'
 import { getUser } from '../../redux/actions/join_actions'
 import { addHistory, deleteAllOrder, getOrderItem, orderCompletion } from '../../redux/actions/order_actions'
 

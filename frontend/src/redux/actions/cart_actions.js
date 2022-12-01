@@ -4,6 +4,7 @@ import { GET_CART } from './types'
 import { PATCH_CART } from './types'
 import { DELETE_CART } from './types'
 import { VERIFIED_AUTH } from './types'
+import { DELETE_ALL_CART } from './types'
 
 export function addToCart(body) {
   const res = axios.post('http://localhost:5000/api/cart', body)
@@ -36,7 +37,8 @@ export function patchCart(body) {
 
 export function deleteCart(idCart) {
   const res = axios.delete('http://localhost:5000/api/cart', {params:{
-    idCart: idCart
+    idCart: idCart,
+    idUser: null
   }})
   .then (res => res.data)
   return {
@@ -54,3 +56,14 @@ export function verifiedAuth(payload) {
   }
 }
 
+export function deleteAllCart(idUser) {
+  const res = axios.delete('http://localhost:5000/api/cart', {params:{
+    idCart: null,
+    idUser: idUser
+  }})
+  .then (res => res.data)
+  return {
+    type: DELETE_ALL_CART,
+    payload: res
+  }
+}

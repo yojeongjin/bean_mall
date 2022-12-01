@@ -10,13 +10,3 @@ exports.list = (req,res) => {
 		res.send({success:true,data:row})
 	})
 }
-
-exports.delete = (req,res) => { 
-	const { idUser }  = req.query
-	sql = "delete from mydb_mall.Cart where idUser = ? ";
-	conn.query(sql,[ idUser ],(err,rows)=>{
-		if(err) throw err;
-
-		res.send({success:true, msg:'삭제되었습니다.'})
-	})
-}
