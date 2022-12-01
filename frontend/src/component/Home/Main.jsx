@@ -23,18 +23,20 @@ export default function Main() {
     <MainSection>
       <MainInner>
         <MainContent>
-          <MainTitle>
-            <h1>In Two Minds</h1>
-            <h3>Combination Skin Care</h3>
-            <p>Introducing a new range to restore equillibrium and nourish the surface,<br></br>
-            designed specifically for combination skin.
-            </p>
-          </MainTitle>
-          <Link to="/product">
-            <MainBtn>전체 상품보기
-            <span> → </span>
-            </MainBtn>
-          </Link>
+          <MainWrap>
+            <MainTitle>
+              <h1>In Two Minds</h1>
+              <h3>Combination Skin Care</h3>
+              <p>Introducing a new range to restore equillibrium and nourish the surface,<br></br>
+              designed specifically for combination skin.
+              </p>
+            </MainTitle>
+            <Link to="/product">
+              <MainBtn>전체 상품보기
+              <span> → </span>
+              </MainBtn>
+            </Link>
+          </MainWrap>
         </MainContent>
       </MainInner>
     </MainSection>
@@ -50,16 +52,19 @@ background-attachment: fixed;
 
 const MainInner = styled.div`
 width: 1100px;
+height: 800px;
 margin: 0 auto;
 position: relative;
 `
 
 const MainContent = styled.div`
+height: 100%;
+`
+
+const MainWrap = styled.div`
 position: absolute;
+position: sticky;
 top: 210px;
-left: 50px;
-width: 500px;
-height: 300px;
 `
 
 const MainTitle = styled.div`
@@ -95,3 +100,4 @@ padding: 10px 13px 15px;
   margin-left: 20px;
 }
 `
+

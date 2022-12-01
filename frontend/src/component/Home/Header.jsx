@@ -132,7 +132,7 @@ height: 50px;
 z-index: 9;
 background-color: #f6f5f080;
 display: ${(props) => props.isHome ? 'none' : 'show'};
-// opacity: ${(props) => props.isActive ? 1 : 0};
+opacity: ${(props) => props.isActive ? 1 : 0};
 transition: 0.5s ease;`
 
 const HeaderInner = styled.div`

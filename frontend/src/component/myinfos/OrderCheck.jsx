@@ -124,19 +124,36 @@ export default function OrderCheck() {
 
 
 
-  return (
-    <CheckBase>
-      <CheckInner>
-        <CheckContent>
-          <CheckTitle>최근 주문 내역</CheckTitle>
-          <CheckTableSection>
-            {history}
-          </CheckTableSection>
-        </CheckContent>
-      </CheckInner>
-    {openModal && <Modal isCancel={isCancel} close={modalClose} />}
+  if(orderHistories.length === 0) {
+    return (
+      <CheckBase>
+        <CheckInner>
+          <CheckContent>
+            <CheckTitle>최근 주문 내역</CheckTitle>
+            <CheckTableSection>
+              <CheckTable style={{fontSize: '14px', textAlign: 'center'}}>
+                최근 주문 내역이 없습니다.
+              </CheckTable>
+            </CheckTableSection>
+          </CheckContent>
+        </CheckInner>
+      </CheckBase>
+    )
+  } else {
+    return (
+      <CheckBase>
+        <CheckInner>
+          <CheckContent>
+            <CheckTitle>최근 주문 내역</CheckTitle>
+            <CheckTableSection>
+              {history}
+            </CheckTableSection>
+          </CheckContent>
+        </CheckInner>
+      {openModal && <Modal isCancel={isCancel} close={modalClose} />}
     </CheckBase>
-  )
+    )
+  }
 }
 
 const CheckBase = styled.div`
