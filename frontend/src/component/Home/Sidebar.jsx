@@ -6,12 +6,12 @@ import { logoutAuth } from '../../redux/actions/auth_actions'
 import { persistor } from '../../redux/create'
 
 export default function Sidebar(props) {
-
   const { setOpenSide } = props
 
   const outside = useRef()
   const dispatch = useDispatch()
   const token = useSelector((state) => state.auth.token)
+  const countCartItem = useSelector((state)=> state.cart.cart)
 
   useEffect(() => {
     document.addEventListener('mousedown', handleOutside);
@@ -50,7 +50,11 @@ export default function Sidebar(props) {
           <SidebarItem><Link to="/product">Products</Link></SidebarItem>
           <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
           <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
-          <SidebarItem><Link to="/cart">Cart</Link></SidebarItem>
+          <SidebarItem>
+            <Link to="/cart">Cart
+              <CartNum className="cart-num">0</CartNum>
+            </Link>
+          </SidebarItem>
           <SidebarItem><Link to="/signin">Login</Link></SidebarItem>
         </SidebarList>
       </SidebarBase>
@@ -62,7 +66,11 @@ export default function Sidebar(props) {
           <SidebarItem><Link to="/product">Products</Link></SidebarItem>
           <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
           <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
-          <SidebarItem><Link to="/cart">Cart</Link></SidebarItem>
+          <SidebarItem>
+            <Link to="/cart">Cart
+              <CartNum className="cart-num">{countCartItem}</CartNum>
+            </Link>
+          </SidebarItem>
           <SidebarItem onClick={logout} style={{cursor: 'pointer'}}>Logout</SidebarItem>
         </SidebarList>
       </SidebarBase>
@@ -76,10 +84,9 @@ position: fixed;
 top: 0;
 right: 20px;
 width: 125px;
-height: 100%;
+height: 30%;
 margin-top: 90px;
 font-family: 'AppleSDGothicNeo';
-transition: 0.5s ease;
 z-index: 5;
 `
 
@@ -91,4 +98,21 @@ color: #aaa;
 
 const SidebarItem = styled.li`
 padding: 10px 0;
+position: relative;
+`
+
+const CartNum = styled.span`
+position: absolute;
+top: 5px;
+display: inline-block;
+width: 16px;
+height: 16px;
+line-height: 16px;
+margin-left: 2px;
+padding-right: 1px;
+font-size: 11px;
+text-align: center;
+background: #fff;
+color: #000;
+border-radius: 50%;
 `
