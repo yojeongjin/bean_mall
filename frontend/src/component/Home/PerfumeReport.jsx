@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
 import bodyimg from '../../assets/perfumebgbg.png'
 
-
 export default function PerfumeReport() {
   return (
     <BodyBase>
@@ -41,20 +40,20 @@ background-color: #d6d9dc;
 `
 
 const BodyInner = styled.div`
-width: 1300px;
-height: 600px;
 position: relative;
+width: 1300px;
+height: 700px;
 margin: 0 auto;
 display: flex;
 align-items: center;
 justify-content: center;
 `
 
-const BodyImg = styled.div `
-width: 450px;
-height: 500px;
-// width: 550px;
-// height: 600px;
+const BodyImg = styled.div`
+// width: 450px;
+// height: 500px;
+width: 550px;
+height: 600px;
 > img {
   width: 100%;
   height:100%;
@@ -105,15 +104,3 @@ padding: 12px 12px;
   margin-left: 20px;
 }
 `
-
-// const BodyFloat = styled.div`
-// position: absolute;
-// bottom: 0px;
-// left: 380px;
-// width: 350px;
-// height: 250px;
-// > img {
-//   width: 100%;
-//   height:100%;
-// }
-// `

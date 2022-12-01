@@ -69,6 +69,7 @@ export default function Report() {
 
 const ReportSection = styled.section`
 background-color: #fdfdf3;
+
 `
 
 
@@ -76,8 +77,7 @@ const Inner = styled.div`
 width: 1300px;
 height: 746px;
 margin: 0 auto;
-position: relative;
-`
+position: relative;`
 
 const ReportIntro = styled.div`
 padding-top: 100px;

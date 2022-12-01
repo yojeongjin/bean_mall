@@ -59,12 +59,13 @@ position: relative;
 
 const MainContent = styled.div`
 height: 100%;
+margin-left: 80px;
 `
 
 const MainWrap = styled.div`
 position: absolute;
 position: sticky;
-top: 210px;
+top: 190px;
 `
 
 const MainTitle = styled.div`
@@ -100,4 +101,3 @@ padding: 10px 13px 15px;
   margin-left: 20px;
 }
 `
-

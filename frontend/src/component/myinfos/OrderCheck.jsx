@@ -252,6 +252,7 @@ position: relative;
   color: #333;
 }
 >.tdbtns {
+  width: 100%;
   position: absolute;
   top: 0;
   right: 0;

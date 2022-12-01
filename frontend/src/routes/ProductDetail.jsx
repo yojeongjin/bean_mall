@@ -102,12 +102,18 @@ export default function ProductDetail(props) {
           </DetailImg>
           <Detail>
             <DetailTitle> {detailData.ProductsName} </DetailTitle>
+
+            <DetailPrice>
+              {/* <Title>가격</Title> */}
+              <Price>{getPrice} 원</Price>
+            </DetailPrice>
+
             <DetailExp>
               {detailData.ProductsDes}
             </DetailExp>
             <DetailInfo>
-              <Title>사용감</Title>
-              <span>{detailData.ProductsUsing}</span>
+              <Title>특징</Title>
+              <span style={{color: 'black'}}>{detailData.ProductsUsing}</span>
             </DetailInfo>
 
             <DetailInfo>
@@ -133,10 +139,7 @@ export default function ProductDetail(props) {
               </QuantitySelect>
             </Quantity>
 
-            <DetailPrice>
-              <Title>가격</Title>
-              <Price>{getPrice} 원</Price>
-            </DetailPrice>
+
                 
             <BtnWrap>
               <AddCartBtn type="button" onClick={clickCart}>카트에 추가하기</AddCartBtn>
@@ -183,32 +186,32 @@ margin-top: 70px;
 display: flex;
 `
 const DetailImg = styled.div`
+// background-color: #c5bbb3;
 flex: 1;
 display: flex;
 justify-content: center;
 align-items: center;
-margin-right: 30px;
+margin-right: 50px;
 > img {
   width: 35%;
-  height: 100%;
+  height: 95%;
 }
 `
 
 const Detail = styled.div`
 flex: 1;
-margin-top: 20px;
 `
 
 const DetailTitle = styled.div`
-font-weight: 500;
+
 font-size: 35px;
-margin-bottom: 10px;
+margin: 20px 0 10px 0;
 `
 
 const DetailExp = styled.div`
-border-bottom: 1px solid black;
+border-top: 2px solid black;
 margin: 20px auto;
-padding-bottom: 25px;
+padding: 25px 0;
 font-size: 13px;
 color: #252525;
 `
@@ -246,9 +249,11 @@ margin-bottom: 10px;
 const DetailPrice = styled.div`
 `
 const Price = styled.span`
+padding: 0 5px;
 font-size: 14px;
 `
 const AddCartBtn = styled.button`
+width: 100%;
 background-color: #c5bbb3;
 border: 1px solid #c5bbb3;
 padding: 13px 160px;
@@ -278,7 +283,7 @@ const QuantityOption = styled.option`
 const Title = styled.h3`
 font-weight: 500;
 font-size: 14px;
-padding-bottom: 2px;
+padding-bottom: 10px;
 `
 
 const BtnWrap = styled.div`
