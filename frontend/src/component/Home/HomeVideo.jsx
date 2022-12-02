@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import logo from '../../assets/로고.png'
+import logo from '../../assets/aboutlogogo.webp'
 
 
 export default function HomeVideo() {
@@ -13,6 +13,7 @@ export default function HomeVideo() {
       <Link to="/about">
         <AboutContent>
           <AboutLogo>
+            <LogoRotate></LogoRotate>
             <img src={logo} alt="로고" /> 
           </AboutLogo>
           <AboutDes>
@@ -52,7 +53,33 @@ flex-direction: column;
 `
 
 const AboutLogo = styled.div`
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
 
+>img {
+  padding-top: 7px;
+}
+`
+
+const LogoRotate = styled.div`
+position: absolute;
+border: 1px solid #fff;
+width: 100px;
+height: 100px;
+border-radius: 100%;
+&:hover {
+  border: 1px dashed #fff;
+  animation: rotate_image 5s linear infinite;
+  transform-origin: 50% 50%;
+  
+  @keyframes rotate_image{
+    100% {
+        transform: rotate(360deg);
+      }
+}
 `
 
 const AboutDes = styled.div`

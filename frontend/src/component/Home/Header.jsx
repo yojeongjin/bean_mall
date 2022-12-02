@@ -66,7 +66,7 @@ export default function Header() {
         <HeaderBase  isActive = {scroll <= 80} isHome = {window.location.pathname === '/'} >
           <HeaderInner>
               <HeaderMain>
-                <HeaderMainList><Link to="/"><MenuListSpan>Main</MenuListSpan></Link></HeaderMainList>
+                <HeaderMainList><Link to="/about"><MenuListSpan>About</MenuListSpan></Link></HeaderMainList>
                 <HeaderMainList><Link to="/product"><MenuListSpan>Products</MenuListSpan></Link></HeaderMainList>
                 <HeaderMainList><Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link></HeaderMainList>
               </HeaderMain>

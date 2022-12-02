@@ -113,7 +113,7 @@ export default function ProductDetail(props) {
             </DetailExp>
             <DetailInfo>
               <Title>특징</Title>
-              <span style={{color: 'black'}}>{detailData.ProductsUsing}</span>
+              <span>{detailData.ProductsUsing}</span>
             </DetailInfo>
 
             <DetailInfo>
@@ -214,15 +214,17 @@ margin: 20px auto;
 padding: 25px 0;
 font-size: 13px;
 color: #252525;
+line-height: 20px;
 `
 
 const DetailInfo = styled.div`
 margin-bottom: 10px;
+border-bottom: 1px solid #aaa;
 > span {
   font-size: 13px;
-  color: #333;
+  color: #666;
   display: block;
-  padding-bottom: 5px;
+  padding-bottom: 14px;
 }
 `
 
@@ -254,8 +256,9 @@ font-size: 14px;
 `
 const AddCartBtn = styled.button`
 width: 100%;
-background-color: #c5bbb3;
-border: 1px solid #c5bbb3;
+background-color: #333;
+border: 1px solid #333;
+color: #fff;
 padding: 13px 160px;
 margin-top: 40px ;
 font-size: 14px;
@@ -281,7 +284,6 @@ const QuantityOption = styled.option`
 `
 
 const Title = styled.h3`
-font-weight: 500;
 font-size: 14px;
 padding-bottom: 10px;
 `

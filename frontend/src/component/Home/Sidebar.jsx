@@ -49,6 +49,7 @@ export default function Sidebar(props) {
         <SidebarList>
           <SidebarItem><Link to="/product">Products</Link></SidebarItem>
           <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
+          <SidebarItem><Link to="/about">About</Link></SidebarItem>
           <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
           <SidebarItem>
             <Link to="/cart">Cart
@@ -65,6 +66,7 @@ export default function Sidebar(props) {
         <SidebarList>
           <SidebarItem><Link to="/product">Products</Link></SidebarItem>
           <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
+          <SidebarItem><Link to="/about">About</Link></SidebarItem>
           <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
           <SidebarItem>
             <Link to="/cart">Cart

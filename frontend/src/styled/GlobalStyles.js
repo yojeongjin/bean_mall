@@ -100,6 +100,8 @@ const GlobalStyles = createGlobalStyle`
   main {
     min-height: 140vh; 
     background-color: #e1d8d1;
+    // background-color: #fffef2;
+    
   }
 
   a {

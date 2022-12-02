@@ -74,13 +74,13 @@ export default function CartOrder({match}) {
       return total += cartData.CartPrice * cartData.CartQuantity
     })
     setTotal(total)
-    // if (total < 30000) {
-    //   const totalPayment = total + 3000
-    //   setAllPayment(totalPayment)
-    //   setFee(3000)
-    // } else {
-    //   setAllPayment(total)
-    // }
+    if (total < 30000) {
+      const totalPayment = total + 3000
+      setAllPayment(totalPayment)
+      setFee(3000)
+    } else {
+      setAllPayment(total)
+    }
   }
 
   const detailCarts =             
