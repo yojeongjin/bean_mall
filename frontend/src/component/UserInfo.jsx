@@ -137,10 +137,10 @@ text-align: center;
 `
 
 const UserInfoTitle = styled.h2`
+position: relative;
 font-size: 14px;
 color: #333;
 text-align: center;
-position: relative;
 top: -10px;
 background: #ddd6d0;
 display: inline-block;

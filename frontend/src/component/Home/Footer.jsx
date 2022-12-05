@@ -1,25 +1,48 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 
 export default function Footer() {
   return (
-    <FooterBase>
-      <FooterInner>
-        <FooterContent>
-          <FooterCopyRight>
-            <h1>© 2022 Theine. All rights reserved.</h1>
-          </FooterCopyRight>
-          <FooterNav>
-            <FooterList>
-              <FooterItem>About</FooterItem>
-              <FooterItem>GitHub</FooterItem>
-              <FooterItem>Blog</FooterItem>
-            </FooterList>
-          </FooterNav>
-        </FooterContent>
-      </FooterInner>
-    </FooterBase>
+    <>
+      <Pc>
+        <FooterBase>
+          <FooterInner>
+            <FooterContent>
+              <FooterCopyRight>
+                <h1>© 2022 Theine. All rights reserved.</h1>
+              </FooterCopyRight>
+              <FooterNav>
+                <FooterList>
+                  <FooterItem>About</FooterItem>
+                  <FooterItem>GitHub</FooterItem>
+                  <FooterItem>Blog</FooterItem>
+                </FooterList>
+              </FooterNav>
+            </FooterContent>
+          </FooterInner>
+        </FooterBase>
+      </Pc>
+      <Mobile>
+        <FooterBase style={{fontSize:"13px"}}>
+          <FooterInner style={{width:"380px"}}>
+            <FooterContent style={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", paddingTop: "15px"}}>
+              <FooterNav>
+                <FooterList>
+                  <FooterItem>About</FooterItem>
+                  <FooterItem>GitHub</FooterItem>
+                  <FooterItem>Blog</FooterItem>
+                </FooterList>
+              </FooterNav>
+              <FooterCopyRight style={{marginTop: "10px"}}>
+                <h1>© 2022 Theine. All rights reserved.</h1>
+              </FooterCopyRight>
+            </FooterContent>
+          </FooterInner>
+        </FooterBase>
+      </Mobile>
+    </>
   )
 }
 

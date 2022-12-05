@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import hamburger from '../../assets/hamburger.png'
 import Sidebar from './Sidebar'
+import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 export default function Hamburger() {
   const [ openSide, setOpenSide ] = useState(false)
@@ -11,12 +12,24 @@ export default function Hamburger() {
   }
 
   return (
-    <HeaderBase>
-      <HeaderBtn type="button" onClick={() => {toggleSide()}}>
-        <img src={hamburger} alt="아이콘" />
-      </HeaderBtn>
-      { openSide && <Sidebar setOpenSide={setOpenSide} />}
-    </HeaderBase>
+    <>
+      <Pc>
+        <HeaderBase>
+          <HeaderBtn type="button" onClick={() => {toggleSide()}}>
+            <img src={hamburger} alt="아이콘" />
+          </HeaderBtn>
+          { openSide && <Sidebar setOpenSide={setOpenSide} />}
+        </HeaderBase>
+      </Pc>
+      <Mobile>
+        <HeaderBase>
+          <HeaderBtn type="button" onClick={() => {toggleSide()}}>
+            <img src={hamburger} alt="아이콘" />
+          </HeaderBtn>
+          { openSide && <Sidebar setOpenSide={setOpenSide} />}
+        </HeaderBase>
+      </Mobile>
+    </>
   )
 }
 

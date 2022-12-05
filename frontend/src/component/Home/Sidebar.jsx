@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutAuth } from '../../redux/actions/auth_actions'
 import { persistor } from '../../redux/create'
+import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 export default function Sidebar(props) {
   const { setOpenSide } = props
@@ -45,37 +46,78 @@ export default function Sidebar(props) {
 
   if (token === null) {
     return (
-      <SidebarBase ref={outside}>
-        <SidebarList>
-          <SidebarItem><Link to="/product">Products</Link></SidebarItem>
-          <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
-          <SidebarItem><Link to="/about">About</Link></SidebarItem>
-          <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
-          <SidebarItem>
-            <Link to="/cart">Cart
-              <CartNum className="cart-num">0</CartNum>
-            </Link>
-          </SidebarItem>
-          <SidebarItem><Link to="/signin">Login</Link></SidebarItem>
-        </SidebarList>
-      </SidebarBase>
+      <>
+        <Pc>
+          <SidebarBase ref={outside}>
+            <SidebarList>
+              <SidebarItem><Link to="/product">Products</Link></SidebarItem>
+              <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
+              <SidebarItem><Link to="/about">About</Link></SidebarItem>
+              <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
+              <SidebarItem>
+                <Link to="/cart">Cart
+                  <CartNum className="cart-num">0</CartNum>
+                </Link>
+              </SidebarItem>
+              <SidebarItem><Link to="/signin">Login</Link></SidebarItem>
+            </SidebarList>
+          </SidebarBase>  
+        </Pc>
+        <Mobile>
+          <SidebarBase ref={outside}>
+            <MobileList>
+              <SidebarItem><Link to="/product">Products</Link></SidebarItem>
+              <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
+              <SidebarItem><Link to="/about">About</Link></SidebarItem>
+              <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
+              <SidebarItem>
+                <Link to="/cart">Cart
+                  <CartNum className="cart-num">0</CartNum>
+                </Link>
+              </SidebarItem>
+              <SidebarItem><Link to="/signin">Login</Link></SidebarItem>
+            </MobileList>
+          </SidebarBase>
+        </Mobile>
+      </>
+
     )
   } else  {
     return (
-      <SidebarBase ref={outside}>
-        <SidebarList>
-          <SidebarItem><Link to="/product">Products</Link></SidebarItem>
-          <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
-          <SidebarItem><Link to="/about">About</Link></SidebarItem>
-          <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
-          <SidebarItem>
-            <Link to="/cart">Cart
-              <CartNum className="cart-num">{countCartItem}</CartNum>
-            </Link>
-          </SidebarItem>
-          <SidebarItem onClick={logout} style={{cursor: 'pointer'}}>Logout</SidebarItem>
-        </SidebarList>
-      </SidebarBase>
+      <>
+        <Pc>
+          <SidebarBase ref={outside}>
+            <SidebarList>
+              <SidebarItem><Link to="/product">Products</Link></SidebarItem>
+              <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
+              <SidebarItem><Link to="/about">About</Link></SidebarItem>
+              <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
+              <SidebarItem>
+                <Link to="/cart">Cart
+                  <CartNum className="cart-num">{countCartItem}</CartNum>
+                </Link>
+              </SidebarItem>
+              <SidebarItem onClick={logout} style={{cursor: 'pointer'}}>Logout</SidebarItem>
+            </SidebarList>
+          </SidebarBase>
+        </Pc>
+        <Mobile>
+          <SidebarBase ref={outside}>
+            <MobileList>
+              <SidebarItem><Link to="/product">Products</Link></SidebarItem>
+              <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
+              <SidebarItem><Link to="/about">About</Link></SidebarItem>
+              <SidebarItem><Link to="/mypage">My Page</Link></SidebarItem>
+              <SidebarItem>
+                <Link to="/cart">Cart
+                  <CartNum className="cart-num">{countCartItem}</CartNum>
+                </Link>
+              </SidebarItem>
+              <SidebarItem onClick={logout} style={{cursor: 'pointer'}}>Logout</SidebarItem>
+            </MobileList>
+          </SidebarBase>
+        </Mobile>
+      </>
     )
   }
 }
@@ -97,6 +139,13 @@ text-align: center;
 font-size: 14px;
 color: #aaa;
 `
+
+const MobileList = styled.ul`
+text-align: center;
+font-size: 14px;
+color: black;
+`
+
 
 const SidebarItem = styled.li`
 padding: 10px 0;

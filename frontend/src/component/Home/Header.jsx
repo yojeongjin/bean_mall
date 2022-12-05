@@ -7,11 +7,14 @@ import { logoutAuth } from '../../redux/actions/auth_actions'
 import { persistor } from '../../redux/create'
 import { useLocation } from 'react-router-dom/cjs/react-router-dom'
 
+import { Mobile, Pc } from '../../hooks/MediaQuery'
+
 import Hamburger from './Hamburger'
 
 
 
 export default function Header() {
+
   const [scroll, setScroll] = useState(0)
   const dispatch = useDispatch()
   const countCartItem = useSelector((state)=> state.cart.cart)
@@ -56,6 +59,7 @@ export default function Header() {
     }
   },[])
 
+  
 	if (useLocation().pathname === '/') {
     return (
       <Hamburger />
@@ -63,29 +67,38 @@ export default function Header() {
   } else {
     if (token === null) {
       return (
-        <HeaderBase  isActive = {scroll <= 80} isHome = {window.location.pathname === '/'} >
-          <HeaderInner>
-              <HeaderMain>
-                <HeaderMainList><Link to="/about"><MenuListSpan>About</MenuListSpan></Link></HeaderMainList>
-                <HeaderMainList><Link to="/product"><MenuListSpan>Products</MenuListSpan></Link></HeaderMainList>
-                <HeaderMainList><Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link></HeaderMainList>
-              </HeaderMain>
-              <AnotherHeaderLogo>
-                <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
-              </AnotherHeaderLogo>
-              <HeaderMain>
-                <HeaderMainList><Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link></HeaderMainList>
-                <HeaderMainList><Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link></HeaderMainList>
-                <HeaderMainList>
-                  <Link to="/cart">
-                    <MenuListSpan>Cart
-                      <span className="cart-num">0</span>
-                    </MenuListSpan>
-                  </Link>
-                </HeaderMainList>
-              </HeaderMain>
-          </HeaderInner>
-        </HeaderBase>
+        <>
+          <Pc>
+            <HeaderBase  isActive = {scroll <= 80} isHome = {window.location.pathname === '/'} >
+              <HeaderInner>
+                  <HeaderMain>
+                    <HeaderMainList><Link to="/about"><MenuListSpan>About</MenuListSpan></Link></HeaderMainList>
+                    <HeaderMainList><Link to="/product"><MenuListSpan>Products</MenuListSpan></Link></HeaderMainList>
+                    <HeaderMainList><Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link></HeaderMainList>
+                  </HeaderMain>
+                  <AnotherHeaderLogo>
+                    <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
+                  </AnotherHeaderLogo>
+                  <HeaderMain>
+                    <HeaderMainList><Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link></HeaderMainList>
+                    <HeaderMainList><Link to="/signin"><MenuListSpan>Login</MenuListSpan></Link></HeaderMainList>
+                    <HeaderMainList>
+                      <Link to="/cart">
+                        <MenuListSpan>Cart
+                          <span className="cart-num">0</span>
+                        </MenuListSpan>
+                      </Link>
+                    </HeaderMainList>
+                  </HeaderMain>
+              </HeaderInner>
+            </HeaderBase>
+          </Pc>
+          <Mobile>
+            <MobileBase>
+              <Hamburger />
+            </MobileBase>
+          </Mobile>
+        </>
       )
     } else {
       return (
@@ -190,4 +203,9 @@ text-align: center;
   color: #fff;
   border-radius: 50%;
 }
+`
+
+const MobileBase = styled.header`
+background-color: transparent;
+width: 390px;
 `

@@ -7,7 +7,7 @@ import { DELETE_ALL_CART } from "../actions/types";
 
 import { PURGE } from 'redux-persist'
 
-export default function (state={}, action) {
+export default function cartReducer(state={}, action) {
   switch(action.type) {
     case ADD_TO_CART:
       return {

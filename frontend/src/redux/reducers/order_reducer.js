@@ -8,7 +8,7 @@ import { DELETE_ALL_ORDER } from "../actions/types";
 import { DELETE_HISTORY } from "../actions/types";
 
 
-export default function(state={}, action) {
+export default function orderReducer (state={}, action) {
   switch(action.type) {
     case ORDER_INFO:
       return {

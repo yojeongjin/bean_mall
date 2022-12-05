@@ -1,7 +1,7 @@
 import { GET_PRODUCT } from "../actions/types";
 import { ALL_PRODUCT } from "../actions/types";
 
-export default function (state={}, action) {
+export default function productReducer(state={}, action) {
   switch(action.type) {
     case GET_PRODUCT:
       return {

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import mainbg from '../../assets/ibgimg900.png'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
-
 import { getCart, verifiedAuth } from '../../redux/actions/cart_actions'
+import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 export default function Main() {
   const token = useSelector((state) => state.auth.token)
@@ -20,26 +20,52 @@ export default function Main() {
   })
 
   return (
-    <MainSection>
-      <MainInner>
-        <MainContent>
-          <MainWrap>
-            <MainTitle>
-              <h1>In Two Minds</h1>
-              <h3>Combination Skin Care</h3>
-              <p>Introducing a new range to restore equillibrium and nourish the surface,<br></br>
-              designed specifically for combination skin.
-              </p>
-            </MainTitle>
-            <Link to="/product">
-              <MainBtn>전체 상품보기
-              <span> → </span>
-              </MainBtn>
-            </Link>
-          </MainWrap>
-        </MainContent>
-      </MainInner>
-    </MainSection>
+    <>
+      <Pc>
+        <MainSection>
+          <MainInner>
+            <MainContent>
+              <MainWrap>
+                <MainTitle>
+                  <h1>In Two Minds</h1>
+                  <h3>Combination Skin Care</h3>
+                  <p>Introducing a new range to restore equillibrium and nourish the surface,<br></br>
+                  designed specifically for combination skin.
+                  </p>
+                </MainTitle>
+                <Link to="/product">
+                  <MainBtn>전체 상품보기
+                  <span> → </span>
+                  </MainBtn>
+                </Link>
+              </MainWrap>
+            </MainContent>
+          </MainInner>
+        </MainSection>
+      </Pc>
+      <Mobile>
+        <MobileSection>
+          <MainInner>
+            <MainContent>
+              <MainWrap>
+                <MainTitle>
+                  <h1>In Two Minds</h1>
+                  <h3>Combination Skin Care</h3>
+                  <p style={{fontSize: "10px"}}>Introducing a new range to restore equillibrium and nourish the surface,<br></br>
+                  designed specifically for combination skin.
+                  </p>
+                </MainTitle>
+                <Link to="/product">
+                  <MainBtn>전체 상품보기
+                  <span> → </span>
+                  </MainBtn>
+                </Link>
+              </MainWrap>
+            </MainContent>
+          </MainInner>
+        </MobileSection>
+      </Mobile>
+    </>
   )
 }
 
@@ -48,6 +74,13 @@ background-image: url(${mainbg});
 height: 800px;
 font-family: 'AppleSDGothicNeo';
 background-attachment: fixed;
+`
+
+const MobileSection = styled.section`
+height: 800px;
+background: url(${mainbg}) no-repeat center;
+font-family: 'AppleSDGothicNeo';
+background-size: cover;
 `
 
 const MainInner = styled.div`
@@ -59,14 +92,16 @@ position: relative;
 
 const MainContent = styled.div`
 height: 100%;
-margin-left: 80px;
+margin-left: 45px;
 `
+
 
 const MainWrap = styled.div`
 position: absolute;
 position: sticky;
 top: 190px;
 `
+
 
 const MainTitle = styled.div`
 color: #c8c8c8;
@@ -81,6 +116,9 @@ color: #c8c8c8;
   margin-top: 30px;
 }
 `
+
+
+
 
 const MainBtn = styled.button`
 border: 1px solid #c8c8c8;

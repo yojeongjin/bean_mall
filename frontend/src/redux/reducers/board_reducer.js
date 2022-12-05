@@ -2,7 +2,7 @@ import { ADD_TO_BOARD } from "../actions/types";
 import { GET_LIST } from "../actions/types";
 import { DELETE_BOARD } from "../actions/types";
 
-export default function (state={}, action) {
+export default function boardReducer(state={}, action) {
   switch(action.type) {
     case ADD_TO_BOARD:
       return {

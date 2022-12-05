@@ -1,7 +1,7 @@
 import { JOIN_AUTH } from "../actions/types";
 import { GET_USER } from "../actions/types";
 
-export default function (state={}, action) {
+export default function joinReducer(state={}, action) {
   switch(action.type) {
     case JOIN_AUTH:
       return {

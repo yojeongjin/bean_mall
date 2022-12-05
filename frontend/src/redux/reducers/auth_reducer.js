@@ -2,7 +2,7 @@ import { LOGIN_AUTH } from "../actions/types";
 import { LOGOUT_AUTH } from "../actions/types";
 import { KAKAO_AUTH } from "../actions/types";
 
-export default function (state={}, action) {
+export default function authReducer(state={}, action) {
   switch(action.type) {
     case LOGIN_AUTH:
       return {
