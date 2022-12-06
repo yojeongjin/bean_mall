@@ -38,7 +38,7 @@ export default function Join ({match}) {
           alert(res.payload.msg)
           window.location.href = `${match.url}/userinfo`
         } else {
-          alert(res.payload.message)
+          alert(res.payload.msg)
         }
       })
     }

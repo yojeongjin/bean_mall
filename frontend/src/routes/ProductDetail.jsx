@@ -45,7 +45,7 @@ export default function ProductDetail(props) {
     <DetailRadio key={idx}>
       <input id={valueList}
       value={valueList}
-      name="platform"
+      name="size"
       type="radio"
       checked={value === valueList}
       onChange={handleChange} />

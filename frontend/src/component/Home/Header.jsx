@@ -100,7 +100,12 @@ export default function Header() {
             </HeaderBase>
           </Pc>
           <Mobile>
-            <MobileBase>
+            <MobileBase style={{width:"100px"}}>
+              <HeaderInner style={{width:"100px", margin:"15px 7px"}}>
+                <AnotherHeaderLogo>
+                  <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
+                </AnotherHeaderLogo>
+              </HeaderInner>
               <Hamburger />
             </MobileBase>
           </Mobile>

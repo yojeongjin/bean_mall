@@ -111,7 +111,7 @@ export default function UserInfo() {
                     />
                   </Phone>
                 </FormContent>
-                <SignUpBtn type="button" onClick={modiUser}>회원가입 완료</SignUpBtn>
+                <SignUpBtn type="button" onClick={() => {modiUser()}}>회원가입 완료</SignUpBtn>
                 <SignUpBtn className="next" type="button" onClick={() => {window.location.replace('/')}}>다음에 작성할게요.</SignUpBtn>
             </UserInfoContent>
           </UserInfoInner>

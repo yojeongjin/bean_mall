@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getProduct } from '../../redux/actions/product_actions'
 import { allProducts } from '../../redux/actions/product_actions'
 import { Mobile, Pc } from '../../hooks/MediaQuery'
@@ -15,7 +15,7 @@ import Perfume from './Perfume'
 
 export default function Prototype() {
   const dispatch = useDispatch()
-
+  const idUser = useSelector((state) => state.cart.idUser)
   const [ loading, setLoading ] = useState(null)
   const [productsInfos, setProductsInfos] = useState([])
   const [page, setPage] = useState(0)
@@ -42,6 +42,8 @@ export default function Prototype() {
       setPageSize(res.payload.data.length)
     })
   },[])
+
+  console.log(productsInfos)
 
   useEffect(() => {
     window.addEventListener('scroll', getMoreProducts)
@@ -77,7 +79,15 @@ export default function Prototype() {
           <ProductList>
             <img src={productsInfo.ProductsImg} alt="제품사진" />
             <ProductExp>
-              <div className='exptitle'>{productsInfo.ProductsName}</div>
+              {
+                productsInfo.active === 'null' ?
+                <div className='exptitle'>{productsInfo.ProductsName}</div>
+                :
+                <div style={{display:"flex", alignItems:"center"}}>
+                  <div className='exptitle'>{productsInfo.ProductsName}</div>
+                  <SoldOut>{productsInfo.active}</SoldOut>
+                </div>
+              }
               <div className='expetc'>
                 <span>{productsInfo.ProductsSize1} / </span>
                 <span> {productsInfo.ProductsPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</span>
@@ -89,6 +99,10 @@ export default function Prototype() {
     }
   </ProductMenu>
 
+  const upload =
+    <ProductUpload>
+      <Link to="/upload">상품 업로드하기</Link>
+    </ProductUpload>
 
   const showAll = () => {
     setAllproduct(true)
@@ -150,6 +164,7 @@ export default function Prototype() {
         <ProductBase>
           {loading && <Loading /> }
           <ProductInner>
+            { idUser === 50 && upload }
             <ProductTitle>
               <Title onClick={()=>{showAll()}}><span>전체보기</span></Title>
               <Title onClick={()=>{goToSkincare()}}><span>스킨케어</span></Title>
@@ -178,6 +193,7 @@ export default function Prototype() {
               <MobileOption>헤어</MobileOption>
               <MobileOption>향수</MobileOption>
             </MobileVersionTitle>
+            { idUser === 50 && upload }
             <ProductContent>
               {allProduct && showAllProducts}
               {skincare && <Skincare />}
@@ -202,6 +218,14 @@ width: 1100px;
 margin: 0 auto;
 position: relative;
 font-family: 'Nanum Barun Gothic', sans-serif;
+`
+
+const ProductUpload = styled.div`
+position: absolute;
+top: 100px;
+left: -50px;
+border-bottom: 1px solid black;
+font-size: 14px;
 `
 
 
@@ -281,4 +305,12 @@ font-size:14px;
   font-size:12px;
   color:#7c7c7c;
 }
+`
+
+const SoldOut = styled.div`
+margin-left: 5px;
+border: 1px solid black;
+padding: 3px 5px;
+color: #911e1e;
+font-size: 13px;
 `

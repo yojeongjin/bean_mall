@@ -15,6 +15,7 @@ import Footer from './component/Home/Footer';
 import ScrollToTop from './component/ScrollToTop';
 import AlwaysScrollTop from './routes/AlwaysScrollTop'
 import About from './routes/About';
+import Upload from './routes/Upload'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <ScrollToTop />
         <main>
           <Switch>
+            <Route path="/upload" component={Upload} />
             <Route path="/about" component={About} />
             <Route path="/kakaoLogin" component= {KakaoLogin} />
             <Route path="/cart" component= {Cart} />
