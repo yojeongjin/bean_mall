@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Mobile, Pc } from '../hooks/MediaQuery'
 
 export default function PerfumeInfo() {
   const [ infos, setInfo ] = useState([])
@@ -77,16 +78,62 @@ export default function PerfumeInfo() {
     </PerfumeNotice>
   ))
 
+  const mobileRenderInfo = infos.map((info, idx) => (
+    <MobileNotice key={info.idPerfume} isOdd = {idx % 2 === 1}>
+      <MobileImg isOdd = {idx % 2 === 1}>
+        <img src={info.PerfumeImg} alt="향수 이미지" />
+      </MobileImg>
+      <MobileExp isOdd = {idx % 2 === 1}>
+        <Link to={"/product/" + info.idProducts}>
+          <ExpTitle isOdd = {idx % 2 === 1}>
+            <h1>{info.PerfumeName}</h1>
+            <ExpDirectR isOdd = {idx % 2 === 1}> → </ExpDirectR>
+            <ExpDirectL isOdd = {idx % 2 === 1}> ← </ExpDirectL>
+          </ExpTitle>
+        </Link>
+        <p>
+          {info.PerfumeDesc}
+        </p>
+        <H4andSpan isOdd = {idx % 2 === 1}>
+          <h4> Top notes <br></br>
+            <span>{info.PerfumeTop}</span>
+          </h4>
+          <h4> Middle notes <br></br>
+            <span>{info.PerfumeMid}</span>
+          </h4>
+          <h4> Base notes <br></br>
+            <span>{info.PerfumeBase}</span>
+          </h4>
+        </H4andSpan>
+      </MobileExp>
+  </MobileNotice>
+))
+
   return (
-    <PerfumeInfoBase>
-      <PerfumeTitle></PerfumeTitle>
-      <PerfumeInner>
-        {renderInfo}
-        {pageSize >= limit && 
-          <LoadMore onClick={moreInfo}>더 보기</LoadMore>
-        } 
-      </PerfumeInner>
-    </PerfumeInfoBase>
+    <>
+      <Pc>
+        <PerfumeInfoBase>
+          <PerfumeTitle></PerfumeTitle>
+          <PerfumeInner>
+            {renderInfo}
+            {pageSize >= limit && 
+              <LoadMore onClick={moreInfo}>더 보기</LoadMore>
+            } 
+          </PerfumeInner>
+        </PerfumeInfoBase>
+      </Pc>
+      <Mobile>
+        <PerfumeInfoBase style={{margin:"0", border:"none"}}>
+          <PerfumeTitle></PerfumeTitle>
+          <PerfumeInner style={{width: "370px"}}>
+            {mobileRenderInfo}
+            {pageSize >= limit && 
+              <LoadMore onClick={moreInfo}>더 보기</LoadMore>
+            } 
+          </PerfumeInner>
+        </PerfumeInfoBase>
+      </Mobile>
+    </>
   )
 }
 
@@ -106,7 +153,6 @@ const PerfumeInner = styled.div`
 width: 1100px;
 height: 100%;
 margin: 0 auto;
-position: relative;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -114,11 +160,60 @@ flex-direction: column;
 `
 
 const PerfumeNotice = styled.div`
-font-family: 'AppleSDGothicNeo';
 margin: 30px 0 50px 0;
 height: 450px;
 display: flex;
 flex-direction: ${(props) => props.isOdd ? 'row-reverse' : 'row'}; 
+`
+
+const MobileImg = styled.div`
+width: 370px;
+height: 450px;
+display: flex;
+justify-content: center;
+align-items: center;
+position: absolute; 
+transform: rotateY(0deg);
+backface-visibility: hidden;
+transition: 1s;
+> img {
+  width: 100%;
+  height: 100%;
+}
+`
+
+const MobileExp = styled.div`
+width: 370px;
+height: 450px;
+position: absolute;
+transform: rotateY(-180deg);
+backface-visibility: hidden;
+transition: 1s;
+> p {
+  display: block;
+  font-size: 15px;
+  line-height: 20px;
+  margin-top: 10px;
+  padding: 30px 0;
+  border-bottom: 2px solid black;
+}
+`
+
+
+const MobileNotice = styled.div`
+width: 370px;
+height: 450px;
+perspective: 600px;
+margin: 10px 0;
+
+&:hover {
+  ${MobileImg} {
+    transform: rotateY(180deg);
+  }
+  ${MobileExp} {
+    transform: rotateY(0deg);
+  }
+}
 `
 
 const PerfumeImg = styled.div`
@@ -139,11 +234,11 @@ margin-left: ${(props) => props.isOdd ? '50px' : 0};
 
 > p {
   display: block;
+  font-size: 15px;
+  line-height: 20px;
   margin-top: 10px;
   padding: 30px 0;
   border-bottom: 2px solid black;
-}
-
 }
 `
 

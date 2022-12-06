@@ -3,6 +3,7 @@ import React, { useState,useEffect, useMemo } from 'react'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../redux/actions/cart_actions'
+import { Mobile, Pc } from '../hooks/MediaQuery'
 
 export default function ProductDetail(props) {
   const idx = Number(props.match.params.idx)
@@ -93,70 +94,85 @@ export default function ProductDetail(props) {
 
 
   const detailProduct = 
-  <DetailContent>
-    {
-      detailDatas.map(detailData => (
-        <>
-          <DetailImg key={detailData.idProducts}>
-            <img src={detailData.ProductsImg} alt="제품사진" />
-          </DetailImg>
-          <Detail>
-            <DetailTitle> {detailData.ProductsName} </DetailTitle>
+  detailDatas.map(detailData => (
+    <>
+      <DetailImg key={detailData.idProducts}>
+        <img src={detailData.ProductsImg} alt="제품사진" />
+      </DetailImg>
+      <Detail>
+        <DetailTitle> {detailData.ProductsName} </DetailTitle>
 
-            <DetailPrice>
-              {/* <Title>가격</Title> */}
-              <Price>{getPrice} 원</Price>
-            </DetailPrice>
+        <DetailPrice>
+          {/* <Title>가격</Title> */}
+          <Price>{getPrice} 원</Price>
+        </DetailPrice>
 
-            <DetailExp>
-              {detailData.ProductsDes}
-            </DetailExp>
-            <DetailInfo>
-              <Title>특징</Title>
-              <span>{detailData.ProductsUsing}</span>
-            </DetailInfo>
+        <DetailExp>
+          {detailData.ProductsDes}
+        </DetailExp>
+        <DetailInfo>
+          <Title>특징</Title>
+          <span>{detailData.ProductsUsing}</span>
+        </DetailInfo>
 
-            <DetailInfo>
-              <Title>주요성분</Title>
-              <span>{detailData.ProductsMain}</span>
-            </DetailInfo>
-        
-            <DetailRadioGroup>
-              <Title>사이즈</Title>
-              <DetailRadio>
-                {Radio}
-              </DetailRadio>
-            </DetailRadioGroup>
+        <DetailInfo>
+          <Title>주요성분</Title>
+          <span>{detailData.ProductsMain}</span>
+        </DetailInfo>
+    
+        <DetailRadioGroup>
+          <Title>사이즈</Title>
+          <DetailRadio>
+            {Radio}
+          </DetailRadio>
+        </DetailRadioGroup>
 
-            <Quantity>
-              <Title>수량</Title>
-              <QuantitySelect onChange={(e)=>{setQuantity(e.target.value)}}>                
-                {
-                  quantitys.map((quantity,idx) => (
-                    <QuantityOption key={idx}>{quantity}</QuantityOption>
-                  ))
-                }
-              </QuantitySelect>
-            </Quantity>
+        <Quantity>
+          <Title>수량</Title>
+          <QuantitySelect onChange={(e)=>{setQuantity(e.target.value)}}>                
+            {
+              quantitys.map((quantity,idx) => (
+                <QuantityOption key={idx}>{quantity}</QuantityOption>
+              ))
+            }
+          </QuantitySelect>
+        </Quantity>
+                        
+        <BtnWrap>
+          <AddCartBtn type="button" onClick={clickCart}>
+            카트에 추가하기
+          </AddCartBtn>
+        </BtnWrap>
+      </Detail>
+    </>
+  ))
 
 
-                
-            <BtnWrap>
-              <AddCartBtn type="button" onClick={clickCart}>카트에 추가하기</AddCartBtn>
-            </BtnWrap>
+    
 
-          </Detail>
-        </>
-      ))
-    }
-</DetailContent>
+
   
   return (
-    <DetailBase>
-      <DetailInner>
-        {detailProduct}
-      </DetailInner>
-    </DetailBase>
+    <>
+      <Pc>
+        <DetailBase>
+          <DetailInner>
+            <DetailContent>
+              {detailProduct}
+            </DetailContent>
+          </DetailInner>
+        </DetailBase>
+      </Pc>
+      <Mobile>
+        <DetailBase style={{marginTop:"0", border: "none", height: "auto"}}>
+          <DetailInner style={{width: "370px"}}>
+            <DetailContent style={{width: "100%", flexDirection: "column",  height: "auto"}}>
+              {detailProduct}
+            </DetailContent>
+          </DetailInner>
+        </DetailBase>
+      </Mobile>
+    </>
   )
 }
 
@@ -185,8 +201,8 @@ height: 550px;
 margin-top: 70px;
 display: flex;
 `
+
 const DetailImg = styled.div`
-// background-color: #c5bbb3;
 flex: 1;
 display: flex;
 justify-content: center;
@@ -197,6 +213,7 @@ margin-right: 50px;
   height: 95%;
 }
 `
+
 
 const Detail = styled.div`
 flex: 1;
@@ -260,9 +277,7 @@ background-color: #333;
 border: 1px solid #333;
 color: #fff;
 padding: 13px 160px;
-margin-top: 40px ;
-font-size: 14px;
-
+font-size: 13px;
 &:hover {
   color: #fff;
 }
@@ -289,6 +304,7 @@ padding-bottom: 10px;
 `
 
 const BtnWrap = styled.div`
+margin-top: 30px;
 display: flex;
 justify-content: center;
 align-items: center;

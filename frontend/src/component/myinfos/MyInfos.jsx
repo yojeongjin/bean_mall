@@ -10,6 +10,8 @@ import InquiryList from './InquiryList'
 import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 
+import { Mobile, Pc } from '../../hooks/MediaQuery'
+
 
 export default function MyInfos() {
   const token = useSelector((state) => state.auth.token)
@@ -76,6 +78,20 @@ export default function MyInfos() {
     setOpenInquiry(false)
     setOpenInquiryList(true)
   }
+
+  const changeMyinfo = (e) => {
+    if(e.target.value === '회원정보') {
+      goToForm()
+    } else if (e.target.value === '주문내역') {
+      goToCheck()
+    } else if (e.target.value === '자주 묻는 질문') {
+      goToFAQ()
+    } else if (e.target.value === '1:1 문의하기') {
+      goToInquiry()
+    } else if (e.target.value === '상품문의내역') {
+      goToInquiryList()
+    }
+  }
   
   useEffect(() => {
     axios.get('http://localhost:5000/api/getuser', {params: {idUser: idUser}})
@@ -133,173 +149,345 @@ export default function MyInfos() {
 
   if (token !== null) {
     return (
-      <MyInfoBase>
-        <MyInfoInner>
-  
-          <MyInfoMenu>
-            <MyInfoNav>
-              <MyInfoB>
-                <span>회원정보</span>
-              </MyInfoB>
-              <MyInfoSpan onClick={goToForm}>회원 정보 수정</MyInfoSpan>
-  
-              <MyInfoB>
-                <span>주문내역</span>
-              </MyInfoB>
-              <MyInfoSpan onClick={goToCheck}>주문조회</MyInfoSpan>
-  
-              <MyInfoB>
-                <span>고객서비스</span>
-              </MyInfoB>
-              <MyInfoSpan onClick={goToFAQ}>자주 묻는 질문</MyInfoSpan>
-              <MyInfoSpan onClick={goToInquiry}>1:1 문의하기</MyInfoSpan>
-              <MyInfoSpan onClick={goToInquiryList}>상품문의내역</MyInfoSpan>
-  
-            </MyInfoNav>
-          </MyInfoMenu>
-  
-          <InfoSection>
-            {openCheck && <OrderCheck />}
-            {openFAQ && <FAQ />}
-            {openInquiry && <Inquiry />}
-            {openInquiryList && <InquiryList /> }
-  
-            {openForm && 
-  
-            <Form>
-              <FormContent>
-                <FormLabel>
-                  <em>*</em> 이름
-                </FormLabel>
-                <InputContainer>
-                  <Input 
-                  id="name"
-                  type="text"
-                  value={UserName}
-                  required
-                  onChange={(e)=>{setUserName(e.target.value)}}
-                  />
-              </InputContainer>  
-              </FormContent>
-  
-              <FormContent>
-                <FormLabel>
-                  이메일
-                </FormLabel>
-                <InputContainer>
-                  <Input 
-                  id="email"
-                  type="text"
-                  value={UserEmail}
-                  disabled
-                  />
-              </InputContainer>  
-              </FormContent>
-  
-              <FormContent>
-                <FormLabel>
-                  <em>*</em> 비밀번호
-                </FormLabel>
-                <InputContainer>
-                  <Input 
-                  id="password"
-                  type="password"
-                  value={UserPw}
-                  required
-                  onChange={(e)=>{setUserPw(e.target.value)}}
-                  />
-              </InputContainer> 
-              </FormContent>
-  
-              <FormContent>
-                <FormLabel>
-                  <em>*</em> 비밀번호 확인
-                </FormLabel>
-                <InputContainer>
-                  <Input 
-                  id="repassword"
-                  type="password"
-                  value={UserRePw}
-                  required
-                  onChange={(e)=>{setUserRePw(e.target.value)}}
-                  />
-              </InputContainer> 
-              </FormContent>
-  
-              <FormContent>
-                <FormLabel>
-                  <em>*</em> 전화번호
-                </FormLabel>
-                <InputContainer className="post">
-                  <PhoneSelect defaultValue={UserPhone} onChange={(e)=>{setUserPhone(e.target.value)}}>
-                    {
-                      phoneNumbers.map((phoneNumber) => (
-                        <PhoneOption>{phoneNumber}</PhoneOption>
-                      ))
-                    }
-                  </PhoneSelect>
-                  <Phone>
-                    <PhoneInput 
-                    id="phone"
-                    type="number"
-                    value={UserPhoneMid}
-                    required
-                    onChange={(e) => setUserPhoneMid(e.target.value)}
-                    />
-                  </Phone>
-  
-                  <Phone>
-                    <PhoneInput 
-                    id="phone"
-                    type="number"
-                    value={UserPhoneEnd}
-                    required
-                    onChange={(e) => setUserPhoneEnd(e.target.value)}
-                    />
-                  </Phone>
-                </InputContainer>
-              </FormContent>
-  
-              <FormContent>
-                <FormLabel>
-                  <em>*</em> 주소
-                </FormLabel>
-                <InputContainer className="post">
-                  <FormPostCode>{address.postcode}</FormPostCode>
-                  <Address setAddress={setAddress} />
-                </InputContainer>
-              </FormContent>
-  
-              <FormContent className="default_address">
-                <FormLabel className="default_label">
-                  기본주소
-                </FormLabel>
-                <InputContainer className="post">
-                  <FormPostCode className="default_code">{address.defaultAddr}</FormPostCode>
-                </InputContainer>
-              </FormContent>
-  
-              <FormContent>
-                <FormLabel className="default_label">
-                  나머지주소
-                </FormLabel>
-                <InputContainer>
-                  <Input 
-                    id="address"
-                    type="text"
-                    value={UserDetail}
-                    required
-                    onChange={(e)=>{setUserDetail(e.target.value)}} 
-                  />
-                </InputContainer>
-              </FormContent>
-  
-              <ModifyBtn type="button" onClick={modiUser}>회원정보 수정하기</ModifyBtn>
-            </Form>
-          }
-          </InfoSection>
-        </MyInfoInner>
-      </MyInfoBase>
+      <>
+        <Pc>
+          <MyInfoBase>
+            <MyInfoInner>
+      
+              <MyInfoMenu>
+                <MyInfoNav>
+                  <MyInfoB>
+                    <span>회원정보</span>
+                  </MyInfoB>
+                  <MyInfoSpan onClick={goToForm}>회원 정보 수정</MyInfoSpan>
+      
+                  <MyInfoB>
+                    <span>주문내역</span>
+                  </MyInfoB>
+                  <MyInfoSpan onClick={goToCheck}>주문조회</MyInfoSpan>
+      
+                  <MyInfoB>
+                    <span>고객서비스</span>
+                  </MyInfoB>
+                  <MyInfoSpan onClick={goToFAQ}>자주 묻는 질문</MyInfoSpan>
+                  <MyInfoSpan onClick={goToInquiry}>1:1 문의하기</MyInfoSpan>
+                  <MyInfoSpan onClick={goToInquiryList}>상품문의내역</MyInfoSpan>
+      
+                </MyInfoNav>
+              </MyInfoMenu>
+      
+              <InfoSection>
+                {openCheck && <OrderCheck />}
+                {openFAQ && <FAQ />}
+                {openInquiry && <Inquiry />}
+                {openInquiryList && <InquiryList /> }
+      
+                {openForm && 
+      
+                <Form>
+                  <FormContent>
+                    <FormLabel>
+                      <em>*</em> 이름
+                    </FormLabel>
+                    <InputContainer>
+                      <Input 
+                      id="name"
+                      type="text"
+                      value={UserName}
+                      required
+                      onChange={(e)=>{setUserName(e.target.value)}}
+                      />
+                  </InputContainer>  
+                  </FormContent>
+      
+                  <FormContent>
+                    <FormLabel>
+                      이메일
+                    </FormLabel>
+                    <InputContainer>
+                      <Input 
+                      id="email"
+                      type="text"
+                      value={UserEmail}
+                      disabled
+                      />
+                  </InputContainer>  
+                  </FormContent>
+      
+                  <FormContent>
+                    <FormLabel>
+                      <em>*</em> 비밀번호
+                    </FormLabel>
+                    <InputContainer>
+                      <Input 
+                      id="password"
+                      type="password"
+                      value={UserPw}
+                      required
+                      onChange={(e)=>{setUserPw(e.target.value)}}
+                      />
+                  </InputContainer> 
+                  </FormContent>
+      
+                  <FormContent>
+                    <FormLabel>
+                      <em>*</em> 비밀번호 확인
+                    </FormLabel>
+                    <InputContainer>
+                      <Input 
+                      id="repassword"
+                      type="password"
+                      value={UserRePw}
+                      required
+                      onChange={(e)=>{setUserRePw(e.target.value)}}
+                      />
+                  </InputContainer> 
+                  </FormContent>
+      
+                  <FormContent>
+                    <FormLabel>
+                      <em>*</em> 전화번호
+                    </FormLabel>
+                    <InputContainer className="post">
+                      <PhoneSelect defaultValue={UserPhone} onChange={(e)=>{setUserPhone(e.target.value)}}>
+                        {
+                          phoneNumbers.map((phoneNumber) => (
+                            <PhoneOption>{phoneNumber}</PhoneOption>
+                          ))
+                        }
+                      </PhoneSelect>
+                      <Phone>
+                        <PhoneInput 
+                        id="phone"
+                        type="number"
+                        value={UserPhoneMid}
+                        required
+                        onChange={(e) => setUserPhoneMid(e.target.value)}
+                        />
+                      </Phone>
+      
+                      <Phone>
+                        <PhoneInput 
+                        id="phone"
+                        type="number"
+                        value={UserPhoneEnd}
+                        required
+                        onChange={(e) => setUserPhoneEnd(e.target.value)}
+                        />
+                      </Phone>
+                    </InputContainer>
+                  </FormContent>
+      
+                  <FormContent>
+                    <FormLabel>
+                      <em>*</em> 주소
+                    </FormLabel>
+                    <InputContainer className="post">
+                      <FormPostCode>{address.postcode}</FormPostCode>
+                      <Address setAddress={setAddress} />
+                    </InputContainer>
+                  </FormContent>
+      
+                  <FormContent className="default_address">
+                    <FormLabel className="default_label">
+                      기본주소
+                    </FormLabel>
+                    <InputContainer className="post">
+                      <FormPostCode className="default_code">{address.defaultAddr}</FormPostCode>
+                    </InputContainer>
+                  </FormContent>
+      
+                  <FormContent>
+                    <FormLabel className="default_label">
+                      나머지주소
+                    </FormLabel>
+                    <InputContainer>
+                      <Input 
+                        id="address"
+                        type="text"
+                        value={UserDetail}
+                        required
+                        onChange={(e)=>{setUserDetail(e.target.value)}} 
+                      />
+                    </InputContainer>
+                  </FormContent>
+      
+                  <ModifyBtn type="button" onClick={modiUser}>회원정보 수정하기</ModifyBtn>
+                </Form>
+              }
+              </InfoSection>
+            </MyInfoInner>
+          </MyInfoBase>
+        </Pc>
+        
+        {/* 모바일 */}
+        <Mobile>
+          <MyInfoBase style={{margin: "0", border: "none"}}>
+            <MyInfoInner style={{width: "370px", margin: "0 auto"}}>
+              <MyInfoMenu style={{position:"absolute", height: "30px"}}>
+                <MobileSelect onChange={(e)=>{changeMyinfo(e)}}>
+                  <MobileOption>
+                    회원정보
+                  </MobileOption>
+                  <MobileOption>
+                    주문내역
+                  </MobileOption>
+                  <MobileOption>
+                    자주 묻는 질문
+                  </MobileOption>
+                  <MobileOption>
+                    1:1 문의하기
+                  </MobileOption>
+                  <MobileOption>
+                    상품문의내역
+                  </MobileOption>
+                </MobileSelect>
+              </MyInfoMenu>
+      
+              <InfoSection style={{width: "100%", marginTop: "180px", marginLeft:"0"}}>
+                {openCheck && <OrderCheck />}
+                {openFAQ && <FAQ />}
+                {openInquiry && <Inquiry />}
+                {openInquiryList && <InquiryList /> }
+      
+                {openForm && 
+      
+                <Form style={{width: "98%", margin: "0px"}}>
+                  <FormContent>
+                    <FormLabel>
+                      <em>*</em> 이름
+                    </FormLabel>
+                    <InputContainer>
+                      <Input 
+                      id="name"
+                      type="text"
+                      value={UserName}
+                      required
+                      onChange={(e)=>{setUserName(e.target.value)}}
+                      />
+                  </InputContainer>  
+                  </FormContent>
+      
+                  <FormContent>
+                    <FormLabel>
+                      이메일
+                    </FormLabel>
+                    <InputContainer>
+                      <Input 
+                      id="email"
+                      type="text"
+                      value={UserEmail}
+                      disabled
+                      />
+                  </InputContainer>  
+                  </FormContent>
+      
+                  <FormContent>
+                    <FormLabel>
+                      <em>*</em> 비밀번호
+                    </FormLabel>
+                    <InputContainer>
+                      <Input 
+                      id="password"
+                      type="password"
+                      value={UserPw}
+                      required
+                      onChange={(e)=>{setUserPw(e.target.value)}}
+                      />
+                  </InputContainer> 
+                  </FormContent>
+      
+                  <FormContent>
+                    <FormLabel>
+                      <em>*</em> 비밀번호 확인
+                    </FormLabel>
+                    <InputContainer>
+                      <Input 
+                      id="repassword"
+                      type="password"
+                      value={UserRePw}
+                      required
+                      onChange={(e)=>{setUserRePw(e.target.value)}}
+                      />
+                  </InputContainer> 
+                  </FormContent>
+      
+                  <FormContent>
+                    <FormLabel>
+                      <em>*</em> 전화번호
+                    </FormLabel>
+                    <InputContainer className="post">
+                      <PhoneSelect defaultValue={UserPhone} onChange={(e)=>{setUserPhone(e.target.value)}}>
+                        {
+                          phoneNumbers.map((phoneNumber) => (
+                            <PhoneOption>{phoneNumber}</PhoneOption>
+                          ))
+                        }
+                      </PhoneSelect>
+                      <Phone>
+                        <PhoneInput 
+                        id="phone"
+                        type="number"
+                        value={UserPhoneMid}
+                        required
+                        onChange={(e) => setUserPhoneMid(e.target.value)}
+                        />
+                      </Phone>
+      
+                      <Phone>
+                        <PhoneInput 
+                        id="phone"
+                        type="number"
+                        value={UserPhoneEnd}
+                        required
+                        onChange={(e) => setUserPhoneEnd(e.target.value)}
+                        />
+                      </Phone>
+                    </InputContainer>
+                  </FormContent>
+      
+                  <FormContent>
+                    <FormLabel>
+                      <em>*</em> 주소
+                    </FormLabel>
+                    <InputContainer className="post">
+                      <FormPostCode>{address.postcode}</FormPostCode>
+                      <Address setAddress={setAddress} />
+                    </InputContainer>
+                  </FormContent>
+      
+                  <FormContent className="default_address">
+                    <FormLabel className="default_label">
+                      기본주소
+                    </FormLabel>
+                    <InputContainer className="post">
+                      <FormPostCode className="default_code">{address.defaultAddr}</FormPostCode>
+                    </InputContainer>
+                  </FormContent>
+      
+                  <FormContent>
+                    <FormLabel className="default_label">
+                      나머지주소
+                    </FormLabel>
+                    <InputContainer>
+                      <Input 
+                        id="address"
+                        type="text"
+                        value={UserDetail}
+                        required
+                        onChange={(e)=>{setUserDetail(e.target.value)}} 
+                      />
+                    </InputContainer>
+                  </FormContent>
+      
+                  <ModifyBtn type="button" onClick={modiUser} style={{margin:"0"}}>회원정보 수정하기</ModifyBtn>
+                </Form>
+              }
+              </InfoSection>
+            </MyInfoInner>
+          </MyInfoBase>
+        </Mobile>
+      </>
     )
   } else {
     return <Redirect to="/signin" />
@@ -469,4 +657,15 @@ background-color: #c5bbb3;
   background-color: #807974;
   color: #f7f2f2;
 }
+`
+
+const MobileSelect = styled.select`
+background-color: transparent;
+border: none;
+outline: none;
+font-size: 13px;
+`
+
+const MobileOption = styled.option`
+
 `

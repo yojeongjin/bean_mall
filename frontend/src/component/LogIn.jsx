@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux'
 import { loginAuth } from '../redux/actions/auth_actions'
 import { REST_API_KEY, REDIRECT_URI } from '../kakaoAuth'
 
+import { Mobile, Pc } from '../hooks/MediaQuery'
+
 export default function LogIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -46,48 +48,95 @@ export default function LogIn() {
 
 
   return (
-    <SignInBase>
-      <SignInInner>
+    <>
+      <Pc>    
+        <SignInBase>
+          <SignInInner>
+            <SignInContent>
+              <SignInTitle>
+                <span>간편 로그인/회원가입</span>
+              </SignInTitle>
+              <SignInUpBtn type="button" className="kakao" onClick={signinWithKakao}>
+                <SnsIcon></SnsIcon>카카오로 3초만에 시작하기
+              </SignInUpBtn>
+              <Link to="/signup">
+                <SignInUpBtn className="email">이메일로 가입하기</SignInUpBtn>
+              </Link>
+            </SignInContent>
+            
+            <SignInContent onKeyPress={pressEnter} >
 
-        <SignInContent>
-          <SignInTitle>
-            <span>간편 로그인/회원가입</span>
-          </SignInTitle>
-          <SignInUpBtn type="button" className="kakao" onClick={signinWithKakao}>
-            <SnsIcon></SnsIcon>카카오로 3초만에 시작하기
-          </SignInUpBtn>
-          <Link to="/signup">
-            <SignInUpBtn className="email">이메일로 가입하기</SignInUpBtn>
-          </Link>
-        </SignInContent>
-        
-        <SignInContent onKeyPress={pressEnter} >
+              <SignInTitle>
+                <span>이메일 로그인</span>
+              </SignInTitle>
+              <EmailSignInContainer>
+                <EmailInput
+                  id="email"
+                  type="email"
+                  value={email}
+                  placeholder="이메일"
+                  required 
+                  onChange={(e) => {setEmail(e.target.value)}} />
+                <EmailInput 
+                  id="password"
+                  type="password"
+                  value={password}
+                  placeholder="비밀번호"
+                  required
+                  onChange={(e) => {setPassword(e.target.value)}} />
+              </EmailSignInContainer>
 
-          <SignInTitle>
-            <span>이메일 로그인</span>
-          </SignInTitle>
-          <EmailSignInContainer>
-            <EmailInput
-              id="email"
-              type="email"
-              value={email}
-              placeholder="이메일"
-              required 
-              onChange={(e) => {setEmail(e.target.value)}} />
-            <EmailInput 
-              id="password"
-              type="password"
-              value={password}
-              placeholder="비밀번호"
-              required
-              onChange={(e) => {setPassword(e.target.value)}} />
-          </EmailSignInContainer>
+              <SignInUpBtn onClick={signin}>로그인</SignInUpBtn>
 
-          <SignInUpBtn onClick={signin}>로그인</SignInUpBtn>
+            </SignInContent>
+          </SignInInner>
+        </SignInBase>
+      </Pc>
 
-        </SignInContent>
-      </SignInInner>
-    </SignInBase>
+      <Mobile>
+        <SignInBase style={{margin: "0", border: "none"}}>
+          <SignInInner style={{width:"370px"}}>
+            <SignInContent>
+              <SignInTitle>
+                <span>간편 로그인/회원가입</span>
+              </SignInTitle>
+              <SignInUpBtn type="button" className="kakao" onClick={signinWithKakao}>
+                <SnsIcon style={{left:"80px"}}></SnsIcon>카카오로 3초만에 시작하기
+              </SignInUpBtn>
+              <Link to="/signup">
+                <SignInUpBtn className="email">이메일로 가입하기</SignInUpBtn>
+              </Link>
+            </SignInContent>
+            
+            <SignInContent onKeyPress={pressEnter} >
+
+              <SignInTitle>
+                <span>이메일 로그인</span>
+              </SignInTitle>
+              <EmailSignInContainer>
+                <EmailInput
+                  id="email"
+                  type="email"
+                  value={email}
+                  placeholder="이메일"
+                  required 
+                  onChange={(e) => {setEmail(e.target.value)}} />
+                <EmailInput 
+                  id="password"
+                  type="password"
+                  value={password}
+                  placeholder="비밀번호"
+                  required
+                  onChange={(e) => {setPassword(e.target.value)}} />
+              </EmailSignInContainer>
+
+              <SignInUpBtn onClick={signin}>로그인</SignInUpBtn>
+
+            </SignInContent>
+          </SignInInner>
+        </SignInBase>
+      </Mobile>
+    </>
   )
 }
 

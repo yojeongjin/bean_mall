@@ -22,7 +22,7 @@ export default function Hamburger() {
         </HeaderBase>
       </Pc>
       <Mobile>
-        <HeaderBase>
+        <HeaderBase style={{right: "10px"}}>
           <HeaderBtn type="button" onClick={() => {toggleSide()}}>
             <img src={hamburger} alt="아이콘" />
           </HeaderBtn>
@@ -37,8 +37,8 @@ export default function Hamburger() {
 const HeaderBase = styled.header`
 position: fixed;
 top: 30px;
-right: 60px;
-z-index: 10;
+right: 50px;
+z-index: 999;
 `
 const HeaderBtn = styled.button`
 

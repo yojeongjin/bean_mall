@@ -4,7 +4,7 @@ import Address from './myinfos/Address'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 
-
+import { Mobile,Pc } from '../hooks/MediaQuery'
 
 export default function UserInfo() {
   const [active, setActive] = useState(true)
@@ -47,73 +47,150 @@ export default function UserInfo() {
   }
 
   return (
-    <UserInfoBase>
-      <UserInfoInner>
-        <UserInfoContent>
-          <UserInfoTitle>이메일로 가입하기</UserInfoTitle>
-            <UserInfoStep>
-              <ul>
-                <li>1</li>
-                <li className={ active ? 'active' : '' }>2</li>
-              </ul>
-              <h1>추가 정보 입력하기</h1>
-            </UserInfoStep>
+    <>
+      <Pc>
+        <UserInfoBase>
+          <UserInfoInner>
+            <UserInfoContent>
+              <UserInfoTitle>이메일로 가입하기</UserInfoTitle>
+                <UserInfoStep>
+                  <ul>
+                    <li>1</li>
+                    <li className={ active ? 'active' : '' }>2</li>
+                  </ul>
+                  <h1>추가 정보 입력하기</h1>
+                </UserInfoStep>
 
-            <FormContent>
-              <FormLabel>
-                주소
-              </FormLabel>
-              <FormPostCode>{address.postcode}</FormPostCode>
-              <Address setAddress={setAddress} />
-            </FormContent>
-            <FormContent className="default_address">
-              <FormLabel className="default_label">기본주소</FormLabel>
-              <FormPostCode className="default_code">{address.defaultAddr}</FormPostCode>
-            </FormContent>
-            <FormContent className="default_address">
-              <FormLabel className="default_label">나머지주소</FormLabel>
-              <Input 
-                id="address"
-                type="text"
-                placeholder="선택 입력 가능"
-                required
-                onChange={(e) => {setUserDetail(e.target.value)}}
-              />
-            </FormContent>
+                <FormContent>
+                  <FormLabel>
+                    주소
+                  </FormLabel>
+                  <FormPostCode>{address.postcode}</FormPostCode>
+                  <Address setAddress={setAddress} />
+                </FormContent>
+                <FormContent className="default_address">
+                  <FormLabel className="default_label">기본주소</FormLabel>
+                  <FormPostCode className="default_code">{address.defaultAddr}</FormPostCode>
+                </FormContent>
+                <FormContent className="default_address">
+                  <FormLabel className="default_label">나머지주소</FormLabel>
+                  <Input 
+                    id="address"
+                    type="text"
+                    placeholder="선택 입력 가능"
+                    required
+                    onChange={(e) => {setUserDetail(e.target.value)}}
+                  />
+                </FormContent>
 
-            <FormContent>
-              <FormLabel>
-                전화번호
-              </FormLabel>
-              <PhoneSelect onChange={(e) => setUserPhone(e.target.value)}>
-                {
-                  phoneNumbers.map((phoneNumber) => (
-                    <PhoneOption>{phoneNumber}</PhoneOption>
-                  ))
-                }
-              </PhoneSelect>
-              <Phone>
-                <PhoneInput
-                id="phone"
-                type="text"
-                required
-                onChange={(e) => setUserPhoneMid(e.target.value)}
-                />
-              </Phone>
-              <Phone>
-                <PhoneInput
-                id="phone"
-                type="text"
-                required
-                onChange={(e) => setUserPhoneEnd(e.target.value)}
-                />
-              </Phone>
-            </FormContent>
-            <SignUpBtn type="button" onClick={modiUser}>회원가입 완료</SignUpBtn>
-            <SignUpBtn className="next" type="button" onClick={() => {window.location.replace('/')}}>다음에 작성할게요.</SignUpBtn>
-        </UserInfoContent>
-      </UserInfoInner>
-    </UserInfoBase>
+                <FormContent>
+                  <FormLabel>
+                    전화번호
+                  </FormLabel>
+                  <PhoneSelect onChange={(e) => setUserPhone(e.target.value)}>
+                    {
+                      phoneNumbers.map((phoneNumber) => (
+                        <PhoneOption>{phoneNumber}</PhoneOption>
+                      ))
+                    }
+                  </PhoneSelect>
+                  <Phone>
+                    <PhoneInput
+                    id="phone"
+                    type="text"
+                    required
+                    onChange={(e) => setUserPhoneMid(e.target.value)}
+                    />
+                  </Phone>
+                  <Phone>
+                    <PhoneInput
+                    id="phone"
+                    type="text"
+                    required
+                    onChange={(e) => setUserPhoneEnd(e.target.value)}
+                    />
+                  </Phone>
+                </FormContent>
+                <SignUpBtn type="button" onClick={modiUser}>회원가입 완료</SignUpBtn>
+                <SignUpBtn className="next" type="button" onClick={() => {window.location.replace('/')}}>다음에 작성할게요.</SignUpBtn>
+            </UserInfoContent>
+          </UserInfoInner>
+        </UserInfoBase>
+      </Pc>
+
+      <Mobile>
+        <UserInfoBase>
+          <UserInfoInner style={{width: "370px"}}>
+            <UserInfoContent>
+              <UserInfoTitle>이메일로 가입하기</UserInfoTitle>
+                <UserInfoStep>
+                  <ul>
+                    <li>1</li>
+                    <li className={ active ? 'active' : '' }>2</li>
+                  </ul>
+                  <h1>추가 정보 입력하기</h1>
+                </UserInfoStep>
+
+                <FormContent>
+                  <FormLabel>
+                    주소
+                  </FormLabel>
+                  <FormPostCode>{address.postcode}</FormPostCode>
+                  <Address setAddress={setAddress} />
+                </FormContent>
+                <FormContent className="default_address">
+                  <FormLabel className="default_label">기본주소</FormLabel>
+                  <FormPostCode className="default_code" style={{width: "310px"}}>{address.defaultAddr}</FormPostCode>
+                </FormContent>
+                <FormContent className="default_address">
+                  <FormLabel className="default_label">나머지주소</FormLabel>
+                  <Input 
+                    id="address"
+                    type="text"
+                    placeholder="선택 입력 가능"
+                    required
+                    onChange={(e) => {setUserDetail(e.target.value)}}
+                    style={{width: "95%"}}
+                  />
+                </FormContent>
+
+                <FormContent>
+                  <FormLabel>
+                    전화번호
+                  </FormLabel>
+                  <PhoneSelect onChange={(e) => setUserPhone(e.target.value)}>
+                    {
+                      phoneNumbers.map((phoneNumber) => (
+                        <PhoneOption>{phoneNumber}</PhoneOption>
+                      ))
+                    }
+                  </PhoneSelect>
+                  <Phone>
+                    <PhoneInput
+                    id="phone"
+                    type="text"
+                    required
+                    onChange={(e) => setUserPhoneMid(e.target.value)}
+                    />
+                  </Phone>
+                  <Phone>
+                    <PhoneInput
+                    id="phone"
+                    type="text"
+                    required
+                    onChange={(e) => setUserPhoneEnd(e.target.value)}
+                    />
+                  </Phone>
+                </FormContent>
+                <BtnWrap>
+                  <SignUpBtn style={{margin: "15px 0 0"}} type="button" onClick={modiUser}>회원가입 완료</SignUpBtn>
+                  <SignUpBtn style={{margin: "15px 0 0"}} className="next" type="button" onClick={() => {window.location.replace('/')}}>다음에 작성할게요.</SignUpBtn>
+                </BtnWrap>
+            </UserInfoContent>
+          </UserInfoInner>
+        </UserInfoBase>
+      </Mobile>
+    </>
   )
 }
 
@@ -209,7 +286,7 @@ const FormPostCode = styled.div`
   padding: 4px 3px;
   background: #fff;
   &.default_code {
-    width: 345px;
+    width: 340px;
     margin: 0 15px;
   }
 `
@@ -282,4 +359,11 @@ background-color: #c5bbb3;
   border: 1px solid #807974;
   color: #595450;
 }
+`
+
+const BtnWrap = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
 `

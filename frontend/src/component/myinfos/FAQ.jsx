@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-
 export default function FAQ() {
   const [ firstFaq, setFirstFaq ] = useState(true)
   const [ secondFaq, setSecondFaq ] = useState(true)

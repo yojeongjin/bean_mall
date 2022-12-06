@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 export default function Skincare() {
   const [ skincareProducts, setSkincareProducts] = useState([])
@@ -37,19 +38,38 @@ export default function Skincare() {
   </ProductMenu>
 
   return (
-    <SkincareBase>
-      <Inner>
-        <ProductCategory>
-          <button type='button' onClick={()=>{setSkincareProducts(toner)}}>토너</button>
-          <button type='button' onClick={()=>{setSkincareProducts(serum)}}>세럼</button>
-          <button type='button' onClick={()=>{setSkincareProducts(essence)}}>에센스</button>
-          <button type='button' onClick={()=>{setSkincareProducts(lotion)}}>로션</button>
-        </ProductCategory>
-        <ProductContent>
-          {allSkincare}
-        </ProductContent>
-      </Inner>
-    </SkincareBase>
+    <>
+      <Pc>
+        <SkincareBase>
+          <Inner>
+            <ProductCategory>
+              <button type='button' onClick={()=>{setSkincareProducts(toner)}}>토너</button>
+              <button type='button' onClick={()=>{setSkincareProducts(serum)}}>세럼</button>
+              <button type='button' onClick={()=>{setSkincareProducts(essence)}}>에센스</button>
+              <button type='button' onClick={()=>{setSkincareProducts(lotion)}}>로션</button>
+            </ProductCategory>
+            <ProductContent>
+              {allSkincare}
+            </ProductContent>
+          </Inner>
+        </SkincareBase>
+      </Pc>
+      <Mobile>
+        <SkincareBase>
+          <Inner>
+            <ProductCategory style={{position:"fixed", top: "200px", left: "10px", width:"100px", flexDirection: "column"}}>
+              <button style={{padding: "7px 0"}} type='button' onClick={()=>{setSkincareProducts(toner)}}>토너</button>
+              <button style={{padding: "7px 0"}} type='button' onClick={()=>{setSkincareProducts(serum)}}>세럼</button>
+              <button style={{padding: "7px 0"}} type='button' onClick={()=>{setSkincareProducts(essence)}}>에센스</button>
+              <button style={{padding: "7px 0"}} type='button' onClick={()=>{setSkincareProducts(lotion)}}>로션</button>
+            </ProductCategory>
+            <ProductContent>
+              {allSkincare}
+            </ProductContent>
+          </Inner>
+        </SkincareBase>
+      </Mobile>
+    </>
   )
 }
 

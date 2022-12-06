@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
-
+import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 export default function Body() {
   const [ bodyProducts, setBodyProducts ] = useState([])
@@ -36,17 +36,34 @@ export default function Body() {
   </ProductMenu>
 
   return (
-    <BodyBase>
-      <Inner>
-        <ProductCategory>
-          <button type='button' onClick={()=>{setBodyProducts(hand)}}>핸드</button>
-          <button type='button' onClick={()=>{setBodyProducts(body)}}>바디</button>
-        </ProductCategory>
-        <ProductContent>
-          {allBodyHand}
-        </ProductContent>
-      </Inner>
-    </BodyBase>
+    <>
+      <Pc>
+        <BodyBase>
+          <Inner>
+            <ProductCategory>
+              <button type='button' onClick={()=>{setBodyProducts(hand)}}>핸드</button>
+              <button type='button' onClick={()=>{setBodyProducts(body)}}>바디</button>
+            </ProductCategory>
+            <ProductContent>
+              {allBodyHand}
+            </ProductContent>
+          </Inner>
+        </BodyBase>
+      </Pc>
+      <Mobile>
+        <BodyBase>
+          <Inner>
+            <ProductCategory style={{position:"fixed", top: "180px", left: "10px", width: "100px", flexDirection: "column"}}>
+              <button style={{padding: "7px 0"}}  type='button' onClick={()=>{setBodyProducts(hand)}}>핸드</button>
+              <button style={{padding: "7px 0"}}  type='button' onClick={()=>{setBodyProducts(body)}}>바디</button>
+            </ProductCategory>
+            <ProductContent>
+              {allBodyHand}
+            </ProductContent>
+          </Inner>
+        </BodyBase>
+      </Mobile>
+    </>
   )
 }
 

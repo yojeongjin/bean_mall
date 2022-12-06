@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logoutAuth } from '../../redux/actions/auth_actions'
 import { persistor } from '../../redux/create'
 import { useLocation } from 'react-router-dom/cjs/react-router-dom'
-
 import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 import Hamburger from './Hamburger'
@@ -62,7 +61,14 @@ export default function Header() {
   
 	if (useLocation().pathname === '/') {
     return (
-      <Hamburger />
+      <>
+        <Pc>
+          <Hamburger />
+        </Pc>
+        <Mobile>
+          <Hamburger />
+        </Mobile>
+      </>
     )
   } else {
     if (token === null) {
@@ -102,29 +108,43 @@ export default function Header() {
       )
     } else {
       return (
-        <HeaderBase  isActive = {scroll <= 80}>
-          <HeaderInner>
-              <HeaderMain>
-                <HeaderMainList><Link to="/"><MenuListSpan>Main</MenuListSpan></Link></HeaderMainList>
-                <HeaderMainList><Link to="/product"><MenuListSpan>Products</MenuListSpan></Link></HeaderMainList>
-                <HeaderMainList><Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link></HeaderMainList>
-              </HeaderMain>
-              <AnotherHeaderLogo>
-                <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
-              </AnotherHeaderLogo>
-              <HeaderMain>
-                <HeaderMainList><Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link></HeaderMainList>
-                <HeaderMainList><MenuListSpan className="logout" onClick={logout} >Logout</MenuListSpan></HeaderMainList>
-                <HeaderMainList>
-                  <Link to="/cart">
-                    <MenuListSpan>Cart
-                      <span className="cart-num">{countCartItem}</span>
-                    </MenuListSpan>
-                  </Link>
-                </HeaderMainList>
-              </HeaderMain>
-          </HeaderInner>
-        </HeaderBase>
+        <>
+          <Pc>
+            <HeaderBase  isActive = {scroll <= 80}>
+              <HeaderInner>
+                  <HeaderMain>
+                    <HeaderMainList><Link to="/"><MenuListSpan>Main</MenuListSpan></Link></HeaderMainList>
+                    <HeaderMainList><Link to="/product"><MenuListSpan>Products</MenuListSpan></Link></HeaderMainList>
+                    <HeaderMainList><Link to="/perfumeinfo"><MenuListSpan>Flavours</MenuListSpan></Link></HeaderMainList>
+                  </HeaderMain>
+                  <AnotherHeaderLogo>
+                    <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
+                  </AnotherHeaderLogo>
+                  <HeaderMain>
+                    <HeaderMainList><Link to="/mypage"><MenuListSpan>My Page</MenuListSpan></Link></HeaderMainList>
+                    <HeaderMainList><MenuListSpan className="logout" onClick={logout} >Logout</MenuListSpan></HeaderMainList>
+                    <HeaderMainList>
+                      <Link to="/cart">
+                        <MenuListSpan>Cart
+                          <span className="cart-num">{countCartItem}</span>
+                        </MenuListSpan>
+                      </Link>
+                    </HeaderMainList>
+                  </HeaderMain>
+              </HeaderInner>
+            </HeaderBase>
+          </Pc>
+          <Mobile>
+            <MobileBase style={{width:"100px"}}>
+              <HeaderInner style={{width:"100px", margin:"15px 7px"}}>
+                <AnotherHeaderLogo>
+                  <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
+                </AnotherHeaderLogo>
+              </HeaderInner>
+              <Hamburger />
+            </MobileBase>
+          </Mobile>
+        </>
       )
     }
   }
@@ -142,12 +162,15 @@ display: ${(props) => props.isHome ? 'none' : 'show'};
 opacity: ${(props) => props.isActive ? 1 : 0};
 transition: 0.5s ease;`
 
+const MobileBase = styled.header`
+position: fixed;
+top: 0;
+left: 0;
+`
 const HeaderInner = styled.div`
 width: 1100px;
 margin: 0 auto;
 display: flex;
-justify-content: center;
-align-items: center;
 `
 
 const AnotherHeaderLogo = styled.div`
@@ -205,7 +228,3 @@ text-align: center;
 }
 `
 
-const MobileBase = styled.header`
-background-color: transparent;
-width: 390px;
-`

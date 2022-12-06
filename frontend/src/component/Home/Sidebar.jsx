@@ -64,8 +64,8 @@ export default function Sidebar(props) {
           </SidebarBase>  
         </Pc>
         <Mobile>
-          <SidebarBase ref={outside}>
-            <MobileList>
+          <SidebarBase ref={outside} style={{right: "0px"}}>
+            <SidebarList style={{textAlign: "right", padding: "0 20px"}}>
               <SidebarItem><Link to="/product">Products</Link></SidebarItem>
               <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
               <SidebarItem><Link to="/about">About</Link></SidebarItem>
@@ -76,7 +76,7 @@ export default function Sidebar(props) {
                 </Link>
               </SidebarItem>
               <SidebarItem><Link to="/signin">Login</Link></SidebarItem>
-            </MobileList>
+            </SidebarList>
           </SidebarBase>
         </Mobile>
       </>
@@ -102,8 +102,8 @@ export default function Sidebar(props) {
           </SidebarBase>
         </Pc>
         <Mobile>
-          <SidebarBase ref={outside}>
-            <MobileList>
+          <SidebarBase ref={outside} style={{right: "0px"}}>
+            <SidebarList style={{textAlign: "right", padding: "0 20px"}}>
               <SidebarItem><Link to="/product">Products</Link></SidebarItem>
               <SidebarItem><Link to="/perfumeinfo">Flavours</Link></SidebarItem>
               <SidebarItem><Link to="/about">About</Link></SidebarItem>
@@ -114,7 +114,7 @@ export default function Sidebar(props) {
                 </Link>
               </SidebarItem>
               <SidebarItem onClick={logout} style={{cursor: 'pointer'}}>Logout</SidebarItem>
-            </MobileList>
+            </SidebarList>
           </SidebarBase>
         </Mobile>
       </>
@@ -126,24 +126,18 @@ export default function Sidebar(props) {
 const SidebarBase = styled.div`
 position: fixed;
 top: 0;
-right: 20px;
+right: 10px;
 width: 125px;
 height: 30%;
 margin-top: 90px;
 font-family: 'AppleSDGothicNeo';
-z-index: 5;
+z-index: 999;
 `
 
 const SidebarList = styled.ul`
 text-align: center;
 font-size: 14px;
 color: #aaa;
-`
-
-const MobileList = styled.ul`
-text-align: center;
-font-size: 14px;
-color: black;
 `
 
 

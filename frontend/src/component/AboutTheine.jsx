@@ -36,7 +36,7 @@ font-family: 'AppleSDGothicNeo';
 
 const Inner = styled.div`
 padding-top: 150px;
-width: 1300px;
+width: 380px;
 margin: 0 auto;
 height: 150vh;
 `

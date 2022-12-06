@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 export default function Hair() {
   const [ hairProducts, setHairProducts ] = useState([])
@@ -36,18 +37,36 @@ export default function Hair() {
   </ProductMenu>
 
   return (
-    <HairBase>
-      <Inner>
-        <ProductCategory>
-          <button type='button' onClick={()=>{setHairProducts(shampoo)}}>샴푸</button>
-          <button type='button' onClick={()=>{setHairProducts(treatment)}}>트리트먼트</button>
-          <button type='button' onClick={()=>{setHairProducts(oil)}}>오일</button>
-        </ProductCategory>
-        <ProductContent>
-          {allHair}
-        </ProductContent>
-      </Inner>
-    </HairBase>
+    <>
+      <Pc>
+        <HairBase>
+          <Inner>
+            <ProductCategory>
+              <button type='button' onClick={()=>{setHairProducts(shampoo)}}>샴푸</button>
+              <button type='button' onClick={()=>{setHairProducts(treatment)}}>트리트먼트</button>
+              <button type='button' onClick={()=>{setHairProducts(oil)}}>오일</button>
+            </ProductCategory>
+            <ProductContent>
+              {allHair}
+            </ProductContent>
+          </Inner>
+        </HairBase>
+      </Pc>
+      <Mobile>
+        <HairBase>
+          <Inner>
+            <ProductCategory style={{position:"fixed", top: "200px", left: "10px", width:"100px", flexDirection: "column"}}>
+              <button style={{padding: "7px 0"}} type='button' onClick={()=>{setHairProducts(shampoo)}}>샴푸</button>
+              <button style={{padding: "7px 0"}} type='button' onClick={()=>{setHairProducts(treatment)}}>트리트먼트</button>
+              <button style={{padding: "7px 0"}} type='button' onClick={()=>{setHairProducts(oil)}}>오일</button>
+            </ProductCategory>
+            <ProductContent>
+              {allHair}
+            </ProductContent>
+          </Inner>
+        </HairBase>
+      </Mobile>
+    </>
   )
 }
 

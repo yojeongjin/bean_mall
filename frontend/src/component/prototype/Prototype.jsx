@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { useDispatch } from 'react-redux'
 import { getProduct } from '../../redux/actions/product_actions'
 import { allProducts } from '../../redux/actions/product_actions'
+import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 import Loading from '../Loading'
 import Skincare from './Skincare'
@@ -88,6 +89,7 @@ export default function Prototype() {
     }
   </ProductMenu>
 
+
   const showAll = () => {
     setAllproduct(true)
     setSkincare(false)
@@ -128,26 +130,65 @@ export default function Prototype() {
     setPerfume(true)
   }
 
+  const chageOption = (e) => {
+    if(e.target.value === '전체보기') {
+      showAll()
+    } else if (e.target.value === '스킨케어') {
+      goToSkincare()
+    } else if (e.target.value === '바디&핸드') {
+      goToBody()
+    } else if (e.target.value === '헤어') {
+      goToHair()
+    } else if (e.target.value === '향수') {
+      goToPerfume()
+    }
+  }
+
   return (
-    <ProductBase>
-      {loading && <Loading /> }
-      <ProductInner>
-        <ProductTitle>
-          <Title onClick={()=>{showAll()}}><span>전체보기</span></Title>
-          <Title onClick={()=>{goToSkincare()}}><span>스킨케어</span></Title>
-          <Title onClick={()=>{goToBody()}}><span>바디&핸드</span></Title>
-          <Title onClick={()=>{goToHair()}}><span>헤어</span></Title>
-          <Title onClick={()=>{goToPerfume()}}><span>향수</span></Title>
-        </ProductTitle>
-        <ProductContent>
-          {allProduct && showAllProducts}
-          {skincare && <Skincare />}
-          {body && <Body />}
-          {hair && <Hair />}
-          {perfume && <Perfume />}
-        </ProductContent>
-      </ProductInner>
-    </ProductBase>
+    <>
+      <Pc>
+        <ProductBase>
+          {loading && <Loading /> }
+          <ProductInner>
+            <ProductTitle>
+              <Title onClick={()=>{showAll()}}><span>전체보기</span></Title>
+              <Title onClick={()=>{goToSkincare()}}><span>스킨케어</span></Title>
+              <Title onClick={()=>{goToBody()}}><span>바디&핸드</span></Title>
+              <Title onClick={()=>{goToHair()}}><span>헤어</span></Title>
+              <Title onClick={()=>{goToPerfume()}}><span>향수</span></Title>
+            </ProductTitle>
+            <ProductContent>
+              {allProduct && showAllProducts}
+              {skincare && <Skincare />}
+              {body && <Body />}
+              {hair && <Hair />}
+              {perfume && <Perfume />}
+            </ProductContent>
+          </ProductInner>
+        </ProductBase>
+      </Pc>
+      <Mobile>
+        <ProductBase style={{marginTop: "0px", paddingTop: "50px", border:"none"}}>
+          {loading && <Loading /> }
+          <ProductInner style={{width: "370px", margin: "0 auto"}}>
+            <MobileVersionTitle onChange={(e)=>{chageOption(e)}}>
+              <MobileOption>전체보기</MobileOption>
+              <MobileOption>스킨케어</MobileOption>
+              <MobileOption>바디&핸드</MobileOption>
+              <MobileOption>헤어</MobileOption>
+              <MobileOption>향수</MobileOption>
+            </MobileVersionTitle>
+            <ProductContent>
+              {allProduct && showAllProducts}
+              {skincare && <Skincare />}
+              {body && <Body />}
+              {hair && <Hair />}
+              {perfume && <Perfume />}
+            </ProductContent>
+          </ProductInner>
+        </ProductBase>
+      </Mobile>
+    </>
   )
 }
 
@@ -179,6 +220,24 @@ flex: 1;
 text-align: center;
 cursor: pointer;
 `
+
+const MobileVersionTitle = styled.select`
+position:fixed;
+top: 125px;
+left: 30px;
+width: 75px;
+height: 25px;
+font-size: 12px;
+outline: none;
+background-color: transparent;
+border: none;
+`
+
+const MobileOption = styled.option`
+
+`
+
+
 const ProductContent = styled.div`
 margin-top: 20px;
 `

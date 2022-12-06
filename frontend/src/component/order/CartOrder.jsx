@@ -8,6 +8,7 @@ import { patchCart } from '../../redux/actions/cart_actions'
 import { deleteCart } from '../../redux/actions/cart_actions'
 import { orderInfo } from '../../redux/actions/order_actions'
 
+import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 export default function CartOrder({match}) {
   const dispatch = useDispatch()
@@ -119,83 +120,171 @@ export default function CartOrder({match}) {
 if(token !== null) {
     if (isDatas.length === 0) {
       return(
-        <CartBase>
-          <CartInner>
-            <CartPage>
-              <CartSectionLt>
-                <CartNone>장바구니에 담긴 상품이 없습니다.</CartNone>
-              </CartSectionLt>
-              <CartSectionRt>
-                <h2>결제내역</h2>
+        <>
+          <Pc>
+            <CartBase>
+              <CartInner>
+                <CartPage>
+                  <CartSectionLt>
+                    <CartNone>장바구니에 담긴 상품이 없습니다.</CartNone>
+                  </CartSectionLt>
+                  <CartSectionRt>
+                    <h2>결제내역</h2>
 
-                <PriceGroup>
-                  <PriceList>
-                    <div className="label">주문금액</div>
-                    <div className="value">0원</div>
-                  </PriceList>
-                  <PriceList>
-                    <div className="label">배송비</div>
-                    <div className="value">
-                      <span>3만원 이상 구매 시 무료배송</span>
-                      0원</div>
-                  </PriceList>
+                    <PriceGroup>
+                      <PriceList>
+                        <div className="label">주문금액</div>
+                        <div className="value">0원</div>
+                      </PriceList>
+                      <PriceList>
+                        <div className="label">배송비</div>
+                        <div className="value">
+                          <span>3만원 이상 구매 시 무료배송</span>
+                          0원</div>
+                      </PriceList>
 
-                  <PriceTotal>
-                    <div className="label">총 금액</div>
-                    <div className="value">0원</div>
-                  </PriceTotal>
-                </PriceGroup>
+                      <PriceTotal>
+                        <div className="label">총 금액</div>
+                        <div className="value">0원</div>
+                      </PriceTotal>
+                    </PriceGroup>
 
-                <CartBtnGroup>
-                  <CartBtn>주문하기</CartBtn>
-                  <CartBtn className="keep">쇼핑 계속하기</CartBtn>
-                </CartBtnGroup>
-              </CartSectionRt>
+                    <CartBtnGroup>
+                      <CartBtn>주문하기</CartBtn>
+                      <CartBtn className="keep">쇼핑 계속하기</CartBtn>
+                    </CartBtnGroup>
+                  </CartSectionRt>
 
-            </CartPage>
-          </CartInner>
-        </CartBase>
+                </CartPage>
+              </CartInner>
+            </CartBase>
+          </Pc>
+
+          <Mobile>
+            <CartBase style={{margin: 0}}>
+              <CartInner style={{width:"370px"}}>
+                <CartPage style={{flexDirection: "column"}}>
+                  <CartSectionLt style={{width:"100%"}}>
+                    <CartNone>장바구니에 담긴 상품이 없습니다.</CartNone>
+                  </CartSectionLt>
+                  <CartSectionRt style={{width:"100%", marginTop: "100px"}}>
+                    <h2>결제내역</h2>
+
+                    <PriceGroup>
+                      <PriceList>
+                        <div className="label">주문금액</div>
+                        <div className="value">0원</div>
+                      </PriceList>
+                      <PriceList>
+                        <div className="label">배송비</div>
+                        <div className="value">
+                          <span>3만원 이상 구매 시 무료배송</span>
+                          0원</div>
+                      </PriceList>
+
+                      <PriceTotal>
+                        <div className="label">총 금액</div>
+                        <div className="value">0원</div>
+                      </PriceTotal>
+                    </PriceGroup>
+
+                    <CartBtnGroup>
+                      <CartBtn>주문하기</CartBtn>
+                      <CartBtn className="keep">쇼핑 계속하기</CartBtn>
+                    </CartBtnGroup>
+                  </CartSectionRt>
+
+                </CartPage>
+              </CartInner>
+            </CartBase>
+          </Mobile>
+        </>
       )
     } else {
       return (
-        <CartBase>
-          <CartInner>
-            <CartPage>
-              <CartSectionLt>
-                {detailCarts}
-              </CartSectionLt>
+        <>
+          <Pc>
+            <CartBase>
+              <CartInner>
+                <CartPage>
+                  <CartSectionLt>
+                    {detailCarts}
+                  </CartSectionLt>
 
-              <CartSectionRt>
-                <h2>결제내역</h2>
+                  <CartSectionRt>
+                    <h2>결제내역</h2>
 
-                <PriceGroup>
-                  <PriceList>
-                    <div className="label">주문금액</div>
-                    <div className="value">{total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
-                  </PriceList>
-                  <PriceList>
-                    <div className="label">배송비</div>
-                    <div className="value">
-                      <span>3만원 이상 구매 시 무료배송</span>
-                      {fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
-                  </PriceList>
-    
-                  <PriceTotal>
-                    <div className="label">총 금액</div>
-                    <div className="value">{allPayment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
-                  </PriceTotal>
-                </PriceGroup>
-    
-                <CartBtnGroup>
-                  <CartBtn onClick={()=>{goToOrder()}}>주문하기</CartBtn>
-                  <CartBtn className="keep">쇼핑 계속하기</CartBtn>
-                </CartBtnGroup>
-    
-    
-              </CartSectionRt>
-            </CartPage>
-          </CartInner>
-        </CartBase>
+                    <PriceGroup>
+                      <PriceList>
+                        <div className="label">주문금액</div>
+                        <div className="value">{total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
+                      </PriceList>
+                      <PriceList>
+                        <div className="label">배송비</div>
+                        <div className="value">
+                          <span>3만원 이상 구매 시 무료배송</span>
+                          {fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
+                      </PriceList>
+        
+                      <PriceTotal>
+                        <div className="label">총 금액</div>
+                        <div className="value">{allPayment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
+                      </PriceTotal>
+                    </PriceGroup>
+        
+                    <CartBtnGroup>
+                      <CartBtn onClick={()=>{goToOrder()}}>주문하기</CartBtn>
+                      <CartBtn className="keep">쇼핑 계속하기</CartBtn>
+                    </CartBtnGroup>
+        
+        
+                  </CartSectionRt>
+                </CartPage>
+              </CartInner>
+            </CartBase>
+          </Pc>
+
+          <Mobile>
+            <CartBase style={{margin: 0}}>
+              <CartInner style={{width:"370px"}}>
+                <CartPage style={{flexDirection: "column"}}>
+                  <CartSectionLt style={{width:"100%"}}>
+                    {detailCarts}
+                  </CartSectionLt>
+
+                  <CartSectionRt style={{width:"100%", marginTop: "100px"}}>
+                    <h2>결제내역</h2>
+
+                    <PriceGroup>
+                      <PriceList>
+                        <div className="label">주문금액</div>
+                        <div className="value">{total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
+                      </PriceList>
+                      <PriceList>
+                        <div className="label">배송비</div>
+                        <div className="value">
+                          <span>3만원 이상 구매 시 무료배송</span>
+                          {fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
+                      </PriceList>
+        
+                      <PriceTotal>
+                        <div className="label">총 금액</div>
+                        <div className="value">{allPayment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
+                      </PriceTotal>
+                    </PriceGroup>
+        
+                    <CartBtnGroup>
+                      <CartBtn onClick={()=>{goToOrder()}}>주문하기</CartBtn>
+                      <CartBtn className="keep">쇼핑 계속하기</CartBtn>
+                    </CartBtnGroup>
+        
+        
+                  </CartSectionRt>
+                </CartPage>
+              </CartInner>
+            </CartBase>
+          </Mobile>
+        </>
       )
     }
   } else {

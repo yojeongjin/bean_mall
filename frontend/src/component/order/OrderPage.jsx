@@ -6,6 +6,8 @@ import { deleteAllCart } from '../../redux/actions/cart_actions'
 import { getUser } from '../../redux/actions/join_actions'
 import { addHistory, deleteAllOrder, getOrderItem, orderCompletion } from '../../redux/actions/order_actions'
 
+import { Mobile, Pc } from '../../hooks/MediaQuery'
+
 import Address from '../myinfos/Address'
 
 
@@ -28,6 +30,7 @@ export default function Order({match}) {
   const [ changeAddress, setChangeAddress ] = useState(false)
   const [ totlaPrice, setTotalPrice ] = useState(0)
   const [ checkNull, setCheckNull ] = useState(false)
+  const [ fee, setFee ] = useState(0)
 
   useEffect(() => {
     paymentWithJquery()
@@ -123,12 +126,6 @@ export default function Order({match}) {
     IMP.request_pay(data, callback)
   }
 
-  let orderHistory = orderItems.map(orderItem => {
-    let historyItem = {...orderItem, ...orderItem.imp='333'}
-    return historyItem.imp = '333 '
-  })
-  console.log(orderHistory)
-
   const callback = (res) => {
     const { success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount } = res
     if (success) {
@@ -174,11 +171,13 @@ export default function Order({match}) {
     setInputAddress('')
   }
 
+  console.log(orderItems)
+
   const orderItemList = 
   <OrderInfo>
     {
       orderItems.map(orderItem => (
-        <OrderList>
+        <OrderList key={orderItem.idOrder}>
           <OrderThumbnail>
             <img src={orderItem.ProductImg} alt='제품사진' />
           </OrderThumbnail>
@@ -213,206 +212,421 @@ export default function Order({match}) {
       return total += orderItem.price *  orderItem.quantity
     })
     setTotalPrice(total)
+    if (total < 30000) {
+      const totalPayment = total + 3000
+      setTotalPrice(totalPayment)
+      setFee(3000)
+    } else {
+      setTotalPrice(total)
+    }
   }
 
   return (
-    <OrderBase>
-      <OrderInner>
+    <>
+      <Pc>
+        <OrderBase>
+          <OrderInner>
+            <Section className='order' style={{padding: '80px 0'}}>
+              <SectionTitle onClick={()=>{setShow(!show)}} style={{cursor: 'pointer'}}>
+                <h1>주문 정보</h1>
+                <ToggleBtn isShow={show}></ToggleBtn>
+              </SectionTitle>
+              <OrderInfoWrap isShow={show}>
+                {orderItemList}
+                <OrderAmount style={{fontWeight: 400, padding: "15px 55px 0"}}>배송비 : {fee} 원</OrderAmount>
+                <OrderAmount>총 금액 : {totlaPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</OrderAmount>
+              </OrderInfoWrap>
+            </Section>
 
-        <Section className='order' style={{padding: '80px 0'}}>
-          <SectionTitle onClick={()=>{setShow(!show)}} style={{cursor: 'pointer'}}>
-            <h1>주문 정보</h1>
-            <ToggleBtn isShow={show}></ToggleBtn>
-          </SectionTitle>
-          <OrderInfoWrap isShow={show}>
-            {orderItemList}
-            <OrderAmount>총 금액 : {totlaPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</OrderAmount>
-          </OrderInfoWrap>
-        </Section>
+            <Section className='user'>
+              <SectionTitle>
+                <h1>주문자 정보</h1>
+              </SectionTitle>
 
-        <Section className='user'>
-          <SectionTitle>
-            <h1>주문자 정보</h1>
-          </SectionTitle>
-
-          <ContentWrap>
-            <UserContents>
-              <h3>{userInfo.UserName}</h3>
-              <p>{`${userInfo.UserPhone}${userInfo.UserPhoneMid}${userInfo.UserPhoneEnd}`}</p>
-              <p>{userInfo.UserEmail}</p>
-            </UserContents>
-          </ContentWrap>
-        </Section>
-        
-        <Section className='recipient'>
-          <SectionTitle style={{display:'flex'}}>
-            <h1>수령인 정보</h1>
-            <CheckBox>
-              <Input type="checkbox" id="all_class_checkbox" onClick={(e) => {handleCheckbox(e)}} checked={isCheck} />
-              <FormLabel>주문자 정보와 동일</FormLabel>
-            </CheckBox>
-          </SectionTitle>
-          {isCheck !== true && 
-            <ContentWrap>
-              <RecipientContents>
-                <InputContainer>
-                  <FormLabel>성함</FormLabel>
-                  <Input 
-                    id="name"
-                    type="text"
-                    required
-                    placeholder="수령인 성함을 입력해주세요."
-                    onChange={(e)=>{setRecipient(e.target.value)}}
-                  />
-                </InputContainer>
-                <InputContainer>
-                  <FormLabel>연락처</FormLabel>
-                  <Input 
-                    id="phonenumber"
-                    type="number"
-                    required
-                    placeholder="수령인 연락처를 입력해주세요."
-                    onChange={(e)=>{setRecipientNumber(e.target.value)}}
-                  />
-                  <span>('-' 기호를 빼고 입력해주세요.)</span>
-                </InputContainer>
-              </RecipientContents>
-            </ContentWrap>
-          }
-          {isCheck && checkNull &&
-            <ContentWrap>
-              <RecipientContents>
-                <InputContainer>
-                  <FormLabel>성함</FormLabel>
-                  <FormPostCode>{recipient}</FormPostCode>
-                </InputContainer>
-                <InputContainer>
-                  <FormLabel>연락처</FormLabel>
-                  <Input 
-                    id="phonenumber"
-                    type="number"
-                    required
-                    placeholder="수령인 연락처를 입력해주세요."
-                    onChange={(e)=>{setRecipientNumber(e.target.value)}}
-                  />
-                  <span>('-' 기호를 빼고 입력해주세요.)</span>
-                </InputContainer>
-              </RecipientContents>
-            </ContentWrap>          
-          }
-          {isCheck && checkNull !== true &&
-            <ContentWrap>
-              <RecipientContents>
-                <InputContainer>
-                  <FormLabel>성함</FormLabel>
-                  <FormPostCode>{recipient}</FormPostCode>
-                </InputContainer>
-                <InputContainer>
-                  <FormLabel>연락처</FormLabel>
-                  <FormPostCode>{recipientNumber}</FormPostCode>
-                </InputContainer>
-              </RecipientContents>
-            </ContentWrap>       
-          }
-
-        </Section>
-
-        <Section className='delivery'>
-          <SectionTitle>
-            <h1>배송 정보</h1>
-          </SectionTitle>
-
-          <ContentWrap>
-            { changeAddress !== true && 
-              <FormContent>
-                <NavWrap>
-                  <NavList>
-                    <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
-                      <img src={icon} alt="포인터" />
-                      기본배송지
-                    </NavItem>
-                    <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
-                      <img src={icon} alt="포인터" />
-                      배송지 변경하기
-                    </NavItem>
-                  </NavList>
-                </NavWrap>
-
-                
-                <InputContainer style={{display:'flex'}}>
-                  <FormPostCode style={{width: '80px','text-align' : 'center'}}>{address.postcode}</FormPostCode>
-                  <Address setAddress={setAddress} />
-                </InputContainer>
-
-                <InputContainer>
-                  <FormPostCode>{address.defaultAddr}</FormPostCode>
-                  <span>기본 주소</span>
-                </InputContainer>
-
-                <InputContainer>
-                  <Input 
-                    id="address"
-                    type="text"
-                    value={inputAddress}
-                    required
-                    placeholder="상세주소를 입력해주세요."
-                    onChange={(e)=>{setInputAddress(e.target.value)}} 
-                  />
-                  <span>나머지 주소</span>
-                </InputContainer>
-              </FormContent>
-            }
-
-            { changeAddress && 
-                <FormContent>
-                  <NavWrap>
-                    <NavList>
-                      <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
-                        <img src={icon} alt="포인터" />
-                        기본배송지
-                      </NavItem>
-                      <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
-                        <img src={icon} alt="포인터" />
-                        배송지 변경하기
-                      </NavItem>
-                    </NavList>
-                  </NavWrap>
-
-                  
-                  <InputContainer style={{display:'flex'}}>
-                    <FormPostCode style={{width: '80px','text-align' : 'center'}}>{address.postcode}</FormPostCode>
-                    <Address setAddress={setAddress} />
-                  </InputContainer>
-
-                  <InputContainer>
-                    <FormPostCode>{address.defaultAddr}</FormPostCode>
-                    <span>기본 주소</span>
-                  </InputContainer>
-
-                  <InputContainer>
-                    <Input 
-                      id="address"
-                      type="text"
-                      value={inputAddress}
-                      required
-                      placeholder="상세주소를 입력해주세요."
-                      onChange={(e)=>{setInputAddress(e.target.value)}} 
-                    />
-                   <span>나머지 주소</span>
-                  </InputContainer>
-                </FormContent>
+              <ContentWrap>
+                <UserContents>
+                  <h3>{userInfo.UserName}</h3>
+                  <p>{`${userInfo.UserPhone}${userInfo.UserPhoneMid}${userInfo.UserPhoneEnd}`}</p>
+                  <p>{userInfo.UserEmail}</p>
+                </UserContents>
+              </ContentWrap>
+            </Section>
+            
+            <Section className='recipient'>
+              <SectionTitle style={{display:'flex'}}>
+                <h1>수령인 정보</h1>
+                <CheckBox>
+                  <Input type="checkbox" id="all_class_checkbox" onChange={(e) => {handleCheckbox(e)}} checked={isCheck} />
+                  <FormLabel>주문자 정보와 동일</FormLabel>
+                </CheckBox>
+              </SectionTitle>
+              {isCheck !== true && 
+                <ContentWrap>
+                  <RecipientContents>
+                    <InputContainer>
+                      <FormLabel>성함</FormLabel>
+                      <Input 
+                        id="name"
+                        type="text"
+                        required
+                        placeholder="수령인 성함을 입력해주세요."
+                        onChange={(e)=>{setRecipient(e.target.value)}}
+                      />
+                    </InputContainer>
+                    <InputContainer>
+                      <FormLabel>연락처</FormLabel>
+                      <Input 
+                        id="phonenumber"
+                        type="number"
+                        required
+                        placeholder="수령인 연락처를 입력해주세요."
+                        onChange={(e)=>{setRecipientNumber(e.target.value)}}
+                      />
+                      <span>('-' 기호를 빼고 입력해주세요.)</span>
+                    </InputContainer>
+                  </RecipientContents>
+                </ContentWrap>
               }
-          </ContentWrap>
-        </Section>
+              {isCheck && checkNull &&
+                <ContentWrap>
+                  <RecipientContents>
+                    <InputContainer>
+                      <FormLabel>성함</FormLabel>
+                      <FormPostCode>{recipient}</FormPostCode>
+                    </InputContainer>
+                    <InputContainer>
+                      <FormLabel>연락처</FormLabel>
+                      <Input 
+                        id="phonenumber"
+                        type="number"
+                        required
+                        placeholder="수령인 연락처를 입력해주세요."
+                        onChange={(e)=>{setRecipientNumber(e.target.value)}}
+                      />
+                      <span>('-' 기호를 빼고 입력해주세요.)</span>
+                    </InputContainer>
+                  </RecipientContents>
+                </ContentWrap>          
+              }
+              {isCheck && checkNull !== true &&
+                <ContentWrap>
+                  <RecipientContents>
+                    <InputContainer>
+                      <FormLabel>성함</FormLabel>
+                      <FormPostCode>{recipient}</FormPostCode>
+                    </InputContainer>
+                    <InputContainer>
+                      <FormLabel>연락처</FormLabel>
+                      <FormPostCode>{recipientNumber}</FormPostCode>
+                    </InputContainer>
+                  </RecipientContents>
+                </ContentWrap>       
+              }
 
-        <Section className='payment'>
-          <PayCheck>
-            <CheckoutBtn type="button" onClick={()=>{onClickPayment()}}>결제하기</CheckoutBtn>
-          </PayCheck>
-        </Section>
-      </OrderInner>
-    </OrderBase>
+            </Section>
 
+            <Section className='delivery'>
+              <SectionTitle>
+                <h1>배송 정보</h1>
+              </SectionTitle>
+
+              <ContentWrap>
+                { changeAddress !== true && 
+                  <FormContent>
+                    <NavWrap>
+                      <NavList>
+                        <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
+                          <img src={icon} alt="포인터" />
+                          기본배송지
+                        </NavItem>
+                        <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
+                          <img src={icon} alt="포인터" />
+                          배송지 변경하기
+                        </NavItem>
+                      </NavList>
+                    </NavWrap>
+
+                    
+                    <InputContainer style={{display:'flex'}}>
+                      <FormPostCode style={{width: '80px','textAlign' : 'center'}}>{address.postcode}</FormPostCode>
+                      <Address setAddress={setAddress} />
+                    </InputContainer>
+
+                    <InputContainer>
+                      <FormPostCode>{address.defaultAddr}</FormPostCode>
+                      <span>기본 주소</span>
+                    </InputContainer>
+
+                    <InputContainer>
+                      <Input 
+                        id="address"
+                        type="text"
+                        value={inputAddress}
+                        required
+                        placeholder="상세주소를 입력해주세요."
+                        onChange={(e)=>{setInputAddress(e.target.value)}} 
+                      />
+                      <span>나머지 주소</span>
+                    </InputContainer>
+                  </FormContent>
+                }
+
+                { changeAddress && 
+                    <FormContent>
+                      <NavWrap>
+                        <NavList>
+                          <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
+                            <img src={icon} alt="포인터" />
+                            기본배송지
+                          </NavItem>
+                          <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
+                            <img src={icon} alt="포인터" />
+                            배송지 변경하기
+                          </NavItem>
+                        </NavList>
+                      </NavWrap>
+
+                      
+                      <InputContainer style={{display:'flex'}}>
+                        <FormPostCode style={{width: '80px','text-align' : 'center'}}>{address.postcode}</FormPostCode>
+                        <Address setAddress={setAddress} />
+                      </InputContainer>
+
+                      <InputContainer>
+                        <FormPostCode>{address.defaultAddr}</FormPostCode>
+                        <span>기본 주소</span>
+                      </InputContainer>
+
+                      <InputContainer>
+                        <Input 
+                          id="address"
+                          type="text"
+                          value={inputAddress}
+                          required
+                          placeholder="상세주소를 입력해주세요."
+                          onChange={(e)=>{setInputAddress(e.target.value)}} 
+                        />
+                      <span>나머지 주소</span>
+                      </InputContainer>
+                    </FormContent>
+                  }
+              </ContentWrap>
+            </Section>
+
+            <Section className='payment'>
+              <PayCheck>
+                <CheckoutBtn onClick={()=>{onClickPayment()}}>결제하기</CheckoutBtn>
+              </PayCheck>
+            </Section>
+          </OrderInner>
+        </OrderBase>
+      </Pc>
+
+      {/* 모바일 */}
+
+      <Mobile>
+        <OrderBase style={{margin: "0"}}>
+          <OrderInner style={{width: "370px"}}>
+            <MobileSection className='order' style={{padding: '80px 0'}}>
+              <SectionTitle onClick={()=>{setShow(!show)}} style={{cursor: 'pointer'}}>
+                <h1>주문 정보</h1>
+                <ToggleBtn isShow={show}></ToggleBtn>
+              </SectionTitle>
+              <OrderInfoWrap isShow={show}>
+                {orderItemList}
+                <OrderAmount style={{fontWeight: 400, padding: "15px 0 0"}}>배송비 : {fee} 원</OrderAmount>
+                <OrderAmount style={{padding: "15px 0 0"}}>총 금액 : {totlaPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</OrderAmount>
+              </OrderInfoWrap>
+            </MobileSection>
+
+            <MobileSection className='user'>
+              <SectionTitle>
+                <h1>주문자 정보</h1>
+              </SectionTitle>
+
+              <ContentWrap>
+                <UserContents>
+                  <h3>{userInfo.UserName}</h3>
+                  <p>{`${userInfo.UserPhone}${userInfo.UserPhoneMid}${userInfo.UserPhoneEnd}`}</p>
+                  <p>{userInfo.UserEmail}</p>
+                </UserContents>
+              </ContentWrap>
+            </MobileSection>
+            
+            <MobileSection className='recipient'>
+              <SectionTitle style={{display:'flex'}}>
+                <h1>수령인 정보</h1>
+                <CheckBox>
+                  <Input type="checkbox" id="all_class_checkbox" onChange={(e) => {handleCheckbox(e)}} checked={isCheck} />
+                  <FormLabel>주문자 정보와 동일</FormLabel>
+                </CheckBox>
+              </SectionTitle>
+              {isCheck !== true && 
+                <ContentWrap style={{width: "100%"}}>
+                  <RecipientContents>
+                    <InputContainer style={{width: "100%"}}>
+                      <FormLabel>성함</FormLabel>
+                      <Input 
+                        id="name"
+                        type="text"
+                        required
+                        placeholder="수령인 성함을 입력해주세요."
+                        onChange={(e)=>{setRecipient(e.target.value)}}
+                      />
+                    </InputContainer>
+                    <InputContainer style={{width: "100%"}}>
+                      <FormLabel>연락처</FormLabel>
+                      <div style={{display: "flex", flexDirection: "column"}}>
+                        <Input 
+                          id="phonenumber"
+                          type="number"
+                          required
+                          placeholder="수령인 연락처를 입력해주세요."
+                          onChange={(e)=>{setRecipientNumber(e.target.value)}}
+                        />
+                        <span style={{fontSize: "12px", color: "#252525", marginTop: "10px"}}>('-' 기호를 빼고 입력해주세요.)</span>
+                      </div>
+                    </InputContainer>
+                  </RecipientContents>
+                </ContentWrap>
+              }
+              {isCheck && checkNull &&
+                <ContentWrap style={{width: "100%"}}>
+                  <RecipientContents>
+                    <InputContainer style={{width: "100%"}}>
+                      <FormLabel>성함</FormLabel>
+                      <FormPostCode>{recipient}</FormPostCode>
+                    </InputContainer>
+                    <InputContainer style={{width: "100%"}}>
+                      <FormLabel>연락처</FormLabel>
+                      <div style={{display: "flex", flexDirection: "column"}}>
+                        <Input 
+                          id="phonenumber"
+                          type="number"
+                          required
+                          placeholder="수령인 연락처를 입력해주세요."
+                          onChange={(e)=>{setRecipientNumber(e.target.value)}}
+                        />
+                        <span style={{fontSize: "12px", color: "#252525", marginTop: "10px"}}>('-' 기호를 빼고 입력해주세요.)</span>
+                      </div>
+                    </InputContainer>
+                  </RecipientContents>
+                </ContentWrap>          
+              }
+              {isCheck && checkNull !== true &&
+                <ContentWrap style={{width: "90%"}}>
+                  <RecipientContents>
+                    <InputContainer style={{width: "100%"}}>
+                      <FormLabel>성함</FormLabel>
+                      <FormPostCode>{recipient}</FormPostCode>
+                    </InputContainer>
+                    <InputContainer>
+                      <FormLabel>연락처</FormLabel>
+                      <FormPostCode>{recipientNumber}</FormPostCode>
+                    </InputContainer>
+                  </RecipientContents>
+                </ContentWrap>       
+              }
+
+            </MobileSection>
+
+            <MobileSection className='delivery'>
+              <SectionTitle>
+                <h1>배송 정보</h1>
+              </SectionTitle>
+
+              <ContentWrap style={{width: "100%"}}>
+                { changeAddress !== true && 
+                  <FormContent>
+                    <NavWrap style={{width: "100%"}}>
+                      <NavList>
+                        <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
+                          <img src={icon} alt="포인터" />
+                          기본배송지
+                        </NavItem>
+                        <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
+                          <img src={icon} alt="포인터" />
+                          배송지 변경하기
+                        </NavItem>
+                      </NavList>
+                    </NavWrap>
+
+                    
+                    <InputContainer style={{display:'flex'}}>
+                      <FormPostCode style={{width: '80px','textAlign' : 'center'}}>{address.postcode}</FormPostCode>
+                      <Address setAddress={setAddress} />
+                    </InputContainer>
+
+                    <InputContainer>
+                      <FormPostCode>{address.defaultAddr}</FormPostCode>
+                      <span>기본 주소</span>
+                    </InputContainer>
+
+                    <InputContainer>
+                      <Input 
+                        id="address"
+                        type="text"
+                        value={inputAddress}
+                        required
+                        placeholder="상세주소를 입력해주세요."
+                        onChange={(e)=>{setInputAddress(e.target.value)}} 
+                      />
+                      <span>나머지 주소</span>
+                    </InputContainer>
+                  </FormContent>
+                }
+
+                { changeAddress && 
+                    <FormContent>
+                      <NavWrap style={{width: "100%"}}>
+                        <NavList>
+                          <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
+                            <img src={icon} alt="포인터" />
+                            기본배송지
+                          </NavItem>
+                          <NavItem onClick={() => {handleChange()}} isClick={changeAddress}>
+                            <img src={icon} alt="포인터" />
+                            배송지 변경하기
+                          </NavItem>
+                        </NavList>
+                      </NavWrap>
+
+                      
+                      <InputContainer style={{display:'flex'}}>
+                        <FormPostCode style={{width: '80px','text-align' : 'center'}}>{address.postcode}</FormPostCode>
+                        <Address setAddress={setAddress} />
+                      </InputContainer>
+
+                      <InputContainer>
+                        <FormPostCode>{address.defaultAddr}</FormPostCode>
+                        <span>기본 주소</span>
+                      </InputContainer>
+
+                      <InputContainer>
+                        <Input 
+                          id="address"
+                          type="text"
+                          value={inputAddress}
+                          required
+                          placeholder="상세주소를 입력해주세요."
+                          onChange={(e)=>{setInputAddress(e.target.value)}} 
+                        />
+                      <span>나머지 주소</span>
+                      </InputContainer>
+                    </FormContent>
+                  }
+              </ContentWrap>
+            </MobileSection>
+
+            <MobileSection className='payment'>
+              <PayCheck>
+                <CheckoutBtn onClick={()=>{onClickPayment()}}>결제하기</CheckoutBtn>
+              </PayCheck>
+            </MobileSection>
+          </OrderInner>
+        </OrderBase>
+      </Mobile>
+    </>
   )
 }
 
@@ -429,6 +643,12 @@ margin: 0 auto;
 
 const Section = styled.section`
 width: 80%;
+margin: 0 auto;
+padding: 20px 0;
+border-bottom: 1px solid #a9a9a9;
+`
+const MobileSection = styled.section`
+width: 100%;
 margin: 0 auto;
 padding: 20px 0;
 border-bottom: 1px solid #a9a9a9;
@@ -471,14 +691,12 @@ align-items: center;
 
 const CheckBox = styled.div`
 display: flex;
-
 ${Input} {
   width: 15px;
   height: 15px;
   margin: 0 7px;
   cursor: pointer;
 }
-
 ${FormLabel} {
   margin: 0;
   padding: 0;
@@ -521,7 +739,6 @@ const OrderList = styled.li`
 width: 80%;
 border-bottom: 1px solid black;
 display: flex;
-
 &:first-child {
   border-top: 1px solid black; 
 }
@@ -566,7 +783,7 @@ const OrderAmount =  styled.div`
 width: 80%;
 margin: 0 auto;
 text-align: right;
-padding: 20px 55px;
+padding: 10px 55px;
 font-size: 13px;
 font-weight: 500;
 `
@@ -663,7 +880,6 @@ justify-content: center;
   border: ${(props) => props.isClick ? '2px solid #858585' : 'none'};
   border-bottom: none;
 }
-
 >img{
   width: 18px;
   height: 18px;
@@ -678,7 +894,6 @@ padding: 50px 0;
 `
 
 const CheckoutBtn = styled.button`
-border: 1px solid black;
 width: 300px;
 height: 50px;
 background-color: #443f3c;

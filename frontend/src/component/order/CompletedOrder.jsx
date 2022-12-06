@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPaymentInfo } from '../../redux/actions/order_actions'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
+import { Mobile, Pc } from '../../hooks/MediaQuery'
+
 export default function CompletedOrder() {
 
   const dispatch = useDispatch()
@@ -25,69 +27,139 @@ export default function CompletedOrder() {
 
 
   return(
-    <CompletedOrderBase>
-      <Inner>
-       <CompletedContents>
-        <Title>주문 상세 내역</Title>
-        
-        <OrderNumber>
-          <Subheading>주문 일자</Subheading>
-          <Contents>{orderDate}</Contents>
+    <>
+      <Pc>
+        <CompletedOrderBase>
+          <Inner>
+          <CompletedContents>
+            <Title>주문 상세 내역</Title>
+            
+            <OrderNumber>
+              <Subheading>주문 일자</Subheading>
+              <Contents>{orderDate}</Contents>
 
-          <Subheading>주문 번호</Subheading>
-          <Contents>{paymentInfo.merchant_uid}</Contents>
-        </OrderNumber>
+              <Subheading>주문 번호</Subheading>
+              <Contents>{paymentInfo.merchant_uid}</Contents>
+            </OrderNumber>
 
-        <InfoSection>
-          <SubTitle>구매자 정보</SubTitle>
-          <InfoContents>
-            <Subheading>주문자
-              <span>{paymentInfo.UserName}</span>
-            </Subheading>
-            <Subheading>이메일
-              <span>{paymentInfo.UserEmail}</span>
-            </Subheading>
-          </InfoContents>
-        </InfoSection>
+            <InfoSection>
+              <SubTitle>구매자 정보</SubTitle>
+              <InfoContents>
+                <Subheading>주문자
+                  <span>{paymentInfo.UserName}</span>
+                </Subheading>
+                <Subheading>이메일
+                  <span>{paymentInfo.UserEmail}</span>
+                </Subheading>
+              </InfoContents>
+            </InfoSection>
 
-        <InfoSection>
-          <SubTitle>배송지 정보</SubTitle>
-          <InfoContents>
-            <Subheading>수령인
-              <span>{paymentInfo.Recipient}</span>
-            </Subheading>
-            <Subheading>연락처
-              <span>0{paymentInfo.RecipientNumber}</span>
-            </Subheading>
-            <Subheading>배송지
-              <span>{`${paymentInfo.postcode} ${paymentInfo.defaultAdd} ${paymentInfo.detailAdd}`}</span>
-            </Subheading>
-          </InfoContents>
-        </InfoSection>
+            <InfoSection>
+              <SubTitle>배송지 정보</SubTitle>
+              <InfoContents>
+                <Subheading>수령인
+                  <span>{paymentInfo.Recipient}</span>
+                </Subheading>
+                <Subheading>연락처
+                  <span>0{paymentInfo.RecipientNumber}</span>
+                </Subheading>
+                <Subheading>배송지
+                  <span>{`${paymentInfo.postcode} ${paymentInfo.defaultAdd} ${paymentInfo.detailAdd}`}</span>
+                </Subheading>
+              </InfoContents>
+            </InfoSection>
 
-        <InfoSection>
-          <SubTitle>주문 금액 상세</SubTitle>
-          <InfoContents>
-            <SubheadingInline>결제 방식
-              <span>{paymentInfo.pay_method}</span>
-            </SubheadingInline>
-            <SubheadingInline>총 주문 금액
-              <span>{paymentInfo.paid_amount} 원</span>
-            </SubheadingInline>
-          </InfoContents>
-        </InfoSection>
-       </CompletedContents>
+            <InfoSection>
+              <SubTitle>주문 금액 상세</SubTitle>
+              <InfoContents>
+                <SubheadingInline>결제 방식
+                  <span>{paymentInfo.pay_method}</span>
+                </SubheadingInline>
+                <SubheadingInline>총 주문 금액
+                  <span>{paymentInfo.paid_amount} 원</span>
+                </SubheadingInline>
+              </InfoContents>
+            </InfoSection>
+          </CompletedContents>
 
-       <CartBtnGroup>
-          <CartBtn type="button">
-            <Link to="/">홈으로 돌아가기</Link>
-          </CartBtn>
-          <CartBtn className="keep" type="button">
-            <Link to="/product">쇼핑 계속하기</Link>
-          </CartBtn>
-        </CartBtnGroup>
-      </Inner>
-    </CompletedOrderBase>
+          <CartBtnGroup>
+              <CartBtn type="button">
+                <Link to="/">홈으로 돌아가기</Link>
+              </CartBtn>
+              <CartBtn className="keep" type="button">
+                <Link to="/product">쇼핑 계속하기</Link>
+              </CartBtn>
+            </CartBtnGroup>
+          </Inner>
+        </CompletedOrderBase>
+      </Pc>
+
+      <Mobile>
+        <CompletedOrderBase>
+          <Inner style={{width: "360px"}}>
+          <CompletedContents style={{margin: "50px 0 0"}}>
+            <Title>주문 상세 내역</Title>
+            
+            <OrderNumber>
+              <Subheading>주문 일자</Subheading>
+              <Contents>{orderDate}</Contents>
+
+              <Subheading>주문 번호</Subheading>
+              <Contents>{paymentInfo.merchant_uid}</Contents>
+            </OrderNumber>
+
+            <InfoSection>
+              <SubTitle>구매자 정보</SubTitle>
+              <InfoContents>
+                <Subheading>주문자
+                  <span>{paymentInfo.UserName}</span>
+                </Subheading>
+                <Subheading>이메일
+                  <span>{paymentInfo.UserEmail}</span>
+                </Subheading>
+              </InfoContents>
+            </InfoSection>
+
+            <InfoSection>
+              <SubTitle>배송지 정보</SubTitle>
+              <InfoContents>
+                <Subheading>수령인
+                  <span>{paymentInfo.Recipient}</span>
+                </Subheading>
+                <Subheading>연락처
+                  <span>0{paymentInfo.RecipientNumber}</span>
+                </Subheading>
+                <Subheading>배송지
+                  <span>{`${paymentInfo.postcode} ${paymentInfo.defaultAdd} ${paymentInfo.detailAdd}`}</span>
+                </Subheading>
+              </InfoContents>
+            </InfoSection>
+
+            <InfoSection>
+              <SubTitle>주문 금액 상세</SubTitle>
+              <InfoContents>
+                <SubheadingInline>결제 방식
+                  <span>{paymentInfo.pay_method}</span>
+                </SubheadingInline>
+                <SubheadingInline>총 주문 금액
+                  <span>{paymentInfo.paid_amount} 원</span>
+                </SubheadingInline>
+              </InfoContents>
+            </InfoSection>
+          </CompletedContents>
+
+          <CartBtnGroup>
+              <CartBtn type="button">
+                <Link to="/">홈으로 돌아가기</Link>
+              </CartBtn>
+              <CartBtn className="keep" type="button">
+                <Link to="/product">쇼핑 계속하기</Link>
+              </CartBtn>
+            </CartBtnGroup>
+          </Inner>
+        </CompletedOrderBase>
+      </Mobile>
+    </>
   )
 
 }
