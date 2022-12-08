@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { Pc, Mobile } from '../../hooks/MediaQuery'
+import axios from 'axios'
 
 export default function UploadManage() {
   const [ photo, setPhoto ] = useState('')
+  const [ img, setImg ] = useState('')
   const [ productsName, setProductsName ] = useState('')
   const [ productsDes, setProductsDes ] = useState('')
   const [ productsUsing, setProductsUsing ] = useState('')
@@ -16,10 +18,17 @@ export default function UploadManage() {
   const [ productsFilters, setProductsFilters ] = useState('')
   const [ categories, setCategories ] = useState([])
 
+  const imageRef = useRef()
+
+  const contents = 
+  [photo, productsName, productsDes, productsUsing, productsMain, productsSize1, productsSize2
+, productsPrice1, productsPrice2, productsCategory, productsFilters]
+
   const uploadPhoto = (e) => {
     const file = e.target.files[0]
     const boardUrl = URL.createObjectURL(file)
     setPhoto(boardUrl)
+    setImg(file)
   }
 
   const handleSelect = (e) => {
@@ -36,6 +45,38 @@ export default function UploadManage() {
     }
   }
 
+  const uploadProduct = () => {
+    if(contents.indexOf('') === -1) {
+      let form = new FormData()
+
+      const size1 = `${productsSize1}ml`
+      const size2 = `${productsSize2}ml`
+  
+      form.append('image', img)
+      form.append('ProductsCategory', productsCategory)
+      form.append('ProductsName', productsName)
+      form.append('ProductsDes', productsDes)
+      form.append('ProductsUsing', productsUsing)
+      form.append('ProductsMain', productsMain)
+      form.append('ProductsFilters', productsFilters)
+      form.append('ProductsSize1', size1)
+      form.append('ProductsSize2', size2)
+      form.append('ProductsPrice1', productsPrice1)
+      form.append('ProductsPrice2', productsPrice2)
+  
+      axios.post('http://localhost:5000/api/upload', form, {
+        header: { 'Content-Type': 'multipart/form-data' }
+      })
+      .then((res) => {
+        alert(res.data.msg)
+        window.location.reload()
+      })
+      .catch(err => console.log(err))
+    } else {
+      return alert('모든 내용을 작성해주세요.')
+    }
+  }
+
   return (
     <>
       <Pc>
@@ -44,7 +85,7 @@ export default function UploadManage() {
             <DetailContent>
               <DetailImg style={{flex: 1}}>
                 📸 사진을 업로드 해주세요.
-                <FileInput type="file" accept="image/*" onChange={(e)=>{uploadPhoto(e)}} />
+                <FileInput type="file" accept="image/*" ref={imageRef} onChange={(e)=>{uploadPhoto(e)}} />
                 { photo && <PreviewImg src={photo} alt="제품사진" />}
               </DetailImg>
               <Detail style={{flex: 1}}>
@@ -153,7 +194,7 @@ export default function UploadManage() {
                 </DetailPrice>
 
                 <BtnWrap>
-                  <AddCartBtn>
+                  <AddCartBtn onClick={()=>{uploadProduct()}}>
                     상품 업로드하기
                   </AddCartBtn>
                 </BtnWrap>
@@ -283,7 +324,7 @@ export default function UploadManage() {
                 </DetailPrice>
 
                 <BtnWrap>
-                  <AddCartBtn style={{padding: "10px 15px"}}>
+                  <AddCartBtn style={{padding: "10px 15px"}} onClick={()=>{uploadProduct()}}>
                     상품 업로드하기
                   </AddCartBtn>
                 </BtnWrap>
@@ -315,7 +356,7 @@ align-items: center;
 padding: 20px 0;
 `
 
-const DetailContent = styled.form`
+const DetailContent = styled.div`
 width: 90%;
 margin-top: 70px;
 display: flex;
