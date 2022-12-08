@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../redux/actions/cart_actions'
 import { Mobile, Pc } from '../hooks/MediaQuery'
 
+import ProductsManage from '../component/supervise/ProductsManage'
+
 export default function ProductDetail(props) {
   const idx = Number(props.match.params.idx)
   const idUser = useSelector((state) => state.cart.idUser)
-    const token = useSelector((state) => state.auth.token)
+  const token = useSelector((state) => state.auth.token)
 
   const dispatch = useDispatch()
 
@@ -17,6 +19,8 @@ export default function ProductDetail(props) {
   const [ value, setValue ] = useState('')
   const [ quantity, setQuantity ] = useState('1')
   const [ price, setPrice ]  = useState(0)
+  const [ modify, setModify ] = useState(false)
+  const [ detail, setDetail ] = useState(true)
 
   const quantitys = [1,2,3,4,5,6,7,8,9,10]
 
@@ -92,6 +96,10 @@ export default function ProductDetail(props) {
     }
   }
 
+  const openModi = () => {
+    setModify(true)
+    setDetail(false)
+  }
 
   const detailProduct = 
   detailDatas.map(detailData => (
@@ -148,32 +156,58 @@ export default function ProductDetail(props) {
   ))
 
 
-    
+  if (idUser === 50) {
+    return (
+      <>
+        <Pc>
+          <DetailBase>
+            <DetailInner>
+              <ProductModify onClick={()=>{openModi()}} modify={modify}>수정하기</ProductModify>
+              { modify && <ProductsManage data={data} />}
+              { detail &&
+              <DetailContent>
+                {detailProduct}
+              </DetailContent>
+              }
+            </DetailInner>
+          </DetailBase>
+        </Pc>
+        <Mobile>
+          <DetailBase style={{marginTop:"0", border: "none", height: "auto"}}>
+            <DetailInner style={{width: "370px"}}>
+              <DetailContent style={{width: "100%", flexDirection: "column",  height: "auto"}}>
+                {detailProduct}
+              </DetailContent>
+            </DetailInner>
+          </DetailBase>
+        </Mobile>
+      </>
+    )
+  } else {
+    return (
+      <>
+        <Pc>
+          <DetailBase>
+            <DetailInner>
+              <DetailContent>
+                {detailProduct}
+              </DetailContent>
+            </DetailInner>
+          </DetailBase>
+        </Pc>
+        <Mobile>
+          <DetailBase style={{marginTop:"0", border: "none", height: "auto"}}>
+            <DetailInner style={{width: "370px"}}>
+              <DetailContent style={{width: "100%", flexDirection: "column",  height: "auto"}}>
+                {detailProduct}
+              </DetailContent>
+            </DetailInner>
+          </DetailBase>
+        </Mobile>
+      </>
+    )
+  }
 
-
-  
-  return (
-    <>
-      <Pc>
-        <DetailBase>
-          <DetailInner>
-            <DetailContent>
-              {detailProduct}
-            </DetailContent>
-          </DetailInner>
-        </DetailBase>
-      </Pc>
-      <Mobile>
-        <DetailBase style={{marginTop:"0", border: "none", height: "auto"}}>
-          <DetailInner style={{width: "370px"}}>
-            <DetailContent style={{width: "100%", flexDirection: "column",  height: "auto"}}>
-              {detailProduct}
-            </DetailContent>
-          </DetailInner>
-        </DetailBase>
-      </Mobile>
-    </>
-  )
 }
 
 
@@ -308,4 +342,14 @@ margin-top: 30px;
 display: flex;
 justify-content: center;
 align-items: center;
+`
+
+const ProductModify = styled.div`
+position: absolute;
+top: 100px;
+right: 0;
+border-bottom: 1px solid black;
+font-size: 14px;
+cursor: pointer;
+display: ${(props) => props.modify ? 'none' : 'show'}
 `
