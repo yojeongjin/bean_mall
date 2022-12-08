@@ -21,6 +21,8 @@ export default function ProductDetail(props) {
   const [ price, setPrice ]  = useState(0)
   const [ modify, setModify ] = useState(false)
   const [ detail, setDetail ] = useState(true)
+  const [ sale, setSale ] = useState(true)
+  const [ soldout, setSoldout ] =useState(false)
 
   const quantitys = [1,2,3,4,5,6,7,8,9,10]
 
@@ -31,9 +33,14 @@ export default function ProductDetail(props) {
       idx: idx
     }})
     .then((res) => {
-      setDetailDatas(res.data.data)
-      setData(res.data.data[0])
-      setValue(res.data.data[0].ProductsSize1)
+      const datas = res.data.data
+      setDetailDatas(datas)
+      setData(datas[0])
+      setValue(datas[0])
+      if(datas[0].active === '품절') {
+        setSale(false)
+        setSoldout(true)
+      }
     })
     .catch((err) => {
       console.log(err)
@@ -164,20 +171,148 @@ export default function ProductDetail(props) {
             <DetailInner>
               <ProductModify onClick={()=>{openModi()}} modify={modify}>수정하기</ProductModify>
               { modify && <ProductsManage data={data} />}
-              { detail &&
+
+              {/* onsale */}
+              { detail && sale &&
               <DetailContent>
                 {detailProduct}
+              </DetailContent>
+              }
+              
+              {/* soldout */}
+              {
+                detail && soldout &&
+              <DetailContent>
+                <DetailImg>
+                  <img src={data.ProductsImg} alt="제품사진" style={{filter: "brightness(50%)"}} />
+                </DetailImg>
+                <Detail>
+                  <DetailTitle> {data.ProductsName} </DetailTitle>
+
+                  <DetailPrice>
+                    <Price>0 원</Price>
+                  </DetailPrice>
+
+                  <DetailExp>
+                    {data.ProductsDes}
+                  </DetailExp>
+                  <DetailInfo>
+                    <Title>특징</Title>
+                    <span>{data.ProductsUsing}</span>
+                  </DetailInfo>
+
+                  <DetailInfo>
+                    <Title>주요성분</Title>
+                    <span>{data.ProductsMain}</span>
+                  </DetailInfo>
+              
+                  <DetailRadioGroup>
+                    <Title>사이즈</Title>
+                    <DetailRadio>
+                      <input
+                      name="size"
+                      type="radio" 
+                      disabled />
+                      <span style={{textDecoration:"line-through"}}>{data.ProductsSize1}</span>
+                      <input
+                      name="size"
+                      type="radio" 
+                      disabled />
+                      <span style={{textDecoration:"line-through"}}>{data.ProductsSize2}</span>
+                    </DetailRadio>
+                  </DetailRadioGroup>
+
+                  <Quantity>
+                    <Title>수량</Title>
+                    <QuantitySelect disabled>
+                      <QuantityOption>1</QuantityOption>
+                    </QuantitySelect>
+                  </Quantity>
+                                  
+                  <BtnWrap>
+                    <AddCartBtn type="button" disabled style={{textDecoration:"line-through"}}>
+                      카트에 추가하기
+                    </AddCartBtn>
+                  </BtnWrap>
+                </Detail>
               </DetailContent>
               }
             </DetailInner>
           </DetailBase>
         </Pc>
+        
         <Mobile>
           <DetailBase style={{marginTop:"0", border: "none", height: "auto"}}>
             <DetailInner style={{width: "370px"}}>
+              <ProductModify onClick={()=>{openModi()}} modify={modify} style={{right: "-55px"}}>수정하기</ProductModify>
+              { modify && <ProductsManage data={data} />}
+
+              {/* onsale */}
+              {
+                detail && sale &&
+                <DetailContent style={{width: "100%", flexDirection: "column",  height: "auto"}}>
+                  {detailProduct}
+                </DetailContent>
+              }
+
+              {/* soldout */}
+              {
+                detail && soldout &&
               <DetailContent style={{width: "100%", flexDirection: "column",  height: "auto"}}>
-                {detailProduct}
+                <DetailImg>
+                  <img src={data.ProductsImg} alt="제품사진" style={{filter: "brightness(50%)"}} />
+                </DetailImg>
+                <Detail>
+                  <DetailTitle> {data.ProductsName} </DetailTitle>
+
+                  <DetailPrice>
+                    <Price>0 원</Price>
+                  </DetailPrice>
+
+                  <DetailExp>
+                    {data.ProductsDes}
+                  </DetailExp>
+                  <DetailInfo>
+                    <Title>특징</Title>
+                    <span>{data.ProductsUsing}</span>
+                  </DetailInfo>
+
+                  <DetailInfo>
+                    <Title>주요성분</Title>
+                    <span>{data.ProductsMain}</span>
+                  </DetailInfo>
+              
+                  <DetailRadioGroup>
+                    <Title>사이즈</Title>
+                    <DetailRadio>
+                      <input
+                      name="size"
+                      type="radio" 
+                      disabled />
+                      <span style={{textDecoration:"line-through"}}>{data.ProductsSize1}</span>
+                      <input
+                      name="size"
+                      type="radio" 
+                      disabled />
+                      <span style={{textDecoration:"line-through"}}>{data.ProductsSize2}</span>
+                    </DetailRadio>
+                  </DetailRadioGroup>
+
+                  <Quantity>
+                    <Title>수량</Title>
+                    <QuantitySelect disabled>
+                      <QuantityOption>1</QuantityOption>
+                    </QuantitySelect>
+                  </Quantity>
+                                  
+                  <BtnWrap>
+                    <AddCartBtn type="button" disabled style={{textDecoration:"line-through"}}>
+                      카트에 추가하기
+                    </AddCartBtn>
+                  </BtnWrap>
+                </Detail>
               </DetailContent>
+              }
             </DetailInner>
           </DetailBase>
         </Mobile>

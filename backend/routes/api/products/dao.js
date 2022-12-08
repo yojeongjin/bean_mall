@@ -40,7 +40,7 @@ exports.modi = (req,res) => {
 	conn.query(sql,[ active, idProducts],(err,rows)=>{
 		if(err) throw err;
 
-		res.send({success:true, msg:'품절 처리가 완료되었습니다.'})
+		res.send({success:true, msg:'상품 처리가 완료되었습니다.'})
 	})
 	
 }
