@@ -33,6 +33,18 @@ exports.list = (req,res) => {
 }
 
 
+exports.modi = (req,res) => { 
+	const { active, idProducts }  = req.body
+
+	sql = "update mydb_mall.Products set active = ? where idProducts = ?" ;
+	conn.query(sql,[ active, idProducts],(err,rows)=>{
+		if(err) throw err;
+
+		res.send({success:true, msg:'품절 처리가 완료되었습니다.'})
+	})
+	
+}
+
 exports.delete = (req,res) => {
 
 	const { idProducts } = req.query

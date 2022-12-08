@@ -8,8 +8,7 @@ export default function ProductsManage(props) {
   const size1= data.ProductsSize1.split('ml')[0]
   const size2= data.ProductsSize2.split('ml')[0]
 
-  console.log(data)
-  const [ photo, setPhoto ] = useState('')
+  const [ photo, setPhoto ] = useState(null)
   const [ img, setImg ] = useState('')
   const [ productsName, setProductsName ] = useState(data.ProductsName)
   const [ productsDes, setProductsDes ] = useState(data.ProductsDes)
@@ -20,6 +19,9 @@ export default function ProductsManage(props) {
   const [ productsPrice1, setProductsPrice1 ] = useState(data.ProductsPrice1)
   const [ productsPrice2, setProductsPrice2 ] = useState(data.ProductsPrice2)
 
+  const contents = 
+  [productsName, productsDes, productsUsing, productsMain, productsSize1, productsSize2, productsPrice1, productsPrice2]
+
   const uploadPhoto = (e) => {
     const file = e.target.files[0]
     const boardUrl = URL.createObjectURL(file)
@@ -27,11 +29,73 @@ export default function ProductsManage(props) {
     setImg(file)
   }
   
+  console.log(photo)
 
-  const deleteProduct = (idProducts) => {
+  const uploadProduct = () => {
+    if(contents.indexOf('') === -1) {
+      if(photo === null) {
+        let body = {
+          idProducts: data.idProducts,
+          ProductsName: productsName,
+          ProductsDes: productsDes,
+          ProductsUsing: productsUsing,
+          ProductsMain: productsMain,
+          ProductsImg: data.ProductsImg,
+          ProductsSize1: `${productsSize1}ml`,
+          ProductsSize2:`${productsSize2}ml`,
+          ProductsPrice1: productsPrice1,
+          ProductsPrice2: productsPrice2
+        }
+
+        axios.patch('http://localhost:5000/api/getuser', body)
+        .then((res) => {
+          alert(res.data.msg)
+          window.location.reload()
+        })
+      } else {
+        let form = new FormData()
+
+        form.append('image', img)
+        form.append('idProducts', data.idProducts)
+        form.append('ProductsName', productsName)
+        form.append('ProductsDes', productsDes)
+        form.append('ProductsUsing', productsUsing)
+        form.append('ProductsMain', productsMain)
+        form.append('ProductsSize1', `${productsSize1}ml`)
+        form.append('ProductsSize2', `${productsSize2}ml`)
+        form.append('ProductsPrice1', productsPrice1)
+        form.append('ProductsPrice2', productsPrice2)
+    
+        axios.patch('http://localhost:5000/api/upload', form, {
+          header: { 'Content-Type': 'multipart/form-data' }
+        })
+        .then((res) => {
+          alert(res.data.msg)
+          window.location.reload()
+        })
+        .catch(err => console.log(err))
+      }
+    } else {
+      return alert('모든 내용을 작성해주세요.')
+    }
+  }
+
+  const soldoutProduct = () => {
+    let body = {
+      active: '품절',
+      idProducts: data.idProducts
+    }
+    axios.patch('http://localhost:5000/api/products', body)
+    .then((res) => {
+      alert(res.data.msg)
+      window.location.href = '/product'
+    })
+  }
+  
+  const deleteProduct = () => {
       axios.delete('http://localhost:5000/api/products', {params: {
-        idProducts: idProducts
-    }})
+        idProducts: data.idProducts
+      }})
     .then((res) => {
       alert(res.data.msg)
       window.location.href = '/product'
@@ -112,7 +176,7 @@ export default function ProductsManage(props) {
                     <ProductInput 
                       id="product-size"
                       type="number"
-                      value={size1}
+                      value={productsSize1}
                       required
                       onChange={(e)=>{setProductsSize1(e.target.value)}}
                     />
@@ -123,7 +187,7 @@ export default function ProductsManage(props) {
                     <ProductInput 
                       id="product-size"
                       type="number"
-                      value={size2}
+                      value={productsSize2}
                       required
                       onChange={(e)=>{setProductsSize2(e.target.value)}}
                     />
@@ -153,17 +217,17 @@ export default function ProductsManage(props) {
                 </DetailPrice>
 
                 <BtnWrap>
-                  <AddCartBtn>
+                  <AddCartBtn onClick={()=>{uploadProduct()}}>
                     상품 수정하기
                   </AddCartBtn>
                 </BtnWrap>
                 <BtnWrap>
                   <AddCartBtn 
                   style={{flex: 1, padding: "12px 13px", marginRight: "20px", backgroundColor:"#807974", border: "none"}}
-                  >상품 품절 처리</AddCartBtn>
+                  onClick={()=>{soldoutProduct()}}>상품 품절 처리</AddCartBtn>
                   <AddCartBtn 
                   style={{flex: 1, padding: "12px 13px", backgroundColor:"#c5bbb3", border: "none", color: "#911e1e"}}
-                  onClick={()=>{deleteProduct(data.idProducts)}}>상품 삭제</AddCartBtn>
+                  onClick={()=>{deleteProduct()}}>상품 삭제</AddCartBtn>
                 </BtnWrap>
               </Detail>
             </DetailContent>

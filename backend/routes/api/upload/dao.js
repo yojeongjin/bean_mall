@@ -19,3 +19,23 @@ exports.add = (req,res) => {
 		})
 	})
 }
+
+exports.modi = (req,res) => { 
+	console.log(req.body)
+	url = req.file.location
+	const { idProducts, ProductsName, ProductsDes, ProductsUsing, ProductsMain, ProductsSize1, ProductsSize2, ProductsPrice1, ProductsPrice2 }  = req.body
+
+	sql = 
+	"update mydb_mall.Products set ProductsName = ?, ProductsDes = ?, ProductsUsing = ?, ProductsMain = ?, ProductsImg = ?, ProductsSize1 = ?, ProductsSize2 = ?, ProductsPrice1 = ?, ProductsPrice2 = ? where  idProducts = ?";
+	conn.query(sql,
+		[ ProductsName, ProductsDes, ProductsUsing, ProductsMain, url, ProductsSize1, ProductsSize2, ProductsPrice1, ProductsPrice2, idProducts ],(err,result)=>{
+		if(err) throw err;
+
+
+		return res.send({
+			success: true,
+			code: 200,
+			msg:'상품 수정이 완료되었습니다.'
+		})
+	})
+}

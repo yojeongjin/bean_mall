@@ -25,6 +25,7 @@ const upload = multer({
 })
 
 router.post("/", upload.single('image'), dao.add);
+router.patch("/",upload.single('image'), dao.modi);
 
 router.all('*',(req, res)=> {
 	res.status(404).send({data:req, success:false, msg:'upload unknown uri ${req.path}'});
