@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.js": "/static/js/main.244b0e58.js",
+    "static/media/AppleSDGothicNeoT.ttf": "/static/media/AppleSDGothicNeoT.fcecbefb26f42648e756.ttf",
+    "static/media/AppleSDGothicNeoUL.ttf": "/static/media/AppleSDGothicNeoUL.cd06c3e96c513e91c777.ttf",
+    "static/media/AppleSDGothicNeoL.ttf": "/static/media/AppleSDGothicNeoL.0ed4f3cf8e0a053dbc9c.ttf",
+    "static/media/AppleSDGothicNeoH.ttf": "/static/media/AppleSDGothicNeoH.c9b896b8f1d363108e8c.ttf",
+    "static/media/AppleSDGothicNeoEB.ttf": "/static/media/AppleSDGothicNeoEB.ea6bd07739f11db86707.ttf",
+    "static/media/AppleSDGothicNeoSB.ttf": "/static/media/AppleSDGothicNeoSB.24f6918836e50d1e5621.ttf",
+    "static/media/ibgimg900.png": "/static/media/ibgimg900.eb834ad6067e1497c84d.png",
+    "static/media/perfumebgbg.png": "/static/media/perfumebgbg.b9a3f84d66a1acb5a39d.png",
+    "static/media/Orelo-SemiWide-Light.ttf": "/static/media/Orelo-SemiWide-Light.21eee0e4580f4cf21f66.ttf",
+    "static/media/spinner.gif": "/static/media/spinner.43ababa6a9ea53d77375.gif",
+    "static/media/Grotesque_Light.ttf": "/static/media/Grotesque_Light.f3e8b2955ca7f4e88b95.ttf",
+    "static/media/COM4t-Fine-Regular.ttf": "/static/media/COM4t-Fine-Regular.e21d67179fc0a3b83343.ttf",
+    "static/media/logoname.png": "/static/media/logoname.681fdc9c58219aaa8f26.png",
+    "static/media/aboutlogogo.webp": "/static/media/aboutlogogo.b28ead1118be75175d6c.webp",
+    "index.html": "/index.html",
+    "main.244b0e58.js.map": "/static/js/main.244b0e58.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.244b0e58.js"
+  ]
+}
