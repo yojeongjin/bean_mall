@@ -36,7 +36,7 @@ export default function ProductDetail(props) {
       const datas = res.data.data
       setDetailDatas(datas)
       setData(datas[0])
-      setValue(datas[0])
+      setValue(datas[0].ProductsSize1)
       if(datas[0].active === '품절') {
         setSale(false)
         setSoldout(true)
@@ -47,32 +47,22 @@ export default function ProductDetail(props) {
     })
   },[])
   
-  const Radio = 
-  <>
-    <DetailRadio>
-    <input 
-      id={ProductsSize1}
-      value={ProductsSize1}
-      name="size"
-      type="radio"
-      checked
-      onChange={(e)=>{setValue(e.target.value)}}
-    />
-    <span>{ProductsSize1}</span>
-    </DetailRadio>
-    <DetailRadio>
-      <input 
-      id={ProductsSize2}
-      value={ProductsSize2}
-      name="size"
-      type="radio"
-      onChange={(e)=>{setValue(e.target.value)}}
-      />
-      <span>{ProductsSize2}</span>
-    </DetailRadio>
-  </>
+  const valueLists = [ProductsSize1, ProductsSize2]
 
-  console.log(value)
+  const handleChange = (e) => {
+    setValue(e.target.value)
+  }
+  const Radio = valueLists.map((valueList,idx) => (
+    <DetailRadio key={idx}>
+      <input id={valueList}
+      value={valueList}
+      name="size"
+      type="radio"
+      checked={value === valueList}
+      onChange={handleChange} />
+      <span>{valueList}</span>
+    </DetailRadio>
+  ))
 
   const getPrice = useMemo(() => {
     const numquan = Number(quantity)
@@ -164,7 +154,7 @@ export default function ProductDetail(props) {
         </Quantity>
                         
         <BtnWrap>
-          <AddCartBtn type="button" onClick={()=>{clickCart()}}>
+          <AddCartBtn type="button" onClick={clickCart}>
             카트에 추가하기
           </AddCartBtn>
         </BtnWrap>
@@ -336,7 +326,7 @@ export default function ProductDetail(props) {
             <DetailInner>
               {sale && 
                <DetailContent>
-                {detailProduct}
+                  {detailProduct}
                </DetailContent>
               }
               {soldout &&
@@ -517,7 +507,6 @@ flex: 1;
 `
 
 const DetailTitle = styled.div`
-
 font-size: 35px;
 margin: 20px 0 10px 0;
 `
@@ -543,7 +532,6 @@ border-bottom: 1px solid #aaa;
 `
 
 const DetailRadioGroup = styled.div`
-
 `
 const DetailRadio = styled.div`
 display: flex;
@@ -553,7 +541,6 @@ margin-bottom: 10px;
   margin-right: 10px;
   vertical-align: bottom;
 }
-
 > span {
   display: inline-block;
   font-size: 14px;
