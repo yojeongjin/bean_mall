@@ -8,10 +8,8 @@ export default function InquiryList() {
   const dispatch = useDispatch()
   const idUser = useSelector((state) => state.cart.idUser)
 
-
   const [ lists, setLists ] = useState([])
   const [ isContent, setIsContent ] = useState(true)
-
 
   useEffect(() => {
     dispatch(getList())
@@ -53,9 +51,9 @@ export default function InquiryList() {
     lists.map(list => (
       <>
         <InquiryTr key={list.idBoard} onClick={()=>{showContent(list.idUser)}}>
-          <InquiryTd className="num">{list.idBoard}</InquiryTd>
+          <InquiryTd style={{width:"15%"}}>{list.idBoard}</InquiryTd>
           <InquiryTd>{list.BoardTitle}</InquiryTd>
-          <InquiryTd className="name">{list.BoardWriter}</InquiryTd>
+          <InquiryTd style={{width:"15%"}}>{list.BoardWriter}</InquiryTd>
         </InquiryTr>
         <InquiryTr className="contents" isClicked={list.idUser === idUser ? false : true} >
           <InquiryTd isContent={isContent} className="contents">{list.BoardDate}</InquiryTd>
@@ -157,12 +155,6 @@ border-bottom: 1px solid #ddd;
 text-align: center;
 cursor: pointer;
 
-&.num {
-  width: 10%;
-}
-&.name {
-  width: 15%;
-}
 &.contents {
   display: ${(props) => props.isContent ? 'none' : 'display'};
   color: black;

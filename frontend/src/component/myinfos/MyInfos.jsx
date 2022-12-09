@@ -248,7 +248,7 @@ export default function MyInfos() {
                     <FormLabel>
                       <em>*</em> 전화번호
                     </FormLabel>
-                    <InputContainer className="post">
+                    <InputContainer style={{display: "flex"}}>
                       <PhoneSelect defaultValue={UserPhone} onChange={(e)=>{setUserPhone(e.target.value)}}>
                         {
                           phoneNumbers.map((phoneNumber) => (
@@ -282,23 +282,23 @@ export default function MyInfos() {
                     <FormLabel>
                       <em>*</em> 주소
                     </FormLabel>
-                    <InputContainer className="post">
+                    <InputContainer style={{display: "flex"}}>
                       <FormPostCode>{address.postcode}</FormPostCode>
                       <Address setAddress={setAddress} />
                     </InputContainer>
                   </FormContent>
-      
-                  <FormContent className="default_address">
-                    <FormLabel className="default_label">
+
+                  <FormContent style={{marginTop: "-10px"}}>
+                    <FormLabel style={{fontSize: "11px", color: "#333", marginLeft: "40px"}}>
                       기본주소
                     </FormLabel>
-                    <InputContainer className="post">
-                      <FormPostCode className="default_code">{address.defaultAddr}</FormPostCode>
+                    <InputContainer style={{display: "flex"}}>
+                      <FormPostCode style={{width: "100%", margin: "0"}}>{address.defaultAddr}</FormPostCode>
                     </InputContainer>
                   </FormContent>
       
                   <FormContent>
-                    <FormLabel className="default_label">
+                    <FormLabel style={{fontSize: "11px", color: "#333", marginLeft: "40px"}}>
                       나머지주소
                     </FormLabel>
                     <InputContainer>
@@ -416,7 +416,7 @@ export default function MyInfos() {
                     <FormLabel>
                       <em>*</em> 전화번호
                     </FormLabel>
-                    <InputContainer className="post">
+                    <InputContainer style={{display: "flex"}}>
                       <PhoneSelect defaultValue={UserPhone} onChange={(e)=>{setUserPhone(e.target.value)}}>
                         {
                           phoneNumbers.map((phoneNumber) => (
@@ -450,23 +450,24 @@ export default function MyInfos() {
                     <FormLabel>
                       <em>*</em> 주소
                     </FormLabel>
-                    <InputContainer className="post">
+                    <InputContainer style={{display: "flex"}}>
                       <FormPostCode>{address.postcode}</FormPostCode>
                       <Address setAddress={setAddress} />
                     </InputContainer>
                   </FormContent>
       
-                  <FormContent className="default_address">
-                    <FormLabel className="default_label">
+                  <FormContent style={{marginTop: "-10px"}}>
+                    <FormLabel style={{fontSize: "11px", color: "#333", marginLeft: "40px"}}>
                       기본주소
                     </FormLabel>
-                    <InputContainer className="post">
-                      <FormPostCode className="default_code">{address.defaultAddr}</FormPostCode>
+
+                    <InputContainer style={{display: "flex"}}>
+                      <FormPostCode style={{width: "100%", margin: "0"}}>{address.defaultAddr}</FormPostCode>
                     </InputContainer>
                   </FormContent>
       
                   <FormContent>
-                    <FormLabel className="default_label">
+                    <FormLabel style={{fontSize: "11px", color: "#333", marginLeft: "40px"}}>
                       나머지주소
                     </FormLabel>
                     <InputContainer>
@@ -553,9 +554,7 @@ const FormContent = styled.div`
   text-align: left;
   display: flex;
   margin: 20px 0;
-  &.default_address{
-    margin-top: -10px;
-  }
+
 `
 
 const FormLabel = styled.label`
@@ -564,11 +563,6 @@ const FormLabel = styled.label`
   font-size: 13px;
   flex: 1;
   margin-top: 8px;
-  &.default_label {
-    font-size: 11px;
-    color: #333;
-    margin-left: 40px;
-  }
   > em {
     color: red;
   }
@@ -578,9 +572,6 @@ const InputContainer = styled.div`
   width: 75%;
   text-align: left;
   vertical-align: middle;
-  &.post {
-    display: flex;
-  }
 `
 
 const Input = styled.input`
@@ -640,10 +631,6 @@ const FormPostCode = styled.div`
   font-size: 14px;
   padding: 4px 3px;
   background: #fff;
-  &.default_code {
-    width: 100%;
-    margin: 0;
-  }
 `
 
 const ModifyBtn = styled.button`

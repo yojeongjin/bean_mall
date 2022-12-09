@@ -68,12 +68,12 @@ export default function UserInfo() {
                   <FormPostCode>{address.postcode}</FormPostCode>
                   <Address setAddress={setAddress} />
                 </FormContent>
-                <FormContent className="default_address">
-                  <FormLabel className="default_label">기본주소</FormLabel>
-                  <FormPostCode className="default_code">{address.defaultAddr}</FormPostCode>
+                <FormContent style={{margin:"0 0", flexDirection: "column", marginLeft: "45px"}}>
+                  <FormLabel style={{fontSize: "12px", marginLeft: "10px"}} >기본주소</FormLabel>
+                  <FormPostCode style={{width: "340px", margin: "0 15px"}}>{address.defaultAddr}</FormPostCode>
                 </FormContent>
-                <FormContent className="default_address">
-                  <FormLabel className="default_label">나머지주소</FormLabel>
+                <FormContent style={{margin:"0 0", flexDirection: "column", marginLeft: "45px"}}>
+                  <FormLabel style={{fontSize: "12px", marginLeft: "10px"}}>나머지주소</FormLabel>
                   <Input 
                     id="address"
                     type="text"
@@ -112,7 +112,12 @@ export default function UserInfo() {
                   </Phone>
                 </FormContent>
                 <SignUpBtn type="button" onClick={() => {modiUser()}}>회원가입 완료</SignUpBtn>
-                <SignUpBtn className="next" type="button" onClick={() => {window.location.replace('/')}}>다음에 작성할게요.</SignUpBtn>
+                <SignUpBtn
+                type="button" 
+                style={{marginTop: "10px", backgroundColor: "transparnet", border: "1px solid #807974", color: "#595450"}}
+                onClick={() => {window.location.replace('/')}}>
+                  다음에 작성할게요.
+                </SignUpBtn>
             </UserInfoContent>
           </UserInfoInner>
         </UserInfoBase>
@@ -138,12 +143,12 @@ export default function UserInfo() {
                   <FormPostCode>{address.postcode}</FormPostCode>
                   <Address setAddress={setAddress} />
                 </FormContent>
-                <FormContent className="default_address">
-                  <FormLabel className="default_label">기본주소</FormLabel>
-                  <FormPostCode className="default_code" style={{width: "310px"}}>{address.defaultAddr}</FormPostCode>
+                <FormContent style={{margin:"0 0", flexDirection: "column", marginLeft: "45px"}}>
+                  <FormLabel style={{fontSize: "12px", marginLeft: "10px"}} >기본주소</FormLabel>
+                  <FormPostCode style={{width: "310px", margin: "0 15px"}}>{address.defaultAddr}</FormPostCode>
                 </FormContent>
-                <FormContent className="default_address">
-                  <FormLabel className="default_label">나머지주소</FormLabel>
+                <FormContent style={{margin:"0 0", flexDirection: "column", marginLeft: "45px"}}>
+                  <FormLabel style={{fontSize: "12px", marginLeft: "10px"}}>나머지주소</FormLabel>
                   <Input 
                     id="address"
                     type="text"
@@ -184,7 +189,12 @@ export default function UserInfo() {
                 </FormContent>
                 <BtnWrap>
                   <SignUpBtn style={{margin: "15px 0 0"}} type="button" onClick={modiUser}>회원가입 완료</SignUpBtn>
-                  <SignUpBtn style={{margin: "15px 0 0"}} className="next" type="button" onClick={() => {window.location.replace('/')}}>다음에 작성할게요.</SignUpBtn>
+                  <SignUpBtn
+                    type="button" 
+                    style={{marginTop: "15px 0 0", backgroundColor: "transparnet", border: "1px solid #807974", color: "#595450"}}
+                    onClick={() => {window.location.replace('/')}}>
+                    다음에 작성할게요.
+                  </SignUpBtn>
                 </BtnWrap>
             </UserInfoContent>
           </UserInfoInner>
@@ -254,28 +264,19 @@ margin: 45px 0 20px;
   li + li {
     margin-left: 50px;
   }
-`;
+`
 
 const FormContent = styled.div`
   text-align: left;
   display: flex;
   margin: 8px 0;
-  &.default_address{
-    margin: 0 0;
-    flex-direction: column;
-    margin-left: 45px;
-  }
-`;
+`
 
 const FormLabel = styled.label`
   font-size: 14px;
   padding: 5px 5px;
   margin-right: 13px;
-  &.default_label {
-    font-size: 12px;
-    margin-left: 10px;
-  }
-`;
+`
 
 const FormPostCode = styled.div`
   width: 80px;
@@ -285,10 +286,6 @@ const FormPostCode = styled.div`
   font-size: 14px;
   padding: 4px 3px;
   background: #fff;
-  &.default_code {
-    width: 340px;
-    margin: 0 15px;
-  }
 `
 
 const Input = styled.input`
@@ -302,7 +299,7 @@ const Input = styled.input`
   padding: 0 10px;
   font-size: 14px;
   outline: none;
-`;
+`
 
 const PhoneSelect = styled.select`
   width: 70px;
@@ -353,12 +350,7 @@ background-color: #c5bbb3;
   color: #f7f2f2;
 }
 
-&.next {
-  margin-top: 10px;
-  background-color: transparent;
-  border: 1px solid #807974;
-  color: #595450;
-}
+
 `
 
 const BtnWrap = styled.div`

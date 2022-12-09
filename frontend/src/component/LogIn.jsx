@@ -56,7 +56,10 @@ export default function LogIn() {
               <SignInTitle>
                 <span>간편 로그인/회원가입</span>
               </SignInTitle>
-              <SignInUpBtn type="button" className="kakao" onClick={signinWithKakao}>
+              <SignInUpBtn 
+              type="button" 
+              style={{marginBottom: "0", paddingLeft: "20px"}} 
+              onClick={signinWithKakao}>
                 <SnsIcon></SnsIcon>카카오로 3초만에 시작하기
               </SignInUpBtn>
               <Link to="/signup">
@@ -100,7 +103,10 @@ export default function LogIn() {
               <SignInTitle>
                 <span>간편 로그인/회원가입</span>
               </SignInTitle>
-              <SignInUpBtn type="button" className="kakao" onClick={signinWithKakao}>
+              <SignInUpBtn 
+              type="button"
+              style={{marginBottom: "0", paddingLeft: "20px"}}
+              onClick={signinWithKakao}>
                 <SnsIcon style={{left:"80px"}}></SnsIcon>카카오로 3초만에 시작하기
               </SignInUpBtn>
               <Link to="/signup">
@@ -214,10 +220,6 @@ background-color: #c5bbb3;
   color: #f7f2f2;
 }
 
-&.kakao {
-  margin-bottom: 0;
-  padding-left: 20px;
-}
 &.email {
   margin-top: 8px;
   background-color: transparent;

@@ -60,6 +60,7 @@ export default function ProductsManage(props) {
           alert(res.data.msg)
           window.location.reload()
         })
+        .catch(err => console.log(err))
       } else {
         let form = new FormData()
 

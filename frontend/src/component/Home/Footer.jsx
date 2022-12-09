@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
 import { Mobile, Pc } from '../../hooks/MediaQuery'
 
@@ -15,7 +16,7 @@ export default function Footer() {
               </FooterCopyRight>
               <FooterNav>
                 <FooterList>
-                  <FooterItem>About</FooterItem>
+                  <FooterItem><Link to="/about">About</Link></FooterItem>
                   <FooterItem>GitHub</FooterItem>
                   <FooterItem>Blog</FooterItem>
                 </FooterList>
