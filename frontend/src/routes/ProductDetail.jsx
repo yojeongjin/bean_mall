@@ -47,22 +47,32 @@ export default function ProductDetail(props) {
     })
   },[])
   
-  const valueLists = [ProductsSize1, ProductsSize2]
-
-  const handleChange = (e) => {
-    setValue(e.target.value)
-  }
-  const Radio = valueLists.map((valueList,idx) => (
-    <DetailRadio key={idx}>
-      <input id={valueList}
-      value={valueList}
+  const Radio = 
+  <>
+    <DetailRadio>
+    <input 
+      id={ProductsSize1}
+      value={ProductsSize1}
       name="size"
       type="radio"
-      checked={value === valueList}
-      onChange={handleChange} />
-      <span>{valueList}</span>
+      checked
+      onChange={(e)=>{setValue(e.target.value)}}
+    />
+    <span>{ProductsSize1}</span>
     </DetailRadio>
-  ))
+    <DetailRadio>
+      <input 
+      id={ProductsSize2}
+      value={ProductsSize2}
+      name="size"
+      type="radio"
+      onChange={(e)=>{setValue(e.target.value)}}
+      />
+      <span>{ProductsSize2}</span>
+    </DetailRadio>
+  </>
+
+  console.log(value)
 
   const getPrice = useMemo(() => {
     const numquan = Number(quantity)
@@ -154,7 +164,7 @@ export default function ProductDetail(props) {
         </Quantity>
                         
         <BtnWrap>
-          <AddCartBtn type="button" onClick={clickCart}>
+          <AddCartBtn type="button" onClick={()=>{clickCart()}}>
             카트에 추가하기
           </AddCartBtn>
         </BtnWrap>
@@ -326,7 +336,7 @@ export default function ProductDetail(props) {
             <DetailInner>
               {sale && 
                <DetailContent>
-                  {detailProduct}
+                {detailProduct}
                </DetailContent>
               }
               {soldout &&
