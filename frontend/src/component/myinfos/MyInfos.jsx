@@ -94,7 +94,7 @@ export default function MyInfos() {
   }
   
   useEffect(() => {
-    axios.get('http://localhost:5000/api/getuser', {params: {idUser: idUser}})
+    axios.get('http://52.78.53.87:5000/api/getuser', {params: {idUser: idUser}})
     .then((res) => {
       setUserEmail(res.data.data[0].UserEmail)
       setUserName(res.data.data[0].UserName)
@@ -135,7 +135,7 @@ export default function MyInfos() {
     } else {
       try {
         const res = await axios.patch(
-          'http://localhost:5000/api/users', body)
+          'http://52.78.53.87:5000/api/users', body)
           if(res.data.code === 200) {
             alert('수정이 완료되었습니다.')
           } else {

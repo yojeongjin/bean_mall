@@ -29,7 +29,7 @@ export default function ProductDetail(props) {
   const { idProducts, ProductsFilters, ProductsImg, ProductsName, ProductsSize1, ProductsSize2, ProductsPrice1, ProductsPrice2 } = data
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/products/'+idx, {params: {
+    axios.get('http://52.78.53.87:5000/api/products/'+idx, {params: {
       idx: idx
     }})
     .then((res) => {

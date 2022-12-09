@@ -55,7 +55,7 @@ export default function ProductsManage(props) {
           ProductsPrice2: productsPrice2
         }
 
-        axios.patch('http://localhost:5000/api/getuser', body)
+        axios.patch('http://52.78.53.87:5000/api/getuser', body)
         .then((res) => {
           alert(res.data.msg)
           window.location.reload()
@@ -75,7 +75,7 @@ export default function ProductsManage(props) {
         form.append('ProductsPrice1', productsPrice1)
         form.append('ProductsPrice2', productsPrice2)
     
-        axios.patch('http://localhost:5000/api/upload', form, {
+        axios.patch('http://52.78.53.87:5000/api/upload', form, {
           header: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {
@@ -94,7 +94,7 @@ export default function ProductsManage(props) {
       active: '품절',
       idProducts: data.idProducts
     }
-    axios.patch('http://localhost:5000/api/products', body)
+    axios.patch('http://52.78.53.87:5000/api/products', body)
     .then((res) => {
       alert(res.data.msg)
       setSale(false)
@@ -108,7 +108,7 @@ export default function ProductsManage(props) {
       active: 'null',
       idProducts: data.idProducts
     }
-    axios.patch('http://localhost:5000/api/products', body)
+    axios.patch('http://52.78.53.87:5000/api/products', body)
     .then((res) => {
       alert(res.data.msg)
       setSale(true)
@@ -119,7 +119,7 @@ export default function ProductsManage(props) {
 
   
   const deleteProduct = () => {
-      axios.delete('http://localhost:5000/api/products', {params: {
+      axios.delete('http://52.78.53.87:5000/api/products', {params: {
         idProducts: data.idProducts
       }})
     .then((res) => {

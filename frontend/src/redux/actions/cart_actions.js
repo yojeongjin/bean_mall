@@ -7,7 +7,7 @@ import { VERIFIED_AUTH } from './types'
 import { DELETE_ALL_CART } from './types'
 
 export function addToCart(body) {
-  const res = axios.post('http://localhost:5000/api/cart', body)
+  const res = axios.post('http://52.78.53.87:5000/api/cart', body)
           .then (res => res.data)
   return {
     type: ADD_TO_CART,
@@ -16,7 +16,7 @@ export function addToCart(body) {
 }
 
 export function getCart(idUser) {
-  const res = axios.get('http://localhost:5000/api/cart', {params: {
+  const res = axios.get('http://52.78.53.87:5000/api/cart', {params: {
     idUser: idUser
   }})
   .then (res => res.data)
@@ -27,7 +27,7 @@ export function getCart(idUser) {
 }
 
 export function patchCart(body) {
-  const res = axios.patch('http://localhost:5000/api/cart', body)
+  const res = axios.patch('http://52.78.53.87:5000/api/cart', body)
           .then (res => res.data)
   return {
     type: PATCH_CART,
@@ -36,7 +36,7 @@ export function patchCart(body) {
 }
 
 export function deleteCart(idCart) {
-  const res = axios.delete('http://localhost:5000/api/cart', {params:{
+  const res = axios.delete('http://52.78.53.87:5000/api/cart', {params:{
     idCart: idCart,
     idUser: null
   }})
@@ -48,7 +48,7 @@ export function deleteCart(idCart) {
 }
 
 export function verifiedAuth(payload) {
-  const res = axios.get('http://localhost:5000/api/signin', payload)
+  const res = axios.get('http://52.78.53.87:5000/api/signin', payload)
           .then (res => res.data)
   return {
     type: VERIFIED_AUTH,
@@ -57,7 +57,7 @@ export function verifiedAuth(payload) {
 }
 
 export function deleteAllCart(idUser) {
-  const res = axios.delete('http://localhost:5000/api/cart', {params:{
+  const res = axios.delete('http://52.78.53.87:5000/api/cart', {params:{
     idCart: null,
     idUser: idUser
   }})

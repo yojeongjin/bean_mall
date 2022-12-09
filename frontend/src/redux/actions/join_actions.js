@@ -4,7 +4,7 @@ import { GET_USER } from './types'
 
 
 export function joinAuth(body) {
-  const res = axios.post('http://localhost:5000/api/users', body)
+  const res = axios.post('http://52.78.53.87:5000/api/users', body)
           .then (res => res.data)
   return {
     type: JOIN_AUTH,
@@ -13,7 +13,7 @@ export function joinAuth(body) {
 }
 
 export function getUser(idUser) {
-  const res = axios.get('http://localhost:5000/api/getuser', {params: {
+  const res = axios.get('http://52.78.53.87:5000/api/getuser', {params: {
     idUser: idUser
   }})
    .then (res => res.data)

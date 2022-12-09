@@ -34,7 +34,7 @@ export default function UserInfo() {
 
     try {
       const res = await axios.patch(
-        'http://localhost:5000/api/users', body)
+        'http://52.78.53.87:5000/api/users', body)
         if(res.data.code === 200) {
           alert(res.data.msg)
           window.location.replace('/')

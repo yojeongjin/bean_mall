@@ -64,7 +64,7 @@ export default function UploadManage() {
       form.append('ProductsPrice1', productsPrice1)
       form.append('ProductsPrice2', productsPrice2)
   
-      axios.post('http://localhost:5000/api/upload', form, {
+      axios.post('http://52.78.53.87:5000/api/upload', form, {
         header: { 'Content-Type': 'multipart/form-data' }
       })
       .then((res) => {
