@@ -84,7 +84,7 @@ export default function Order({match}) {
 
   const createOrderName = () => {
     if(orderItems.length === 1) {
-      return orderItems.ProductName[0]
+      return orderItems[0].ProductName
     } else {
       return `${orderItems[0].ProductName} 외 ${orderItems.length - 1}개`
     }
@@ -170,8 +170,6 @@ export default function Order({match}) {
     })
     setInputAddress('')
   }
-
-  console.log(orderItems)
 
   const orderItemList = 
   <OrderInfo>

@@ -28,5 +28,5 @@ export default function KakaoLogin() {
   }, [])
   
 
-  return <div>잠시만 기다려 주세요! 로그인 중입니다.</div>;
+  return <div>잠시만 기다려 주세요! 로그인 중입니다.</div>
 };
