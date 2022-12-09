@@ -32,7 +32,7 @@ export default function OrderCheck() {
 
   useEffect(() => {
     dispatch(deleteHistory(historyNumber))
-  },[dispatch, orderStatus, historyNumber])
+  },[dispatch, orderStatus])
 
   const orderGroup = (data, key) => {
     return data.reduce((carry,el) => {
@@ -337,7 +337,6 @@ position: relative;
     }
   }
 }
-
 >.tdstatus {
   position: absolute;
   top: 0;

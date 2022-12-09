@@ -16,7 +16,7 @@ export default function Modal(props) {
         <ModalContent>주문을 취소하시겠습니까?</ModalContent>
         <ModalFooter>
           <ModalBtn type="button" onClick={returnCancel}>확인</ModalBtn>
-          <ModalBtn type="button" onClick={close}>취소</ModalBtn>
+          <ModalBtn type="button" onClick={()=>{close()}}>취소</ModalBtn>
         </ModalFooter>
       </ModalCard>
     </ModalBase>
