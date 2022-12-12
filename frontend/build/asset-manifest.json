@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/static/js/main.0b62914c.js",
+    "main.js": "/static/js/main.09a2875c.js",
     "static/media/AppleSDGothicNeoT.ttf": "/static/media/AppleSDGothicNeoT.fcecbefb26f42648e756.ttf",
     "static/media/AppleSDGothicNeoUL.ttf": "/static/media/AppleSDGothicNeoUL.cd06c3e96c513e91c777.ttf",
     "static/media/AppleSDGothicNeoL.ttf": "/static/media/AppleSDGothicNeoL.0ed4f3cf8e0a053dbc9c.ttf",
@@ -16,9 +16,9 @@
     "static/media/logoname.png": "/static/media/logoname.681fdc9c58219aaa8f26.png",
     "static/media/aboutlogogo.webp": "/static/media/aboutlogogo.b28ead1118be75175d6c.webp",
     "index.html": "/index.html",
-    "main.0b62914c.js.map": "/static/js/main.0b62914c.js.map"
+    "main.09a2875c.js.map": "/static/js/main.09a2875c.js.map"
   },
   "entrypoints": [
-    "static/js/main.0b62914c.js"
+    "static/js/main.09a2875c.js"
   ]
 }
