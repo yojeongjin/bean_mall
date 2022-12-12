@@ -185,7 +185,7 @@ export default function Prototype() {
       <Mobile>
         <ProductBase style={{marginTop: "0px", paddingTop: "50px", border:"none"}}>
           {loading && <Loading /> }
-          <ProductInner style={{width: "370px", margin: "0 auto"}}>
+          <ProductInner style={{width: "390px", margin: "0 auto"}}>
             <MobileVersionTitle onChange={(e)=>{chageOption(e)}}>
               <MobileOption>전체보기</MobileOption>
               <MobileOption>스킨케어</MobileOption>

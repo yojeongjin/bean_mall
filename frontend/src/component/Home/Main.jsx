@@ -45,7 +45,7 @@ export default function Main() {
       </Pc>
       <Mobile>
         <MobileSection>
-          <MainInner>
+          <MainInner style={{width: "385px"}}>
             <MainContent>
               <MainWrap>
                 <MainTitle>

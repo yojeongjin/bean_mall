@@ -74,7 +74,7 @@ export default function Report() {
       </Pc>
       <Mobile>
         <ReportSection>
-          <MobileInner>
+          <MobileInner style={{width: "385px"}}>
             <ReportIntro style={{flexDirection: "column"}}>
               <ReportInfo style={{width: "90%", height: "320px"}}>
                 <ReportH1>A skin of many moods</ReportH1>
