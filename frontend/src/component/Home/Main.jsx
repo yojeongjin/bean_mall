@@ -34,7 +34,7 @@ export default function Main() {
                   </p>
                 </MainTitle>
                 <Link to="/product">
-                  <MainBtn>전체 상품보기
+                  <MainBtn>Discover the range
                   <span> → </span>
                   </MainBtn>
                 </Link>
@@ -56,7 +56,7 @@ export default function Main() {
                   </p>
                 </MainTitle>
                 <Link to="/product">
-                  <MainBtn>전체 상품보기
+                  <MainBtn>Discover the range
                   <span> → </span>
                   </MainBtn>
                 </Link>
@@ -126,6 +126,9 @@ font-size: 14px;
 color: #c8c8c8;
 margin-top: 35px;
 padding: 10px 13px 15px;
+display: flex;
+align-items: center;
+justify-content: center;
 &:hover {
   background-color: #6b645bc2;
   border: 1px solid #6b645bc2;
@@ -134,7 +137,6 @@ padding: 10px 13px 15px;
   display: inline-block;
   font-size: 17px;
   font-weight: 700;
-  text-align: center;
   color: #c8c8c8;
   margin-left: 20px;
 }

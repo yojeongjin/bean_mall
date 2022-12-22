@@ -308,9 +308,9 @@ font-size:14px;
 `
 
 const SoldOut = styled.div`
-margin-left: 5px;
-border: 1px solid black;
+margin: 0 0 3px 5px;
+background-color: #911e1e;
 padding: 3px 5px;
-color: #911e1e;
+color: #fff;
 font-size: 13px;
 `

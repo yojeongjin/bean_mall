@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import GlobalStyles from './styled/GlobalStyles';
+import './styled/fonts.css'
 import Home from './routes/Home';
 import Product from './routes/Product';
 import NotFound from './routes/NotFound';

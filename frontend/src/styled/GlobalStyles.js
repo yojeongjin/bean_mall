@@ -1,82 +1,8 @@
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
-import Com4 from './COM4t-Fine-Regular.ttf'
-import Gortesque from './Grotesque_Light.ttf'
-
-import AppleSDGothicNeoL from './AppleSDGothicNeoL.ttf'
-import AppleSDGothicNeoH from './AppleSDGothicNeoH.ttf'
-import AppleSDGothicNeoEB from './AppleSDGothicNeoEB.ttf'
-import AppleSDGothicNeoSB from './AppleSDGothicNeoSB.ttf'
-import AppleSDGothicNeoT from './AppleSDGothicNeoT.ttf'
-import AppleSDGothicNeoUL from './AppleSDGothicNeoUL.ttf'
-
-import Orelo from './Orelo-SemiWide-Light.ttf'
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
-
-  @font-face {
-    font-family: 'Gortesque';
-    src: local('Gortesque');
-    src: url(${Gortesque}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Orelo';
-    src: local('Orelo');
-    src: url(${Orelo}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Com4';
-    src: local('Com4');
-    src: url(${Com4}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'AppleSDGothicNeo';
-    font-weight: 700;
-    src: local('AppleSDGothicNeoH');
-    src: url(${AppleSDGothicNeoH}) format('truetype');
-  }  
-
-
-  @font-face {
-    font-family: 'AppleSDGothicNeo';
-    font-weight: 600;
-    src: local('AppleSDGothicNeoEB');
-    src: url(${AppleSDGothicNeoEB}) format('truetype');
-  }  
-
-  @font-face {
-    font-family: 'AppleSDGothicNeo';
-    font-weight: 500;
-    src: local('AppleSDGothicNeoSB');
-    src: url(${AppleSDGothicNeoSB}) format('truetype');
-  }  
-
-
-  @font-face {
-    font-family: 'AppleSDGothicNeo';
-    font-weight: 400;
-    src: local('AppleSDGothicNeoL');
-    src: url(${AppleSDGothicNeoL}) format('truetype');
-  }  
-
-  @font-face {
-    font-family: 'AppleSDGothicNeo';
-    font-weight: 300;
-    src: local('AppleSDGothicNeoUL');
-    src: url(${AppleSDGothicNeoUL}) format('truetype');
-  }  
-
-  @font-face {
-    font-family: 'AppleSDGothicNeo';
-    font-weight: 200;
-    src: local('AppleSDGothicNeoT');
-    src: url(${AppleSDGothicNeoT}) format('truetype');
-  }  
-
 
   * {
   font-family: inherit;
@@ -99,9 +25,7 @@ const GlobalStyles = createGlobalStyle`
   
   main {
     min-height: 140vh; 
-    background-color: #e1d8d1;
-    // background-color: #fffef2;
-    
+    background-color: #e1d8d1;    
   }
 
   a {

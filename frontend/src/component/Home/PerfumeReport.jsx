@@ -76,7 +76,7 @@ font-family: 'AppleSDGothicNeo';
 
 const BodyInner = styled.div`
 width: 1300px;
-height: 750px;
+height: 700px;
 margin: 0 auto;
 display: flex;
 align-items: center;
@@ -85,10 +85,11 @@ justify-content: center;
 
 const BodyImg = styled.div`
 flex: 1;
-margin-left: 125px;
+height: 100%;
+margin: 5px 0 0 125px;
 > img {
-  width: 500px;
-  height: 650px;
+  width: 550px;
+  height: 100%;
 }
 `
 
