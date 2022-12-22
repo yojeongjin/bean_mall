@@ -59,8 +59,6 @@ export default function Join ({match}) {
     }
   }
 
-
-
   return (
     <SignUpBase>
       <SignUpInner>
@@ -141,12 +139,12 @@ export default function Join ({match}) {
             placeholder="이름을 입력해 주세요."
             required
             onChange={(e) => {
-              setName(e.target.value);
+              setName(e.target.value)
             }}
             />
           </InputContainer>
 
-          <SignUpBtn type="submit" onClick={join}>회원가입하기</SignUpBtn>
+          <SignUpBtn type="button" onClick={join}>회원가입하기</SignUpBtn>
 
         </SignUpContent>
       </SignUpInner>
@@ -162,6 +160,9 @@ const SignUpInner = styled.div`
 width: 390px;
 margin: 0 auto;
 padding-top: 50px;
+@media ${props => props.theme.mobile} {
+  width: 370px;
+}
 `
 const SignUpContent =styled.div`
 margin-top: 50px;
@@ -179,6 +180,7 @@ top: -10px;
 background: #ddd6d0;
 display: inline-block;
 padding: 0 10px;
+
 `
 
 const SignUpStep = styled.div`

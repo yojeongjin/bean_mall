@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import mainbg from '../../assets/ibgimg900.png'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { getCart, verifiedAuth } from '../../redux/actions/cart_actions'
-import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 export default function Main() {
   const token = useSelector((state) => state.auth.token)
@@ -20,52 +19,26 @@ export default function Main() {
   })
 
   return (
-    <>
-      <Pc>
-        <MainSection>
-          <MainInner>
-            <MainContent>
-              <MainWrap>
-                <MainTitle>
-                  <h1>In Two Minds</h1>
-                  <h3>Combination Skin Care</h3>
-                  <p>Introducing a new range to restore equillibrium and nourish the surface,<br></br>
-                  designed specifically for combination skin.
-                  </p>
-                </MainTitle>
-                <Link to="/product">
-                  <MainBtn>Discover the range
-                  <span> → </span>
-                  </MainBtn>
-                </Link>
-              </MainWrap>
-            </MainContent>
-          </MainInner>
-        </MainSection>
-      </Pc>
-      <Mobile>
-        <MobileSection>
-          <MainInner style={{width: "385px"}}>
-            <MainContent>
-              <MainWrap>
-                <MainTitle>
-                  <h1>In Two Minds</h1>
-                  <h3>Combination Skin Care</h3>
-                  <p style={{fontSize: "10px"}}>Introducing a new range to restore equillibrium and nourish the surface,<br></br>
-                  designed specifically for combination skin.
-                  </p>
-                </MainTitle>
-                <Link to="/product">
-                  <MainBtn>Discover the range
-                  <span> → </span>
-                  </MainBtn>
-                </Link>
-              </MainWrap>
-            </MainContent>
-          </MainInner>
-        </MobileSection>
-      </Mobile>
-    </>
+    <MainSection>
+      <MainInner>
+        <MainContent>
+          <MainWrap>
+            <MainTitle>
+              <h1>In Two Minds</h1>
+              <h3>Combination Skin Care</h3>
+              <p>Introducing a new range to restore equillibrium and nourish the surface,<br></br>
+              designed specifically for combination skin.
+              </p>
+            </MainTitle>
+            <Link to="/product">
+              <MainBtn>Discover the range
+              <span> → </span>
+              </MainBtn>
+            </Link>
+          </MainWrap>
+        </MainContent>
+      </MainInner>
+    </MainSection>
   )
 }
 
@@ -74,20 +47,22 @@ background-image: url(${mainbg});
 height: 800px;
 font-family: 'AppleSDGothicNeo';
 background-attachment: fixed;
+
+@media ${props => props.theme.mobile} {
+  background: url(${mainbg}) no-repeat center;
+  background-size: cover;
+}
 `
 
-const MobileSection = styled.section`
-height: 800px;
-background: url(${mainbg}) no-repeat center;
-font-family: 'AppleSDGothicNeo';
-background-size: cover;
-`
 
 const MainInner = styled.div`
 width: 1100px;
 height: 800px;
 margin: 0 auto;
 position: relative;
+@media ${props => props.theme.mobile} {
+  width: 385px;
+}
 `
 
 const MainContent = styled.div`
@@ -114,6 +89,9 @@ color: #c8c8c8;
 > p {
   font-size: 13px;
   margin-top: 30px;
+  @media ${props => props.theme.mobile} {
+    font-size: 12px;
+  }
 }
 `
 

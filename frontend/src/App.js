@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import GlobalStyles from './styled/GlobalStyles';
+import { ThemeProvider } from 'styled-components';
+import theme from './styled/theme'
 import './styled/fonts.css'
 import Home from './routes/Home';
 import Product from './routes/Product';
@@ -21,27 +23,29 @@ import Upload from './routes/Upload'
 function App() {
   return (
     <BrowserRouter>
-    <AlwaysScrollTop />
-    <GlobalStyles />
-      <Header />
-      <ScrollToTop />
-        <main>
-          <Switch>
-            <Route path="/upload" component={Upload} />
-            <Route path="/about" component={About} />
-            <Route path="/kakaoLogin" component= {KakaoLogin} />
-            <Route path="/cart" component= {Cart} />
-            <Route path="/mypage" component= {Mypage} />
-            <Route path="/signup" component= {SignUp} />
-            <Route path="/signin" component= {SignIn} />
-            <Route path="/product/:idx" component= {ProductDetail} />
-            <Route path="/perfumeinfo" component= {PerfumeInfo} />
-            <Route path="/product" component= {Product} />
-            <Route path="/" exact component= {Home} />
-            <Route component={NotFound} />
-          </Switch>
-        </main>
-      <Footer />
+      <AlwaysScrollTop />
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+          <Header />
+          <ScrollToTop />
+          <main>
+            <Switch>
+              <Route path="/upload" component={Upload} />
+              <Route path="/about" component={About} />
+              <Route path="/kakaoLogin" component= {KakaoLogin} />
+              <Route path="/cart" component= {Cart} />
+              <Route path="/mypage" component= {Mypage} />
+              <Route path="/signup" component= {SignUp} />
+              <Route path="/signin" component= {SignIn} />
+              <Route path="/product/:idx" component= {ProductDetail} />
+              <Route path="/perfumeinfo" component= {PerfumeInfo} />
+              <Route path="/product" component= {Product} />
+              <Route path="/" exact component= {Home} />
+              <Route component={NotFound} />
+            </Switch>
+          </main>
+        <Footer />
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

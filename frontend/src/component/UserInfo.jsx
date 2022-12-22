@@ -191,7 +191,7 @@ export default function UserInfo() {
                   <SignUpBtn style={{margin: "15px 0 0"}} type="button" onClick={modiUser}>회원가입 완료</SignUpBtn>
                   <SignUpBtn
                     type="button" 
-                    style={{marginTop: "15px 0 0", backgroundColor: "transparnet", border: "1px solid #807974", color: "#595450"}}
+                    style={{margin: "15px 0 0", backgroundColor: "#c5bbb3", color: "#333"}}
                     onClick={() => {window.location.replace('/')}}>
                     다음에 작성할게요.
                   </SignUpBtn>
@@ -343,16 +343,13 @@ width: 100%;
 height: 44px;
 margin: 20px 0 0 15px;
 font-size: 14px;
-color: #46423f;
-background-color: #c5bbb3;
+color: #eee;
+background-color: #443f3c;
 &:hover {
   background-color: #807974;
   color: #f7f2f2;
 }
-
-
 `
-
 const BtnWrap = styled.div`
 display: flex;
 align-items: center;

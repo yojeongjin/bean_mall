@@ -61,14 +61,7 @@ export default function Header() {
   
 	if (useLocation().pathname === '/') {
     return (
-      <>
-        <Pc>
-          <Hamburger />
-        </Pc>
-        <Mobile>
-          <Hamburger />
-        </Mobile>
-      </>
+      <Hamburger />
     )
   } else {
     if (token === null) {
@@ -100,8 +93,8 @@ export default function Header() {
             </HeaderBase>
           </Pc>
           <Mobile>
-            <MobileBase style={{width:"100px"}}>
-              <HeaderInner style={{width:"100px", margin:"15px 7px"}}>
+            <MobileBase>
+              <HeaderInner>
                 <AnotherHeaderLogo>
                   <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
                 </AnotherHeaderLogo>
@@ -140,8 +133,8 @@ export default function Header() {
             </HeaderBase>
           </Pc>
           <Mobile>
-            <MobileBase style={{width:"100px"}}>
-              <HeaderInner style={{width:"100px", margin:"15px 7px"}}>
+            <MobileBase>
+              <HeaderInner>
                 <AnotherHeaderLogo>
                   <Link to="/"><AnotherHeaderLogoImg src={logo}  alt="로고" /></Link>
                 </AnotherHeaderLogo>
@@ -165,17 +158,25 @@ z-index: 9;
 background-color: #f6f5f080;
 display: ${(props) => props.isHome ? 'none' : 'show'};
 opacity: ${(props) => props.isActive ? 1 : 0};
-transition: 0.5s ease;`
+transition: 0.5s ease;
+
+`
 
 const MobileBase = styled.header`
 position: fixed;
 top: 0;
 left: 0;
 `
+
 const HeaderInner = styled.div`
 width: 1100px;
 margin: 0 auto;
 display: flex;
+
+@media ${props => props.theme.mobile} {
+  width: 100px;
+  margin: 15px 7px;
+}
 `
 
 const AnotherHeaderLogo = styled.div`

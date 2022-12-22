@@ -12,13 +12,6 @@ export default function Report() {
     'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%92%E1%85%B4%E1%86%AB%E1%84%89%E1%85%A2%E1%86%A8%E1%84%92%E1%85%A2%E1%86%AB%E1%84%83%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%B7.webp',
     'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%89%E1%85%A3%E1%86%B7%E1%84%91%E1%85%AE%E1%84%80%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%89%E1%85%A2%E1%86%A8.webp'
   ]
-
-  const mobileImgs = 
-  [
-    'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%85%E1%85%A1%E1%84%87%E1%85%A6%E1%86%AB%E1%84%83%E1%85%A5%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A6%E1%86%AB%E1%84%89%E1%85%B3.webp',
-    'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%92%E1%85%B4%E1%86%AB%E1%84%89%E1%85%A2%E1%86%A8%E1%84%92%E1%85%A2%E1%86%AB%E1%84%83%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%B7.webp',
-    'https://ssalgu-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%8C%E1%85%A6%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%89%E1%85%A3%E1%86%B7%E1%84%91%E1%85%AE%E1%84%80%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%89%E1%85%A2%E1%86%A8.webp'
-  ]
   const [activeIdx, setActiveIdx] = useState(0)
 
   function setNext() {
@@ -30,109 +23,71 @@ export default function Report() {
   }
 
   return (
-    <>
-      <Pc>
-        <ReportSection>
-          <Inner>
-            <ReportIntro>
-              <ReportInfo>
-                <ReportH1>A skin of many moods</ReportH1>
-                <ReportSpan>Explore an expanded selection of products<br></br>
-                suited to combination skin, including<br></br>
-                formulations to cleanse, treat and hydrate<br></br>
-                without overburdening the skin.
-                </ReportSpan>
-                <ReportSelect>
-                  Browse selections
-                  <span> → </span>
-                </ReportSelect>
-              </ReportInfo>
-              <CarouselList>
-                {
-                  carouselImgs.map((carouselImg, idx) => (
-                    <CarouselItems key={idx} activeIdx={activeIdx}>
-                      <img src={carouselImg} alt="제품 사진" />
-                    </CarouselItems>
-                  ))
-                }
-              </CarouselList>
-              <CarouselBtn onClick={setNext}>
-                <RiArrowDropRightLine />
-              </CarouselBtn>
-            </ReportIntro>
-            <Nav>
-                {
-                  Array.from({length:carouselImgs.length}).map((_,idx) => (
-                    <NavItem key={idx} onClick={()=>{goNext(idx)}}>
-                      <NavBtn isActive = {activeIdx === idx} />
-                    </NavItem>
-                  ))
-                }
-            </Nav>
-          </Inner>
-        </ReportSection>
-      </Pc>
-      <Mobile>
-        <ReportSection>
-          <MobileInner style={{width: "385px"}}>
-            <ReportIntro style={{flexDirection: "column"}}>
-              <ReportInfo style={{width: "90%", height: "320px"}}>
-                <ReportH1>A skin of many moods</ReportH1>
-                <ReportSpan>Explore an expanded selection of products
-                suited to combination skin
-                including formulations to cleanse, <br></br> 
-                treat and hydrate without overburdening the skin.
-                </ReportSpan>
-                <ReportSelect style={{display: 'none'}}>
-                  Browse selections
-                  <span> → </span>
-                </ReportSelect>
-              </ReportInfo>
-              <MobileWrap>
-                <CarouselList>
-                  {
-                    mobileImgs.map((carouselImg, idx) => (
-                      <MobileCarouselItems key={idx} activeIdx={activeIdx}>
-                        <img src={carouselImg} alt="제품 사진" />
-                      </MobileCarouselItems>
-                    ))
-                  }
-                </CarouselList>
-                <CarouselBtn onClick={setNext} style={{display: 'none'}}>
-                </CarouselBtn>
-              </MobileWrap>
-            </ReportIntro>
-            <Nav style={{display: 'none'}}>
-            </Nav>
-          </MobileInner>
-        </ReportSection>
-      </Mobile>
-    </>
+    <ReportSection>
+      <Inner>
+        <ReportIntro>
+          <ReportInfo>
+            <ReportH1>A skin of many moods</ReportH1>
+            <ReportSpan>Explore an expanded selection of products<br></br>
+            suited to combination skin, including<br></br>
+            formulations to cleanse, treat and hydrate<br></br>
+            without overburdening the skin.
+            </ReportSpan>
+            <ReportSelect>
+              Browse selections
+              <span> → </span>
+            </ReportSelect>
+          </ReportInfo>
+          <CarouselList>
+            {
+              carouselImgs.map((carouselImg, idx) => (
+                <CarouselItems key={idx} activeIdx={activeIdx}>
+                  <img src={carouselImg} alt="제품 사진" />
+                </CarouselItems>
+              ))
+            }
+          </CarouselList>
+          <CarouselBtn onClick={setNext}>
+            <RiArrowDropRightLine />
+          </CarouselBtn>
+        </ReportIntro>
+        <Nav>
+            {
+              Array.from({length:carouselImgs.length}).map((_,idx) => (
+                <NavItem key={idx} onClick={()=>{goNext(idx)}}>
+                  <NavBtn isActive = {activeIdx === idx} />
+                </NavItem>
+              ))
+            }
+        </Nav>
+      </Inner>
+    </ReportSection>
   )
 }
 
 const ReportSection = styled.section`
 background-color: #fdfdf3;
 `
-
 const Inner = styled.div`
 width: 1300px;
 height: 746px;
 margin: 0 auto;
 position: relative;
-`
-
-const MobileInner = styled.div`
-width: 390px;
-position: relative;
-margin: 0 auto;
-display: flex;
-flex-direction: column;
+@media ${props => props.theme.mobile} {
+  width: 390px;
+  height: 780px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0;
+}
 `
 
 const ReportIntro = styled.div`
 padding-top: 100px;
 display: flex;
+@media ${props => props.theme.mobile} {
+  flex-direction: column;
+}
 `
 
 const ReportInfo = styled.div`
@@ -142,6 +97,11 @@ width: 50%;
 display: flex;
 flex-direction: column;
 margin: 0 50px 0 30px;
+@media ${props => props.theme.mobile} {
+  width: 90%;
+  height: 320px;
+  margin: 0 100px;
+}
 `
 
 
@@ -175,6 +135,9 @@ display: block;
   font-size: 20px;
   font-weight: 700;
 }
+@media ${props => props.theme.mobile} {
+  display: none;
+}
 `
 
 const CarouselBtn = styled.button`
@@ -188,13 +151,10 @@ cursor: pointer;
 &:hover {
   opacity: 0.8;
 }
-`
 
-const MobileWrap = styled.div`
-width: 95%;
-display: flex;
-margin-top: 50px;
-padding: 0 12px;
+@media ${props => props.theme.mobile} {
+  display: none;
+}
 `
 
 const CarouselList = styled.ul`
@@ -202,6 +162,11 @@ width: 100%;
 height: 100%;
 display: flex;
 overflow: hidden;
+@media ${props => props.theme.mobile} {
+  width: 130%;
+  margin-top: 40px;
+  height: 80%;
+}
 `
 const CarouselItems = styled.li`
 margin-right: 180px;
@@ -214,25 +179,26 @@ transition :200ms ease;
   width: 120px;
   height: 400px;
 }
-`
 
-const MobileCarouselItems = styled.li`
-margin-right: 60px;
-transform: translateX(-${(props) => props.activeIdx}00%);
-transition :200ms ease;
-padding-bottom: 50px;
-
-> img {
-  width: 75px;
-  height: 250px;
+@media ${props => props.theme.mobile} {
+  margin-right: 100px;
+  &:first-child {
+    margin-left: 20px;
+  }
+  > img {
+    width: 90px;
+    height: 310px;
+  }
 }
 `
-
 
 const Nav = styled.ul`
 display: flex;
 justify-content: center;
 margin-top: 90px;
+@media ${props => props.theme.mobile} {
+  display: none;
+}
 `
 
 const NavItem = styled.li`

@@ -26,9 +26,9 @@ export default function Footer() {
         </FooterBase>
       </Pc>
       <Mobile>
-        <FooterBase style={{fontSize:"13px"}}>
-          <FooterInner style={{width:"380px"}}>
-            <FooterContent style={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", paddingTop: "15px"}}>
+        <FooterBase>
+          <FooterInner>
+            <FooterContent>
               <FooterNav>
                 <FooterList>
                   <FooterItem>About</FooterItem>
@@ -52,12 +52,19 @@ background-color: #D8D0CD;
 border-top: 1px dashed black;
 font-family: 'AppleSDGothicNeo';
 font-size: 14px;
+@media ${props => props.theme.mobile} {
+  font-size: 13px;
+}
 `
 
 const FooterInner = styled.div`
 width: 1100px;
 height: 70px;
 margin: 0 auto;
+
+@media ${props => props.theme.mobile} {
+  width: 380px;
+}
 `
 
 const FooterContent = styled.div`
@@ -65,6 +72,14 @@ width: 100%;
 display: flex;
 justify-content: space-between;
 padding-top: 25px;
+
+@media ${props => props.theme.mobile} {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 15px;
+}
 `
 
 const FooterCopyRight = styled.div`

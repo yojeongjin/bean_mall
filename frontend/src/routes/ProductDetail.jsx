@@ -3,7 +3,6 @@ import React, { useState,useEffect, useMemo } from 'react'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../redux/actions/cart_actions'
-import { Mobile, Pc } from '../hooks/MediaQuery'
 
 import ProductsManage from '../component/supervise/ProductsManage'
 
@@ -165,311 +164,160 @@ export default function ProductDetail(props) {
 
   if (idUser === 50) {
     return (
-      <>
-        <Pc>
-          <DetailBase>
-            <DetailInner>
-              <ProductModify onClick={()=>{openModi()}} modify={modify}>수정하기</ProductModify>
-              { modify && <ProductsManage data={data} />}
+      <DetailBase>
+        <DetailInner>
+          <ProductModify onClick={()=>{openModi()}} modify={modify}>수정하기</ProductModify>
+          { modify && <ProductsManage data={data} />}
 
-              {/* onsale */}
-              { detail && sale &&
-              <DetailContent>
-                {detailProduct}
-              </DetailContent>
-              }
-              
-              {/* soldout */}
-              {
-                detail && soldout &&
-              <DetailContent>
-                <DetailImg>
-                  <img src={data.ProductsImg} alt="제품사진" style={{filter: "brightness(50%)"}} />
-                </DetailImg>
-                <Detail>
-                  <DetailTitle> {data.ProductsName} </DetailTitle>
+          {/* onsale */}
+          { detail && sale &&
+          <DetailContent>
+            {detailProduct}
+          </DetailContent>
+          }
+          
+          {/* soldout */}
+          {
+            detail && soldout &&
+          <DetailContent>
+            <DetailImg>
+              <img src={data.ProductsImg} alt="제품사진" style={{filter: "brightness(50%)"}} />
+            </DetailImg>
+            <Detail>
+              <DetailTitle> {data.ProductsName} </DetailTitle>
 
-                  <DetailPrice>
-                    <Price>0 원</Price>
-                  </DetailPrice>
+              <DetailPrice>
+                <Price>0 원</Price>
+              </DetailPrice>
 
-                  <DetailExp>
-                    {data.ProductsDes}
-                  </DetailExp>
-                  <DetailInfo>
-                    <Title>특징</Title>
-                    <span>{data.ProductsUsing}</span>
-                  </DetailInfo>
+              <DetailExp>
+                {data.ProductsDes}
+              </DetailExp>
+              <DetailInfo>
+                <Title>특징</Title>
+                <span>{data.ProductsUsing}</span>
+              </DetailInfo>
 
-                  <DetailInfo>
-                    <Title>주요성분</Title>
-                    <span>{data.ProductsMain}</span>
-                  </DetailInfo>
-              
-                  <DetailRadioGroup>
-                    <Title>사이즈</Title>
-                    <DetailRadio>
-                      <input
-                      name="size"
-                      type="radio" 
-                      disabled />
-                      <span style={{textDecoration:"line-through"}}>{data.ProductsSize1}</span>
-                      <input
-                      name="size"
-                      type="radio" 
-                      disabled />
-                      <span style={{textDecoration:"line-through"}}>{data.ProductsSize2}</span>
-                    </DetailRadio>
-                  </DetailRadioGroup>
+              <DetailInfo>
+                <Title>주요성분</Title>
+                <span>{data.ProductsMain}</span>
+              </DetailInfo>
+          
+              <DetailRadioGroup>
+                <Title>사이즈</Title>
+                <DetailRadio>
+                  <input
+                  name="size"
+                  type="radio" 
+                  disabled />
+                  <span style={{textDecoration:"line-through"}}>{data.ProductsSize1}</span>
+                  <input
+                  name="size"
+                  type="radio" 
+                  disabled />
+                  <span style={{textDecoration:"line-through"}}>{data.ProductsSize2}</span>
+                </DetailRadio>
+              </DetailRadioGroup>
 
-                  <Quantity>
-                    <Title>수량</Title>
-                    <QuantitySelect disabled>
-                      <QuantityOption>1</QuantityOption>
-                    </QuantitySelect>
-                  </Quantity>
-                                  
-                  <BtnWrap>
-                    <AddCartBtn type="button" disabled style={{textDecoration:"line-through"}}>
-                      카트에 추가하기
-                    </AddCartBtn>
-                  </BtnWrap>
-                </Detail>
-              </DetailContent>
-              }
-            </DetailInner>
-          </DetailBase>
-        </Pc>
-        
-        <Mobile>
-          <DetailBase style={{marginTop:"0", border: "none", height: "auto"}}>
-            <DetailInner style={{width: "370px"}}>
-              <ProductModify onClick={()=>{openModi()}} modify={modify} style={{right: "-55px"}}>수정하기</ProductModify>
-              { modify && <ProductsManage data={data} />}
-
-              {/* onsale */}
-              {
-                detail && sale &&
-                <DetailContent style={{width: "100%", flexDirection: "column",  height: "auto"}}>
-                  {detailProduct}
-                </DetailContent>
-              }
-
-              {/* soldout */}
-              {
-                detail && soldout &&
-              <DetailContent style={{width: "100%", flexDirection: "column",  height: "auto"}}>
-                <DetailImg>
-                  <img src={data.ProductsImg} alt="제품사진" style={{filter: "brightness(50%)"}} />
-                </DetailImg>
-                <Detail>
-                  <DetailTitle> {data.ProductsName} </DetailTitle>
-
-                  <DetailPrice>
-                    <Price>0 원</Price>
-                  </DetailPrice>
-
-                  <DetailExp>
-                    {data.ProductsDes}
-                  </DetailExp>
-                  <DetailInfo>
-                    <Title>특징</Title>
-                    <span>{data.ProductsUsing}</span>
-                  </DetailInfo>
-
-                  <DetailInfo>
-                    <Title>주요성분</Title>
-                    <span>{data.ProductsMain}</span>
-                  </DetailInfo>
-              
-                  <DetailRadioGroup>
-                    <Title>사이즈</Title>
-                    <DetailRadio>
-                      <input
-                      name="size"
-                      type="radio" 
-                      disabled />
-                      <span style={{textDecoration:"line-through"}}>{data.ProductsSize1}</span>
-                      <input
-                      name="size"
-                      type="radio" 
-                      disabled />
-                      <span style={{textDecoration:"line-through"}}>{data.ProductsSize2}</span>
-                    </DetailRadio>
-                  </DetailRadioGroup>
-
-                  <Quantity>
-                    <Title>수량</Title>
-                    <QuantitySelect disabled>
-                      <QuantityOption>1</QuantityOption>
-                    </QuantitySelect>
-                  </Quantity>
-                                  
-                  <BtnWrap>
-                    <AddCartBtn type="button" disabled style={{textDecoration:"line-through"}}>
-                      카트에 추가하기
-                    </AddCartBtn>
-                  </BtnWrap>
-                </Detail>
-              </DetailContent>
-              }
-            </DetailInner>
-          </DetailBase>
-        </Mobile>
-      </>
+              <Quantity>
+                <Title>수량</Title>
+                <QuantitySelect disabled>
+                  <QuantityOption>1</QuantityOption>
+                </QuantitySelect>
+              </Quantity>
+                              
+              <BtnWrap>
+                <AddCartBtn type="button" disabled style={{textDecoration:"line-through"}}>
+                  카트에 추가하기
+                </AddCartBtn>
+              </BtnWrap>
+            </Detail>
+          </DetailContent>
+          }
+        </DetailInner>
+      </DetailBase>
     )
   } else {
     return (
-      <>
-        <Pc>
-          <DetailBase>
-            <DetailInner>
-              {sale && 
-               <DetailContent>
-                  {detailProduct}
-               </DetailContent>
-              }
-              {soldout &&
-              <DetailContent>
-                <DetailImg>
-                  <img src={data.ProductsImg} alt="제품사진" style={{filter: "brightness(50%)"}} />
-                </DetailImg>
-                <Detail>
-                  <DetailTitle> {data.ProductsName} </DetailTitle>
+      <DetailBase>
+        <DetailInner>
+          {sale && 
+            <DetailContent>
+              {detailProduct}
+            </DetailContent>
+          }
+          {soldout &&
+          <DetailContent>
+            <DetailImg>
+              <img src={data.ProductsImg} alt="제품사진" style={{filter: "brightness(50%)"}} />
+            </DetailImg>
+            <Detail>
+              <DetailTitle> {data.ProductsName} </DetailTitle>
 
-                  <DetailPrice>
-                    <Price>0 원</Price>
-                  </DetailPrice>
+              <DetailPrice>
+                <Price>0 원</Price>
+              </DetailPrice>
 
-                  <DetailExp>
-                    {data.ProductsDes}
-                  </DetailExp>
-                  <DetailInfo>
-                    <Title>특징</Title>
-                    <span>{data.ProductsUsing}</span>
-                  </DetailInfo>
+              <DetailExp>
+                {data.ProductsDes}
+              </DetailExp>
+              <DetailInfo>
+                <Title>특징</Title>
+                <span>{data.ProductsUsing}</span>
+              </DetailInfo>
 
-                  <DetailInfo>
-                    <Title>주요성분</Title>
-                    <span>{data.ProductsMain}</span>
-                  </DetailInfo>
-              
-                  <DetailRadioGroup>
-                    <Title>사이즈</Title>
-                    <DetailRadio>
-                      <input
-                      name="size"
-                      type="radio" 
-                      disabled />
-                      <span style={{textDecoration:"line-through"}}>{data.ProductsSize1}</span>
-                      <input
-                      name="size"
-                      type="radio" 
-                      disabled />
-                      <span style={{textDecoration:"line-through"}}>{data.ProductsSize2}</span>
-                    </DetailRadio>
-                  </DetailRadioGroup>
+              <DetailInfo>
+                <Title>주요성분</Title>
+                <span>{data.ProductsMain}</span>
+              </DetailInfo>
+          
+              <DetailRadioGroup>
+                <Title>사이즈</Title>
+                <DetailRadio>
+                  <input
+                  name="size"
+                  type="radio" 
+                  disabled />
+                  <span style={{textDecoration:"line-through"}}>{data.ProductsSize1}</span>
+                  <input
+                  name="size"
+                  type="radio" 
+                  disabled />
+                  <span style={{textDecoration:"line-through"}}>{data.ProductsSize2}</span>
+                </DetailRadio>
+              </DetailRadioGroup>
 
-                  <Quantity>
-                    <Title>수량</Title>
-                    <QuantitySelect disabled>
-                      <QuantityOption>1</QuantityOption>
-                    </QuantitySelect>
-                  </Quantity>
-                                  
-                  <BtnWrap>
-                    <AddCartBtn type="button" disabled style={{textDecoration:"line-through"}}>
-                      카트에 추가하기
-                    </AddCartBtn>
-                  </BtnWrap>
-                </Detail>
-              </DetailContent>
-              }
-            </DetailInner>
-          </DetailBase>
-        </Pc>
-        <Mobile>
-          <DetailBase style={{marginTop:"0", border: "none", height: "auto"}}>
-            <DetailInner style={{width: "370px"}}>
-              {
-                sale &&
-                <DetailContent style={{width: "100%", flexDirection: "column",  height: "auto"}}>
-                  {detailProduct}
-                </DetailContent>
-              }
-              {
-                soldout &&
-              <DetailContent style={{width: "100%", flexDirection: "column",  height: "auto"}}>
-                <DetailImg>
-                  <img src={data.ProductsImg} alt="제품사진" style={{filter: "brightness(50%)"}} />
-                </DetailImg>
-                <Detail>
-                  <DetailTitle> {data.ProductsName} </DetailTitle>
-
-                  <DetailPrice>
-                    <Price>0 원</Price>
-                  </DetailPrice>
-
-                  <DetailExp>
-                    {data.ProductsDes}
-                  </DetailExp>
-                  <DetailInfo>
-                    <Title>특징</Title>
-                    <span>{data.ProductsUsing}</span>
-                  </DetailInfo>
-
-                  <DetailInfo>
-                    <Title>주요성분</Title>
-                    <span>{data.ProductsMain}</span>
-                  </DetailInfo>
-              
-                  <DetailRadioGroup>
-                    <Title>사이즈</Title>
-                    <DetailRadio>
-                      <input
-                      name="size"
-                      type="radio" 
-                      disabled />
-                      <span style={{textDecoration:"line-through"}}>{data.ProductsSize1}</span>
-                      <input
-                      name="size"
-                      type="radio" 
-                      disabled />
-                      <span style={{textDecoration:"line-through"}}>{data.ProductsSize2}</span>
-                    </DetailRadio>
-                  </DetailRadioGroup>
-
-                  <Quantity>
-                    <Title>수량</Title>
-                    <QuantitySelect disabled>
-                      <QuantityOption>1</QuantityOption>
-                    </QuantitySelect>
-                  </Quantity>
-                                  
-                  <BtnWrap>
-                    <AddCartBtn type="button" disabled style={{textDecoration:"line-through"}}>
-                      카트에 추가하기
-                    </AddCartBtn>
-                  </BtnWrap>
-                </Detail>
-              </DetailContent>
-              }
-            </DetailInner>
-          </DetailBase>
-        </Mobile>
-      </>
+              <Quantity>
+                <Title>수량</Title>
+                <QuantitySelect disabled>
+                  <QuantityOption>1</QuantityOption>
+                </QuantitySelect>
+              </Quantity>
+                              
+              <BtnWrap>
+                <AddCartBtn type="button" disabled style={{textDecoration:"line-through"}}>
+                  카트에 추가하기
+                </AddCartBtn>
+              </BtnWrap>
+            </Detail>
+          </DetailContent>
+          }
+        </DetailInner>
+      </DetailBase>
     )
   }
 
 }
 
 
-
 const DetailBase = styled.section`
 margin-top: 50px;
 height: 100vh;
-border-top: 1px solid black;
 font-family: 'AppleSDGothicNeo';
+@media ${props => props.theme.mobile} {
+  margin-top: 0;
+  height: auto;
+}
 `
 
 const DetailInner = styled.div`
@@ -480,6 +328,9 @@ display: flex;
 justify-content: center;
 align-items: center;
 padding: 20px 0;
+@media ${props => props.theme.mobile} {
+  width: 370px;
+}
 `
 
 const DetailContent = styled.div`
@@ -487,6 +338,12 @@ width: 90%;
 height: 550px;
 margin-top: 70px;
 display: flex;
+@media ${props => props.theme.mobile} {
+  width: 100%;
+  flex-direction: column;
+  height: auto;
+}
+
 `
 
 const DetailImg = styled.div`
