@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProduct } from '../../redux/actions/product_actions'
 import { allProducts } from '../../redux/actions/product_actions'
+import axios from 'axios'
 import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 import Loading from '../Loading'
-import Skincare from './Skincare'
-import Body from './Body'
-import Hair from './Hair'
-import Perfume from './Perfume'
-
 
 export default function Prototype() {
   const dispatch = useDispatch()
@@ -21,12 +17,8 @@ export default function Prototype() {
   const [page, setPage] = useState(0)
   const [size, setSize] = useState(8)
   const [pageSize, setPageSize] = useState(0)
-
-  const [allProduct, setAllproduct] = useState(true)
-  const [skincare, setSkincare] = useState(false)
-  const [body, setBody] = useState(false)
-  const [hair, setHair] = useState(false)
-  const [perfume, setPerfume] = useState(false)
+  const [ categories, setCategories ] = useState([])
+  const [ categoryData, setCategoryData ] = useState([])
 
   useEffect(() => {
     let body = {
@@ -40,18 +32,15 @@ export default function Prototype() {
       body.loadMore ? setProductsInfos(prev => [...prev, ...res.payload.data]) : setProductsInfos(res.payload.data)
       setLoading(false)
       setPageSize(res.payload.data.length)
+      setCategories(['전체보기', '스킨케어', '바디&핸드', '헤어', '향수'])
     })
   },[])
-
-  console.log(productsInfos)
-
   useEffect(() => {
     window.addEventListener('scroll', getMoreProducts)
     return() => {
       window.removeEventListener('scroll', getMoreProducts)
     }
   },[page,size,pageSize])
-
 
   const getMoreProducts = () => {
     if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight  - 10) {
@@ -104,59 +93,60 @@ export default function Prototype() {
       <Link to="/upload">상품 업로드하기</Link>
     </ProductUpload>
 
-  const showAll = () => {
-    setAllproduct(true)
-    setSkincare(false)
-    setBody(false)
-    setHair(false)
-    setPerfume(false)
-  }
-
-  const goToSkincare = () => {
-    setAllproduct(false)
-    setSkincare(true)
-    setBody(false)
-    setHair(false)
-    setPerfume(false)
-  }
-
-  const goToBody = () => {
-    setAllproduct(false)
-    setSkincare(false)
-    setBody(true)
-    setHair(false)
-    setPerfume(false)
-  }
-  
-  const goToHair = () => {
-    setAllproduct(false)
-    setSkincare(false)
-    setBody(false)
-    setHair(true)
-    setPerfume(false)
-  }
-
-  const goToPerfume = () => {
-    setAllproduct(false)
-    setSkincare(false)
-    setBody(false)
-    setHair(false)
-    setPerfume(true)
-  }
-
   const chageOption = (e) => {
-    if(e.target.value === '전체보기') {
-      showAll()
-    } else if (e.target.value === '스킨케어') {
-      goToSkincare()
-    } else if (e.target.value === '바디&핸드') {
-      goToBody()
-    } else if (e.target.value === '헤어') {
-      goToHair()
-    } else if (e.target.value === '향수') {
-      goToPerfume()
-    }
+    console.log(e.target.value)
+    // if(e.target.value === '전체보기') {
+    //   showAll()
+    // } else if (e.target.value === '스킨케어') {
+    //   goToSkincare()
+    // } else if (e.target.value === '바디&핸드') {
+    //   goToBody()
+    // } else if (e.target.value === '헤어') {
+    //   goToHair()
+    // } else if (e.target.value === '향수') {
+    //   goToPerfume()
+    // }
   }
+
+
+
+  const getCategoryHandler = (e) => {
+    let category = e.target.name
+    axios.get('http://52.78.53.87:5000/api/category',{params: {
+      ProductsFilters: category
+    }})
+    .then((res) => {
+      console.log(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+  const categoriesDetail = 
+  categories.map((category,idx) => (
+    <Title key={idx} name={category} onClick={getCategoryHandler}>
+      {category}
+    </Title>
+  ))
+
+  const productDetail = 
+    <ProductMenu>
+      {
+        categoryData.map((data) => (
+          <ProductList key={data.idProducts}>
+            <img src={data.ProductsImg} alt="제품사진" />
+            <ProductExp>
+              <div className='exptitle'>{data.ProductsName}</div>
+              <div className='expetc'>
+                <span>{data.ProductsSize1} / </span>
+                <span> {data.ProductsPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</span>
+              </div>
+            </ProductExp>
+          </ProductList>
+        ))
+      }
+    </ProductMenu>
+
 
   return (
     <>
@@ -166,18 +156,10 @@ export default function Prototype() {
           <ProductInner>
             { idUser === 50 && upload }
             <ProductTitle>
-              <Title onClick={()=>{showAll()}}><span>전체보기</span></Title>
-              <Title onClick={()=>{goToSkincare()}}><span>스킨케어</span></Title>
-              <Title onClick={()=>{goToBody()}}><span>바디&핸드</span></Title>
-              <Title onClick={()=>{goToHair()}}><span>헤어</span></Title>
-              <Title onClick={()=>{goToPerfume()}}><span>향수</span></Title>
+              {categoriesDetail}
             </ProductTitle>
             <ProductContent>
-              {allProduct && showAllProducts}
-              {skincare && <Skincare />}
-              {body && <Body />}
-              {hair && <Hair />}
-              {perfume && <Perfume />}
+
             </ProductContent>
           </ProductInner>
         </ProductBase>
@@ -195,11 +177,11 @@ export default function Prototype() {
             </MobileVersionTitle>
             { idUser === 50 && upload }
             <ProductContent>
-              {allProduct && showAllProducts}
+              {/* {allProduct && showAllProducts}
               {skincare && <Skincare />}
               {body && <Body />}
               {hair && <Hair />}
-              {perfume && <Perfume />}
+              {perfume && <Perfume />} */}
             </ProductContent>
           </ProductInner>
         </ProductBase>
@@ -239,7 +221,7 @@ font-size: 14px;
 color: #1e1e1e;
 `
 
-const Title = styled.div`
+const Title = styled.button`
 flex: 1;
 text-align: center;
 cursor: pointer;
