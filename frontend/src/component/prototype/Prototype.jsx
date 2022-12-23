@@ -1,11 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProduct } from '../../redux/actions/product_actions'
 import { allProducts } from '../../redux/actions/product_actions'
-import axios from 'axios'
-import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 import Loading from '../Loading'
 
@@ -17,8 +15,6 @@ export default function Prototype() {
   const [page, setPage] = useState(0)
   const [size, setSize] = useState(8)
   const [pageSize, setPageSize] = useState(0)
-  const [ categories, setCategories ] = useState([])
-  const [ categoryData, setCategoryData ] = useState([])
 
   useEffect(() => {
     let body = {
@@ -32,7 +28,6 @@ export default function Prototype() {
       body.loadMore ? setProductsInfos(prev => [...prev, ...res.payload.data]) : setProductsInfos(res.payload.data)
       setLoading(false)
       setPageSize(res.payload.data.length)
-      setCategories(['전체보기', '스킨케어', '바디&핸드', '헤어', '향수'])
     })
   },[])
   useEffect(() => {
@@ -93,113 +88,70 @@ export default function Prototype() {
       <Link to="/upload">상품 업로드하기</Link>
     </ProductUpload>
 
-  const chageOption = (e) => {
-    console.log(e.target.value)
-    // if(e.target.value === '전체보기') {
-    //   showAll()
-    // } else if (e.target.value === '스킨케어') {
-    //   goToSkincare()
-    // } else if (e.target.value === '바디&핸드') {
-    //   goToBody()
-    // } else if (e.target.value === '헤어') {
-    //   goToHair()
-    // } else if (e.target.value === '향수') {
-    //   goToPerfume()
-    // }
-  }
-
-
-
-  const getCategoryHandler = (e) => {
-    let category = e.target.name
-    axios.get('http://52.78.53.87:5000/api/category',{params: {
-      ProductsFilters: category
-    }})
-    .then((res) => {
-      console.log(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
-  const categoriesDetail = 
-  categories.map((category,idx) => (
-    <Title key={idx} name={category} onClick={getCategoryHandler}>
-      {category}
-    </Title>
-  ))
-
-  const productDetail = 
-    <ProductMenu>
-      {
-        categoryData.map((data) => (
-          <ProductList key={data.idProducts}>
-            <img src={data.ProductsImg} alt="제품사진" />
-            <ProductExp>
-              <div className='exptitle'>{data.ProductsName}</div>
-              <div className='expetc'>
-                <span>{data.ProductsSize1} / </span>
-                <span> {data.ProductsPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</span>
-              </div>
-            </ProductExp>
-          </ProductList>
-        ))
-      }
-    </ProductMenu>
-
+  // const chageOption = (e) => {
+  //   console.log(e.target.value)
+  //   if(e.target.value === '전체보기') {
+  //     showAll()
+  //   } else if (e.target.value === '스킨케어') {
+  //     goToSkincare()
+  //   } else if (e.target.value === '바디&핸드') {
+  //     goToBody()
+  //   } else if (e.target.value === '헤어') {
+  //     goToHair()
+  //   } else if (e.target.value === '향수') {
+  //     goToPerfume()
+  //   }
+  // }
 
   return (
-    <>
-      <Pc>
-        <ProductBase>
-          {loading && <Loading /> }
-          <ProductInner>
-            { idUser === 50 && upload }
-            <ProductTitle>
-              {categoriesDetail}
-            </ProductTitle>
-            <ProductContent>
-
-            </ProductContent>
-          </ProductInner>
-        </ProductBase>
-      </Pc>
-      <Mobile>
-        <ProductBase style={{marginTop: "0px", paddingTop: "50px", border:"none"}}>
-          {loading && <Loading /> }
-          <ProductInner style={{width: "390px", margin: "0 auto"}}>
-            <MobileVersionTitle onChange={(e)=>{chageOption(e)}}>
-              <MobileOption>전체보기</MobileOption>
-              <MobileOption>스킨케어</MobileOption>
-              <MobileOption>바디&핸드</MobileOption>
-              <MobileOption>헤어</MobileOption>
-              <MobileOption>향수</MobileOption>
-            </MobileVersionTitle>
-            { idUser === 50 && upload }
-            <ProductContent>
-              {/* {allProduct && showAllProducts}
-              {skincare && <Skincare />}
-              {body && <Body />}
-              {hair && <Hair />}
-              {perfume && <Perfume />} */}
-            </ProductContent>
-          </ProductInner>
-        </ProductBase>
-      </Mobile>
-    </>
+      <ProductBase>
+        {loading && <Loading /> }
+        <ProductInner>
+          { idUser === 50 && upload }
+          <ProductTitle>
+            <Title>
+              <Link to="/product">
+                All Products
+              </Link>
+            </Title>
+            <Title>
+              <Link to="/skincare">
+                Skincare
+              </Link>
+            </Title>
+            <Title>
+              <Link to="/body&hand">
+                Body & Hand
+              </Link>
+            </Title>
+            <Title>
+              <Link to="/hair">
+                Hair
+              </Link>
+            </Title>
+            <Title>
+              <Link to="/perfume">
+                Perfume
+              </Link>
+            </Title>
+          </ProductTitle>
+          <ProductContent>
+            {showAllProducts}
+          </ProductContent>
+        </ProductInner>
+      </ProductBase>
   )
 }
 
-const ProductBase = styled.section`
+const ProductBase = styled.div`
+font-family: 'AppleSDGothicNeo';
 margin-top: 50px;
-border-top: 1px solid black;
 `
 
 const ProductInner = styled.div`
 width: 1100px;
 margin: 0 auto;
 position: relative;
-font-family: 'Nanum Barun Gothic', sans-serif;
 `
 
 const ProductUpload = styled.div`
@@ -221,7 +173,7 @@ font-size: 14px;
 color: #1e1e1e;
 `
 
-const Title = styled.button`
+const Title = styled.div`
 flex: 1;
 text-align: center;
 cursor: pointer;

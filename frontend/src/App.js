@@ -16,9 +16,10 @@ import Header from './component/Home/Header';
 import KakaoLogin from './routes/KakaoLogin';
 import Footer from './component/Home/Footer';
 import ScrollToTop from './component/ScrollToTop';
-import AlwaysScrollTop from './routes/AlwaysScrollTop'
+import AlwaysScrollTop from './routes/AlwaysScrollTop';
 import About from './routes/About';
-import Upload from './routes/Upload'
+import Upload from './routes/Upload';
+import CategoriesProduct from './component/prototype/CategoriesProduct';
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
           <ScrollToTop />
           <main>
             <Switch>
+              <Route path="/perfume" component={CategoriesProduct} />
+              <Route path="/hair" component={CategoriesProduct} />
+              <Route path="/body&hand" component={CategoriesProduct} />
+              <Route path="/skincare" component={CategoriesProduct} />
               <Route path="/upload" component={Upload} />
               <Route path="/about" component={About} />
               <Route path="/kakaoLogin" component= {KakaoLogin} />
