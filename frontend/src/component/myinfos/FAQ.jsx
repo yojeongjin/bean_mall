@@ -72,10 +72,17 @@ font-family: 'AppleSDGothicNeo';
 
 const Inner = styled.div`
 margin: 0 auto;
+@media ${props => props.theme.mobile} {
+  width: 370px;
+  padding-top: 20px;
+}
 `
 
 const FAQContent = styled.div`
 margin-top: 50px;
+@media ${props => props.theme.mobile} {
+  margin: 0;
+}
 `
 
 const FAQTitle = styled.h1`

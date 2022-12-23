@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteHistory, getHistory } from '../../redux/actions/order_actions'
-import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 import Modal from '../Modal'
 
 export default function OrderCheck() {
-
   const idUser = useSelector((state) => state.cart.idUser)
   const dispatch = useDispatch()
 
@@ -84,30 +82,6 @@ export default function OrderCheck() {
       )
     } return arr
   }
-  
-  const orderListMobile = (orderNumber) => {
-    let arr = []
-    for(let i=0; i<orderHistories.length; i++) {
-      arr.push(
-        orderHistories[i].map((orderHistory) => (
-          <TdWrap isOrderNum={orderNumber === orderHistory.merchant_uid}>
-            <CheckTd>
-              <div className="tdflex" style={{flexDirection: "column"}}>
-                <div className="tdimg">
-                  <img src={orderHistory.ProductImg}  alt="제품사진" />
-                </div>
-                <div className="tddes" style={{margin: "0 0", padding: "0 0", textAlign: "center"}}>
-                  <h3 style={{fontSize: "13px"}}>{orderHistory.ProductName}</h3>
-                  <span style={{fontSize: "13px"}}>{orderHistory.ProductSize}</span>
-                  <span className="pandq" style={{fontSize: "13px"}}>{orderHistory.ProductPrice} 원</span> / <span className="pandq">{orderHistory.ProductQuantity} 개</span>
-                </div>
-              </div>
-            </CheckTd>
-          </TdWrap>
-        ))
-      )
-    } return arr
-  }
 
   const history = 
   <CheckTable>
@@ -146,107 +120,34 @@ export default function OrderCheck() {
     }
   </CheckTable>
 
-  const mobileHistory = 
-  <CheckTable>
-    {
-      orderNumbers.map((orderNumber) => (
-        <>
-          <CheckThead>
-            <CheckTr>
-              <CheckTh>상품정보</CheckTh>
-              <CheckTh style={{width: '40%'}}>진행상태</CheckTh>
-              <CheckTh style={{textAlign:'center'}}>주문 번호 {orderNumber}</CheckTh>
-            </CheckTr>
-          </CheckThead>
-          <CheckTbody>
-            <CheckTr>
-              {orderListMobile(orderNumber)}
-              <CheckTd style={{textAlign:'center', fontSize:"12px"}}>
-                {
-                  historyNumber === orderNumber && orderStatus !== true ? 
-                  <div className="tdstatus">주문취소</div>
-                  :
-                  <div className="tdstatus">상품 준비중</div>
-                }
-              </CheckTd>
-              <CheckTd>
-                <div className="tdbtns" style={{width:"80%"}}>
-                  <button onClick={()=>{modalOpen(orderNumber)}}>주문 취소</button>
-                  <button>배송 조회</button>
-                </div>
-              </CheckTd>
-            </CheckTr>
-
-          </CheckTbody>
-        </>
-      ))
-    }
-  </CheckTable>
-
-
   if(orderHistories.length === 0) {
     return (
-      <>
-        <Pc>
-          <CheckBase>
-            <CheckInner>
-              <CheckContent>
-                <CheckTitle>최근 주문 내역</CheckTitle>
-                <CheckTableSection>
-                  <CheckTable style={{fontSize: '14px', textAlign: 'center'}}>
-                    최근 주문 내역이 없습니다.
-                  </CheckTable>
-                </CheckTableSection>
-              </CheckContent>
-            </CheckInner>
-          </CheckBase>
-        </Pc>
-        <Mobile>
-          <CheckBase>
-            <CheckInner>
-              <CheckContent>
-                <CheckTitle>최근 주문 내역</CheckTitle>
-                <CheckTableSection>
-                  <CheckTable style={{fontSize: '14px', textAlign: 'center'}}>
-                    최근 주문 내역이 없습니다.
-                  </CheckTable>
-                </CheckTableSection>
-              </CheckContent>
-            </CheckInner>
-          </CheckBase>
-        </Mobile>
-      </>
+      <CheckBase>
+        <CheckInner>
+          <CheckContent>
+            <CheckTitle>최근 주문 내역</CheckTitle>
+            <CheckTableSection>
+              <CheckTable style={{fontSize: '14px', textAlign: 'center'}}>
+                최근 주문 내역이 없습니다.
+              </CheckTable>
+            </CheckTableSection>
+          </CheckContent>
+        </CheckInner>
+      </CheckBase>
     )
   } else {
     return (
-      <>
-        <Pc>
-          <CheckBase>
-            <CheckInner>
-              <CheckContent>
-                <CheckTitle>최근 주문 내역</CheckTitle>
-                <CheckTableSection>
-                  {history}
-                </CheckTableSection>
-              </CheckContent>
-            </CheckInner>
-          {openModal && <Modal isCancel={isCancel} close={modalClose} />}
-          </CheckBase>
-        </Pc>
-        <Mobile>
-          <CheckBase>
-            <CheckInner>
-              <CheckContent>
-                <CheckTitle>최근 주문 내역</CheckTitle>
-                <CheckTableSection>
-                  {mobileHistory}
-                </CheckTableSection>
-              </CheckContent>
-            </CheckInner>
-              {openModal && <Modal isCancel={isCancel} close={modalClose} />}
-          </CheckBase>
-        </Mobile>
-      </>
+      <CheckBase>
+        <CheckInner>
+          <CheckContent>
+            <CheckTitle>최근 주문 내역</CheckTitle>
+            <CheckTableSection>
+              {history}
+            </CheckTableSection>
+          </CheckContent>
+        </CheckInner>
+        {openModal && <Modal isCancel={isCancel} close={modalClose} />}
+      </CheckBase>
     )
   }
 }
@@ -254,11 +155,14 @@ export default function OrderCheck() {
 const CheckBase = styled.div`
 `
 const CheckInner = styled.div`
-margin: 0 auto;
+margin: 35px auto 0;
+@media ${props => props.theme.mobile} {
+  padding-top: 20px;
+  width: 370px;
+}
 `
 
 const CheckContent = styled.div`
-margin-top: 50px;
 `
 const CheckTitle = styled.h2`
 width: 100%;
@@ -333,6 +237,21 @@ position: relative;
       &.pandq{
         display: inline-box;
         color: black;
+      }
+    }
+  }
+  @media ${props => props.theme.mobile} { 
+    text-align: center;
+    > .tddes {
+      margin: 0 3px;
+      padding: 40px 0 0;
+      width: 60px;
+      height: 150px;
+      >h3 {
+        font-size: 12px;
+      }
+      span {
+        font-size: 12px;
       }
     }
   }

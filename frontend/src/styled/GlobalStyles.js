@@ -43,6 +43,14 @@ const GlobalStyles = createGlobalStyle`
     list-style: none;
   }
   a, button, .tab, input {
+    ::-webkit-inner-spin-button{
+      -webkit-appearance: none; 
+      margin: 0; 
+      }
+      ::-webkit-outer-spin-button{
+      -webkit-appearance: none; 
+      margin: 0; 
+      }  
     -webkit-tap-highlight-color: transparent;
   }
 `

@@ -28,7 +28,7 @@ export default function Address({setAddress}) {
     position : 'absolute',
     height: '400px',
     width: '400px',
-    top: '-50px',
+    top: '-150px',
     left: '60px',
     zIndex: '30',
   }

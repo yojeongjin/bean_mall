@@ -1,23 +1,22 @@
 import React from 'react'
 import MyInfoMenu from '../component/myinfos/MyInfoMenu';
-import MyInfo from "../component/myinfos/MyInfo";
-import { Mobile, Pc } from '../hooks/MediaQuery';
+import OrderCheck from '../component/myinfos/OrderCheck';
 import Layout from '../component/myinfos/Layout';
+import { Mobile, Pc } from '../hooks/MediaQuery';
 
-export default function Mypage() {
+export default function MyOrder() {
   return (
     <>
       <Pc>
         <MyInfoMenu />
         <Layout>
-          <MyInfo />
+          <OrderCheck />
         </Layout>
       </Pc>
       <Mobile>
         <MyInfoMenu />
-        <MyInfo />
+        <OrderCheck />
       </Mobile>
     </>
-
   )
 }

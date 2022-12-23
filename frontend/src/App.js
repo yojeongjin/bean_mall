@@ -20,6 +20,10 @@ import AlwaysScrollTop from './routes/AlwaysScrollTop';
 import About from './routes/About';
 import Upload from './routes/Upload';
 import Categories from './routes/Categories';
+import MyOrder from './routes/MyOrder';
+import FandQ from './routes/FandQ';
+import InquiryBoard from './routes/InquiryBoard';
+import InquiryItem from './routes/InquiryItem';
 
 function App() {
   return (
@@ -31,6 +35,10 @@ function App() {
           <ScrollToTop />
           <main>
             <Switch>
+              <Route path="/inquirylist" component={InquiryItem} />
+              <Route path="/board" component={InquiryBoard} />
+              <Route path="/faq" component={FandQ} />
+              <Route path="/myordercheck" component={MyOrder} />
               <Route path="/perfume" component={Categories} />
               <Route path="/hair" component={Categories} />
               <Route path="/body&hand" component={Categories} />

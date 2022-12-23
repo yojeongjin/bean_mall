@@ -80,10 +80,16 @@ font-family: 'AppleSDGothicNeo';
 
 const InquiryInner = styled.div`
 margin: 0 auto;
+@media ${props => props.theme.mobile} {
+  width: 370px;
+}
 `
 
 const InquiryContent = styled.div`
 margin-top: 50px;
+@media ${props => props.theme.mobile} {
+  margin: 0;
+}
 `
 
 const InquiryTitle = styled.h1`
@@ -145,6 +151,11 @@ float: right;
   outline: none;
   resize: none;
   border: 1px solid #bbb;
+}
+@media ${props => props.theme.mobile} {
+  > input {
+    width: 100%;
+  }
 }
 `
 
