@@ -3,13 +3,14 @@ import { Link, useLocation } from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
 import axios from 'axios'
 
-export default function CategoriesProduct() {
+export default function CategoriesMobile() {
   const location = useLocation()
   const [ datas, setDatas ] = useState([])
   const [ filteredDatas, setFilteredDatas ] = useState([])
   const [ filterName, setFilterName ] = useState('')
   const [ filters, setFilters ] = useState([])
   const [ isFilter, setIsFilter ] = useState(false)
+  const [ selected, setSelected ] = useState('')
 
   const getCategories = (category) => {
     axios.get('http://52.78.53.87:5000/api/category',{params: {
@@ -32,12 +33,16 @@ export default function CategoriesProduct() {
 
   useEffect(() => {
     if (location.pathname === '/skincare') {
+      setSelected('Skincare')
       return getCategories('스킨케어')
     } else if (location.pathname === '/body&hand') {
+      setSelected('Body & Hand')
       return getCategories('바디&핸드')
     } else if (location.pathname === '/hair') {
+      setSelected('Hair')
       return getCategories('헤어')
     } else if (location.pathname === '/perfume') {
+      setSelected('Perfume')
       return getCategories('향수')
     }
   },[location.pathname])
@@ -117,36 +122,44 @@ export default function CategoriesProduct() {
     </CategoryBtn>
   ))
 
+  const selectHandler = (e) => {
+    if(e.target.value === 'All Products') {
+      window.location.href = '/product'
+    } else if (e.target.value === 'Skincare') {
+      window.location.href = '/skincare'
+    } else if (e.target.value === 'Body & Hand') {
+      window.location.href = '/body&hand'
+    } else if (e.target.value === 'hair') {
+      window.location.href = '/hair'
+    } else if (e.target.value === 'Perfume') {
+      window.location.href = '/perfume'
+    }
+  }
+
   return (
     <CategoriesBase>
       <Inner>
-        <ProductTitle>
-          <Title>
-            <Link to="/product">
-              All Products
-            </Link>
-          </Title>
-          <Title>
-            <Link to="/skincare">
-              Skincare
-            </Link>
-          </Title>
-          <Title>
-            <Link to="/body&hand">
-              Body & Hand
-            </Link>
-          </Title>
-          <Title>
-            <Link to="/hair">
-              Hair
-            </Link>
-          </Title>
-          <Title>
-            <Link to="/perfume">
-              Perfume
-            </Link>
-          </Title>
-        </ProductTitle>
+
+        <MobileVersionTitle 
+        onChange={(e)=>{selectHandler(e)}}
+        value={selected}
+        >
+          <MobileOption>
+            All Products
+          </MobileOption>
+          <MobileOption>
+            Skincare
+          </MobileOption>
+          <MobileOption>
+            Body & Hand
+          </MobileOption>
+          <MobileOption>
+            Hair
+          </MobileOption>
+          <MobileOption>
+            Perfume
+          </MobileOption>
+        </MobileVersionTitle>
         
         <ProductCategory>
           {filtersDetail}
@@ -173,32 +186,35 @@ export default function CategoriesProduct() {
 
 const CategoriesBase = styled.div`
 font-family: 'AppleSDGothicNeo';
-margin-top: 50px;
+padding-top: 50px;
 `
 const Inner = styled.div`
-width: 1100px;
+width: 390px;
 margin: 0 auto;
 position: relative;
 `
 
-const ProductTitle = styled.div`
-height: 80px;
-padding-top: 30px;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 14px;
-color: #1e1e1e;
+const MobileVersionTitle = styled.select`
+position:fixed;
+top: 125px;
+left: 30px;
+width: 90px;
+height: 25px;
+font-size: 12px;
+outline: none;
+border: none;
+background-color: transparent;
+`
+const MobileOption = styled.option`
+
 `
 
-const Title = styled.div`
-flex: 1;
-text-align: center;
-cursor: pointer;
-`
 const ProductCategory = styled.div`
-width: 60%;
-height: 50px;
+position: fixed;
+top: 200px;
+left: 10px;
+width: 100px;
+flex-direction: column;
 margin: 0 auto;
 display: flex;
 justify-content: center;
@@ -210,6 +226,7 @@ color: #555;
 const CategoryBtn = styled.button`
 flex: 1;
 text-decoration: ${(props) => props.isUnderline ? "underline" : "none"};
+padding: 7px 0;
 
 `
 
@@ -248,7 +265,6 @@ const ProductExp = styled.div`
 height: 50px;
 font-size:14px;
 > .exptitle {
-  font-weight: 500;
   text-align: center;
 }
 > .expetc {

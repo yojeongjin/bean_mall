@@ -7,7 +7,7 @@ import { allProducts } from '../../redux/actions/product_actions'
 
 import Loading from '../Loading'
 
-export default function Prototype() {
+export default function PrototypeMobile() {
   const dispatch = useDispatch()
   const idUser = useSelector((state) => state.cart.idUser)
   const [ loading, setLoading ] = useState(null)
@@ -88,40 +88,43 @@ export default function Prototype() {
       <Link to="/upload">상품 업로드하기</Link>
     </ProductUpload>
 
-
+  const selectHandler = (e) => {
+    if(e.target.value === 'All Products') {
+      window.location.href = '/product'
+    } else if (e.target.value === 'Skincare') {
+      window.location.href = '/skincare'
+    } else if (e.target.value === 'Body & Hand') {
+      window.location.href = '/body&hand'
+    } else if (e.target.value === 'hair') {
+      window.location.href = '/hair'
+    } else if (e.target.value === 'Perfume') {
+      window.location.href = '/perfume'
+    }
+  }
   return (
       <ProductBase>
         {loading && <Loading /> }
         <ProductInner>
           { idUser === 50 && upload }
           
-          <ProductTitle>
-            <Title>
-              <Link to="/product">
-                All Products
-              </Link>
-            </Title>
-            <Title>
-              <Link to="/skincare">
-                Skincare
-              </Link>
-            </Title>
-            <Title>
-              <Link to="/body&hand">
-                Body & Hand
-              </Link>
-            </Title>
-            <Title>
-              <Link to="/hair">
-                Hair
-              </Link>
-            </Title>
-            <Title>
-              <Link to="/perfume">
-                Perfume
-              </Link>
-            </Title>
-          </ProductTitle>
+          <MobileVersionTitle onChange={(e)=>{selectHandler(e)}}>
+            <MobileOption>
+              All Products
+            </MobileOption>
+            <MobileOption>
+              Skincare
+            </MobileOption>
+            <MobileOption>
+              Body & Hand
+            </MobileOption>
+            <MobileOption>
+              Hair
+            </MobileOption>
+            <MobileOption>
+              Perfume
+            </MobileOption>
+          </MobileVersionTitle>
+
           <ProductContent>
             {showAllProducts}
           </ProductContent>
@@ -132,11 +135,11 @@ export default function Prototype() {
 
 const ProductBase = styled.div`
 font-family: 'AppleSDGothicNeo';
-margin-top: 50px;
+padding-top: 50px;
 `
 
 const ProductInner = styled.div`
-width: 1100px;
+width: 390px;
 margin: 0 auto;
 position: relative;
 `
@@ -150,22 +153,22 @@ font-size: 14px;
 `
 
 
-const ProductTitle = styled.div`
-height: 80px;
-padding-top: 30px;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 14px;
-color: #1e1e1e;
+
+const MobileVersionTitle = styled.select`
+position:fixed;
+top: 125px;
+left: 30px;
+width: 90px;
+height: 25px;
+font-size: 12px;
+outline: none;
+border: none;
+background-color: transparent;
 `
 
-const Title = styled.div`
-flex: 1;
-text-align: center;
-cursor: pointer;
-`
+const MobileOption = styled.option`
 
+`
 const ProductContent = styled.div`
 margin-top: 20px;
 `
@@ -196,12 +199,10 @@ align-items: center;
   background-color: #c5bbb3;
 }
 `
-
 const ProductExp = styled.div`
 height: 50px;
 font-size:14px;
 > .exptitle {
-  font-weight: 500;
   text-align: center;
 }
 > .expetc {
