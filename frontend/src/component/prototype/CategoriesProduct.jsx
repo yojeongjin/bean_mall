@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React , { useCallback, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -6,7 +6,9 @@ import axios from 'axios'
 export default function CategoriesProduct() {
   const location = useLocation()
   const [ datas, setDatas ] = useState([])
+  const [ filteredDatas, setFilteredDatas ] = useState([])
   const [ filters, setFilters ] = useState([])
+  const [ isFilter, setIsFilter ] = useState(false)
 
   const getCategories = (category) => {
     axios.get('http://52.78.53.87:5000/api/category',{params: {
@@ -20,20 +22,7 @@ export default function CategoriesProduct() {
         return filterArr.indexOf(el) === idx
       })
       setFilters(filters)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
-
-  const clickHandler = (e) => {
-    const filter = e.target.name
-    axios.get('http://52.78.53.87:5000/api/category',{params: {
-      ProductsCategory: filter
-    }})
-    .then((res) => {
-      let AllData = res.data.data
-      setDatas(AllData)
+      setIsFilter(false)
     })
     .catch((err) => {
       console.log(err)
@@ -41,7 +30,6 @@ export default function CategoriesProduct() {
   }
 
   useEffect(() => {
-    console.log(location.pathname)
     if (location.pathname === '/skincare') {
       return getCategories('스킨케어')
     } else if (location.pathname === '/body&hand') {
@@ -80,8 +68,46 @@ export default function CategoriesProduct() {
       ))
     }
   </ProductMenu>
+   
+   const filteredProducts = 
+   <ProductMenu>
+   {
+     filteredDatas.map((filteredData) => (
+       <Link to={"/product/" + filteredData.idProducts} key={filteredData.idProducts}>
+         <ProductList>
+           <img src={filteredData.ProductsImg} alt="제품사진" />
+           <ProductExp>
+             {
+               filteredData.active === 'null' ?
+               <div className='exptitle'>{filteredData.ProductsName}</div>
+               :
+               <div style={{display:"flex", alignItems:"center"}}>
+                 <div className='exptitle'>{filteredData.ProductsName}</div>
+                 <SoldOut>{filteredData.active}</SoldOut>
+               </div>
+             }
+             <div className='expetc'>
+               <span>{filteredData.ProductsSize1} / </span>
+               <span> {filteredData.ProductsPrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</span>
+             </div>
+           </ProductExp>
+         </ProductList>
+       </Link>
+     ))
+   }
+ </ProductMenu>
 
+    const clickHandler = useCallback((e) => {
+    const filter = e.target.name
+    const filteringArr = datas.filter((data) =>{
+      return data.ProductsCategory === filter
+    })
 
+    setFilteredDatas(filteringArr)
+    setIsFilter(true)
+  },[datas, filteredDatas, isFilter])
+
+  console.log(datas)
 
   const filtersDetail = 
   filters.map((filter, idx) => (
@@ -124,10 +150,21 @@ export default function CategoriesProduct() {
         <ProductCategory>
           {filtersDetail}
         </ProductCategory>
-        
-        <ProductContent>
-          {categoriesProducts}
-        </ProductContent>
+      
+        {
+          isFilter !== true &&
+          <ProductContent>
+            {categoriesProducts}
+          </ProductContent>
+        }
+
+        {
+          isFilter &&
+          <ProductContent>
+            {filteredProducts}
+          </ProductContent>
+        }
+
       </Inner>
     </CategoriesBase>
   )
