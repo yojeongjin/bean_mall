@@ -9,15 +9,15 @@ import { useLocation } from 'react-router-dom/cjs/react-router-dom'
 import { Mobile, Pc } from '../../hooks/MediaQuery'
 
 import Hamburger from './Hamburger'
+import useToken from '../../hooks/useToken'
 
 
 
 export default function Header() {
-
   const [scroll, setScroll] = useState(0)
   const dispatch = useDispatch()
   const countCartItem = useSelector((state)=> state.cart.cart)
-  const token = useSelector((state) => state.auth.token)
+  const token = useToken()
 
   const logout = () => {
     dispatch(logoutAuth({

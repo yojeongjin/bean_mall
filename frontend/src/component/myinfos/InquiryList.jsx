@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import useIduser from '../../hooks/useIduser'
 import { getList } from '../../redux/actions/board_actions'
 import { deleteBoard } from '../../redux/actions/board_actions'
 
 export default function InquiryList() {
   const dispatch = useDispatch()
-  const idUser = useSelector((state) => state.cart.idUser)
+  const idUser = useIduser()
 
   const [ lists, setLists ] = useState([])
   const [ isContent, setIsContent ] = useState(true)

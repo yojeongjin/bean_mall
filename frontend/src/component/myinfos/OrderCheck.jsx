@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { deleteHistory, getHistory } from '../../redux/actions/order_actions'
 
 import Modal from '../Modal'
+import useIduser from '../../hooks/useIduser'
 
 export default function OrderCheck() {
-  const idUser = useSelector((state) => state.cart.idUser)
+  const idUser = useIduser()
   const dispatch = useDispatch()
 
   const [ orderHistories, setOrderHistories ] = useState([])

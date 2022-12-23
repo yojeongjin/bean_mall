@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from 'styled-components'
 import Address from "./Address";
-import { useSelector } from "react-redux";
 import axios from "axios";
+import useIduser from "../../hooks/useIduser";
 
 export default function MyInfo() {
-  const idUser = useSelector((state) => state.cart.idUser)
+  const idUser = useIduser()
   const [ userDatas, setUserDatas ] = useState({})
 
   const phoneNumbers = ['02', '031', '032', '033','041','042','043','044','051',

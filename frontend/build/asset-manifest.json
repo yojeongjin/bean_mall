@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.c028bf76.css",
-    "main.js": "/static/js/main.175c628f.js",
+    "main.js": "/static/js/main.e2cd3bed.js",
     "static/media/AppleSDGothicNeoUL.ttf": "/static/media/AppleSDGothicNeoUL.cd06c3e96c513e91c777.ttf",
     "static/media/AppleSDGothicNeoL.ttf": "/static/media/AppleSDGothicNeoL.0ed4f3cf8e0a053dbc9c.ttf",
     "static/media/AppleSDGothicNeoH.ttf": "/static/media/AppleSDGothicNeoH.c9b896b8f1d363108e8c.ttf",
     "static/media/AppleSDGothicNeoEB.ttf": "/static/media/AppleSDGothicNeoEB.ea6bd07739f11db86707.ttf",
     "static/media/AppleSDGothicNeoSB.ttf": "/static/media/AppleSDGothicNeoSB.24f6918836e50d1e5621.ttf",
-    "static/media/ibgimg900.png": "/static/media/ibgimg900.eb834ad6067e1497c84d.png",
+    "static/media/ibgimg900.webp": "/static/media/ibgimg900.e0dc088ae17c7a0ed087.webp",
     "static/media/perfumebgbg.png": "/static/media/perfumebgbg.b9a3f84d66a1acb5a39d.png",
     "static/media/Orelo-SemiWide-Light.ttf": "/static/media/Orelo-SemiWide-Light.21eee0e4580f4cf21f66.ttf",
     "static/media/spinner.gif": "/static/media/spinner.43ababa6a9ea53d77375.gif",
@@ -16,10 +16,10 @@
     "static/media/logoname.png": "/static/media/logoname.681fdc9c58219aaa8f26.png",
     "index.html": "/index.html",
     "main.c028bf76.css.map": "/static/css/main.c028bf76.css.map",
-    "main.175c628f.js.map": "/static/js/main.175c628f.js.map"
+    "main.e2cd3bed.js.map": "/static/js/main.e2cd3bed.js.map"
   },
   "entrypoints": [
     "static/css/main.c028bf76.css",
-    "static/js/main.175c628f.js"
+    "static/js/main.e2cd3bed.js"
   ]
 }

@@ -1,15 +1,17 @@
 import styled from 'styled-components'
 import React, { useState,useEffect, useMemo } from 'react'
 import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addToCart } from '../redux/actions/cart_actions'
 
 import ProductsManage from '../component/supervise/ProductsManage'
+import useToken from '../hooks/useToken'
+import useIduser from '../hooks/useIduser'
 
 export default function ProductDetail(props) {
   const idx = Number(props.match.params.idx)
-  const idUser = useSelector((state) => state.cart.idUser)
-  const token = useSelector((state) => state.auth.token)
+  const idUser = useIduser()
+  const token = useToken()
 
   const dispatch = useDispatch()
 

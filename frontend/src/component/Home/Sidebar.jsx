@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logoutAuth } from '../../redux/actions/auth_actions'
 import { persistor } from '../../redux/create'
 import { Mobile, Pc } from '../../hooks/MediaQuery'
+import useToken from '../../hooks/useToken'
 
 export default function Sidebar(props) {
   const { setOpenSide } = props
 
   const outside = useRef()
   const dispatch = useDispatch()
-  const token = useSelector((state) => state.auth.token)
+  const token = useToken()
   const countCartItem = useSelector((state)=> state.cart.cart)
 
   useEffect(() => {

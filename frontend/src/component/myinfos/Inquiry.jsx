@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToBoard } from '../../redux/actions/board_actions'
+import useIduser from '../../hooks/useIduser'
 
 export default function Inquiry() {
   const dispatch = useDispatch()
@@ -10,7 +11,7 @@ export default function Inquiry() {
   const [ content, setContent ] = useState('')
 
   const UserName = useSelector((state) => state.cart.userName)
-  const idUser = useSelector((state) => state.cart.idUser)
+  const idUser = useIduser()
 
   const addInquiry = () => {
     let body = {

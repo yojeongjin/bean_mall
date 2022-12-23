@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getProduct } from '../../redux/actions/product_actions'
 import { allProducts } from '../../redux/actions/product_actions'
 
 import Loading from '../Loading'
+import useIduser from '../../hooks/useIduser'
 
 export default function PrototypeMobile() {
   const dispatch = useDispatch()
-  const idUser = useSelector((state) => state.cart.idUser)
+  const idUser = useIduser()
   const [ loading, setLoading ] = useState(null)
   const [productsInfos, setProductsInfos] = useState([])
   const [page, setPage] = useState(0)

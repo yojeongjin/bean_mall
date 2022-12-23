@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import icon from '../../assets/icon.png'
+import useIduser from '../../hooks/useIduser'
 import { deleteAllCart } from '../../redux/actions/cart_actions'
 import { getUser } from '../../redux/actions/join_actions'
 import { addHistory, deleteAllOrder, getOrderItem, orderCompletion } from '../../redux/actions/order_actions'
@@ -12,7 +13,7 @@ import Address from '../myinfos/Address'
 export default function Order({match}) {
 
   const dispatch = useDispatch()
-  const idUser = useSelector((state) => state.cart.idUser)
+  const idUser = useIduser()
 
   const [ recipientNumber, setRecipientNumber ] = useState('')
   const [ recipient, setRecipient ] = useState('')

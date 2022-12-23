@@ -1,17 +1,17 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 
 import { getCart } from '../../redux/actions/cart_actions'
 import { patchCart } from '../../redux/actions/cart_actions'
 import { deleteCart } from '../../redux/actions/cart_actions'
 import { orderInfo } from '../../redux/actions/order_actions'
 
+import useIduser from '../../hooks/useIduser'
+
 export default function CartOrder({match}) {
   const dispatch = useDispatch()
-  const token = useSelector((state) => state.auth.token)
-  const idUser = useSelector((state) => state.cart.idUser)
+  const idUser = useIduser()
   const cartData = useSelector((state) => state.cart.getCartInfo)
 
   const [ isDatas, setIsDatas ] = useState([])
@@ -115,89 +115,85 @@ export default function CartOrder({match}) {
 </CartList>
 
   
-if(token !== null) {
-    if (isDatas.length === 0) {
-      return(
-        <CartBase>
-          <CartInner>
-            <CartPage>
-              <CartSectionLt>
-                <CartNone>장바구니에 담긴 상품이 없습니다.</CartNone>
-              </CartSectionLt>
-              <CartSectionRt>
-                <h2>결제내역</h2>
+  if (isDatas.length === 0) {
+    return(
+      <CartBase>
+        <CartInner>
+          <CartPage>
+            <CartSectionLt>
+              <CartNone>장바구니에 담긴 상품이 없습니다.</CartNone>
+            </CartSectionLt>
+            <CartSectionRt>
+              <h2>결제내역</h2>
 
-                <PriceGroup>
-                  <PriceList>
-                    <div className="label">주문금액</div>
-                    <div className="value">0원</div>
-                  </PriceList>
-                  <PriceList>
-                    <div className="label">배송비</div>
-                    <div className="value">
-                      <span>3만원 이상 구매 시 무료배송</span>
-                      0원</div>
-                  </PriceList>
+              <PriceGroup>
+                <PriceList>
+                  <div className="label">주문금액</div>
+                  <div className="value">0원</div>
+                </PriceList>
+                <PriceList>
+                  <div className="label">배송비</div>
+                  <div className="value">
+                    <span>3만원 이상 구매 시 무료배송</span>
+                    0원</div>
+                </PriceList>
 
-                  <PriceTotal>
-                    <div className="label">총 금액</div>
-                    <div className="value">0원</div>
-                  </PriceTotal>
-                </PriceGroup>
+                <PriceTotal>
+                  <div className="label">총 금액</div>
+                  <div className="value">0원</div>
+                </PriceTotal>
+              </PriceGroup>
 
-                <CartBtnGroup>
-                  <CartBtn>주문하기</CartBtn>
-                  <CartBtn className="keep">쇼핑 계속하기</CartBtn>
-                </CartBtnGroup>
-              </CartSectionRt>
+              <CartBtnGroup>
+                <CartBtn>주문하기</CartBtn>
+                <CartBtn className="keep">쇼핑 계속하기</CartBtn>
+              </CartBtnGroup>
+            </CartSectionRt>
 
-            </CartPage>
-          </CartInner>
-        </CartBase>
-      )
-    } else {
-      return (
-        <CartBase>
-          <CartInner>
-            <CartPage>
-              <CartSectionLt>
-                {detailCarts}
-              </CartSectionLt>
-
-              <CartSectionRt>
-                <h2>결제내역</h2>
-
-                <PriceGroup>
-                  <PriceList>
-                    <div className="label">주문금액</div>
-                    <div className="value">{total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
-                  </PriceList>
-                  <PriceList>
-                    <div className="label">배송비</div>
-                    <div className="value">
-                      <span>3만원 이상 구매 시 무료배송</span>
-                      {fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
-                  </PriceList>
-    
-                  <PriceTotal>
-                    <div className="label">총 금액</div>
-                    <div className="value">{allPayment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
-                  </PriceTotal>
-                </PriceGroup>
-    
-                <CartBtnGroup>
-                  <CartBtn onClick={()=>{goToOrder()}}>주문하기</CartBtn>
-                  <CartBtn className="keep">쇼핑 계속하기</CartBtn>
-                </CartBtnGroup>
-
-              </CartSectionRt>
-            </CartPage>
-          </CartInner>
-        </CartBase>
-      )
-    }
+          </CartPage>
+        </CartInner>
+      </CartBase>
+    )
   } else {
-    return <Redirect to="/signin" />
+    return (
+      <CartBase>
+        <CartInner>
+          <CartPage>
+            <CartSectionLt>
+              {detailCarts}
+            </CartSectionLt>
+
+            <CartSectionRt>
+              <h2>결제내역</h2>
+
+              <PriceGroup>
+                <PriceList>
+                  <div className="label">주문금액</div>
+                  <div className="value">{total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
+                </PriceList>
+                <PriceList>
+                  <div className="label">배송비</div>
+                  <div className="value">
+                    <span>3만원 이상 구매 시 무료배송</span>
+                    {fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
+                </PriceList>
+  
+                <PriceTotal>
+                  <div className="label">총 금액</div>
+                  <div className="value">{allPayment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
+                </PriceTotal>
+              </PriceGroup>
+  
+              <CartBtnGroup>
+                <CartBtn onClick={()=>{goToOrder()}}>주문하기</CartBtn>
+                <CartBtn className="keep">쇼핑 계속하기</CartBtn>
+              </CartBtnGroup>
+
+            </CartSectionRt>
+          </CartPage>
+        </CartInner>
+      </CartBase>
+    )
   }
 }
 

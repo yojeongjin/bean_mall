@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import mainbg from '../../assets/ibgimg900.png'
+import mainbg from '../../assets/ibgimg900.webp'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { getCart, verifiedAuth } from '../../redux/actions/cart_actions'
+import useToken from '../../hooks/useToken'
+import useIduser from '../../hooks/useIduser'
 
 export default function Main() {
-  const token = useSelector((state) => state.auth.token)
-  const idUser = useSelector((state) => state.cart.idUser)
+  const token = useToken()
+  const idUser = useIduser()
 
   const dispatch = useDispatch()
 
