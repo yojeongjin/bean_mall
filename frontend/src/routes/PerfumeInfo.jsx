@@ -141,7 +141,6 @@ export default function PerfumeInfo() {
 const PerfumeInfoBase = styled.section`
 font-family: 'AppleSDGothicNeo';
 margin-top: 50px;
-border-top: 1px solid black;
 `
 
 const PerfumeTitle = styled.div`

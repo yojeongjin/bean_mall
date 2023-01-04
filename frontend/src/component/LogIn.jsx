@@ -96,7 +96,6 @@ export default function LogIn() {
 const SignInBase = styled.div`
 font-family: 'AppleSDGothicNeo';
 margin-top: 50px;
-border-top: 1px solid black;
 
 @media ${props => props.theme.mobile} {
   margin: 0;
