@@ -7,12 +7,13 @@ import { addToCart } from '../redux/actions/cart_actions'
 import ProductsManage from '../component/supervise/ProductsManage'
 import useToken from '../hooks/useToken'
 import useIduser from '../hooks/useIduser'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom'
 
 export default function ProductDetail(props) {
   const idx = Number(props.match.params.idx)
   const idUser = useIduser()
   const token = useToken()
-
+  const history = useHistory()
   const dispatch = useDispatch()
 
   const [ data, setData ] = useState([])
@@ -100,7 +101,7 @@ export default function ProductDetail(props) {
         console.log(err)
       })
     } else {
-      window.location.href = '/signin'
+      history.push('/signin')
     }
   }
 
