@@ -100,7 +100,7 @@ export default function ProductDetail(props) {
         console.log(err)
       })
     } else {
-      window.location.href = '/signin'
+      window.location.href = 'https://www.theine.shop/signin'
     }
   }
 
