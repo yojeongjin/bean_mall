@@ -47,7 +47,7 @@ export default function Join ({match}) {
   const checkEmail = async() => {
     try {
       const res = await axios.get(
-        'http://52.78.53.87:5000/api/users', {params: {UserEmail: UserEmail }})
+        'https://www.theine.shop/api/users', {params: {UserEmail: UserEmail }})
         if(res.data.code === 400) {
           alert(res.data.msg)
         } else {

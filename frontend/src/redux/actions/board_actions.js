@@ -5,7 +5,7 @@ import { DELETE_BOARD } from './types'
 
 
 export function addToBoard(body) {
-  const res = axios.post('http://52.78.53.87:5000/api/board', body)
+  const res = axios.post('https://www.theine.shop/api/board', body)
           .then (res => res.data)
   return {
     type: ADD_TO_BOARD,
@@ -14,7 +14,7 @@ export function addToBoard(body) {
 }
 
 export function getList() {
-  const res = axios.get('http://52.78.53.87:5000/api/board')
+  const res = axios.get('https://www.theine.shop/api/board')
           .then (res => res.data)
   return {
     type: GET_LIST,
@@ -23,7 +23,7 @@ export function getList() {
 }
 
 export function deleteBoard (idBoard) {
-  const res = axios.delete('http://52.78.53.87:5000/api/board', {params: {
+  const res = axios.delete('https://www.theine.shop/api/board', {params: {
     idBoard: idBoard
   }})
   .then (res => res.data)

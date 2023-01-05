@@ -5,7 +5,7 @@ import { KAKAO_AUTH } from './types'
 
 
 export function loginAuth(body) {
-  const res = axios.post('http://52.78.53.87:5000/api/signin', body)
+  const res = axios.post('https://www.theine.shopapi/signin', body)
           .then (res => res.data)
   return {
     type: LOGIN_AUTH,
@@ -14,7 +14,7 @@ export function loginAuth(body) {
 }
 
 export function logoutAuth(payload) {
-  const res = axios.get('http://52.78.53.87:5000/api/signin', payload)
+  const res = axios.get('https://www.theine.shop/api/signin', payload)
           .then (res => res.data)
   return {
     type: LOGOUT_AUTH,
@@ -23,7 +23,7 @@ export function logoutAuth(payload) {
 }
 
 export function kakaoAuth(payload) {
-  const res = axios.get('http://52.78.53.87:5000/api/kakao', payload)
+  const res = axios.get('https://www.theine.shop/api/kakao', payload)
           .then (res => res.data)
   return {
     type: KAKAO_AUTH,

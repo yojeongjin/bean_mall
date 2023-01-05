@@ -9,7 +9,7 @@ import { DELETE_ALL_ORDER } from './types'
 import { DELETE_HISTORY } from './types'
 
 export function orderInfo(body) {
-  const res = axios.post('http://52.78.53.87:5000/api/order', body)
+  const res = axios.post('https://www.theine.shop/api/order', body)
           .then (res => res.data)
   return {
     type: ORDER_INFO,
@@ -18,7 +18,7 @@ export function orderInfo(body) {
 }
 
 export function getOrderItem(idUser) {
-  const res = axios.get('http://52.78.53.87:5000/api/order', {params: {
+  const res = axios.get('https://www.theine.shop/api/order', {params: {
     idUser: idUser
   }})
   .then(res => res.data)
@@ -29,7 +29,7 @@ export function getOrderItem(idUser) {
 }
 
 export function orderCompletion(body) {
-  const res = axios.post('http://52.78.53.87:5000/api/payment', body)
+  const res = axios.post('https://www.theine.shop/api/payment', body)
   .then (res => res.data)
   
   return {
@@ -39,7 +39,7 @@ export function orderCompletion(body) {
 }
 
 export function addHistory(body) {
-  const res = axios.post('http://52.78.53.87:5000/api/history', body)
+  const res = axios.post('https://www.theine.shop/api/history', body)
   .then (res => res.data)
   
   return {
@@ -49,7 +49,7 @@ export function addHistory(body) {
 }
 
 export function getPaymentInfo(imp_uid) {
-  const res = axios.get('http://52.78.53.87:5000/api/payment', {params: {
+  const res = axios.get('https://www.theine.shop/api/payment', {params: {
     imp_uid: imp_uid
   }})
   .then (res => res.data)
@@ -61,7 +61,7 @@ export function getPaymentInfo(imp_uid) {
 }
 
 export function getHistory(idUser) {
-  const res = axios.get('http://52.78.53.87:5000/api/history', {params: {
+  const res = axios.get('https://www.theine.shop/api/history', {params: {
     idUser: idUser
   }})
   .then (res => res.data)
@@ -73,7 +73,7 @@ export function getHistory(idUser) {
 }
 
 export function deleteAllOrder(idUser) {
-  const res = axios.delete('http://52.78.53.87:5000/api/order', {params: {
+  const res = axios.delete('https://www.theine.shop/api/order', {params: {
     idUser: idUser
   }})
   .then (res => res.data)
@@ -85,7 +85,7 @@ export function deleteAllOrder(idUser) {
 }
 
 export function deleteHistory(merchant_uid) {
-  const res = axios.delete('http://52.78.53.87:5000/api/history', {params: {
+  const res = axios.delete('https://www.theine.shop/api/history', {params: {
     merchant_uid: merchant_uid
   }})
   .then (res => res.data)

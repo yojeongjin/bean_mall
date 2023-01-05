@@ -13,7 +13,7 @@ export default function CategoriesMobile() {
   const [ selected, setSelected ] = useState('')
 
   const getCategories = (category) => {
-    axios.get('http://52.78.53.87:5000/api/category',{params: {
+    axios.get('https://www.theine.shop/api/category',{params: {
       ProductsFilters: category
     }})
     .then((res) => {
