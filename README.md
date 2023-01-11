@@ -18,3 +18,21 @@
 * Backend : <img src="https://img.shields.io/badge/Node.js-339933?style=plastic&logo=Node.js&logoColor=fff" />  <img src="https://img.shields.io/badge/Express-000?style=plastic&logo=Express&logoColor=fff" /> <img src="https://img.shields.io/badge/NGINX-009639?style=plastic&logo=NGINX&logoColor=fff" />   
 * DataBase : <img src="https://img.shields.io/badge/MySQL-4479A1?style=plastic&logo=MySQL&logoColor=fff" /> <img src="https://img.shields.io/badge/Amazon S3-569A31?style=plastic&logo=Amazon S3&logoColor=fff" />
 * Hosting : <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=plastic&logo=Amazon AWS&logoColor=fff" />
+
+
+# API 설계
+
+#### 🙋🏻 회원가입
+|Feature|Request|API|설명|
+|------|---|---| ---|
+|회원가입|POST|/users|회원 정보 DB 전송 및 JWT토큰 발급|
+|회원조회|GET|/join|회원 정보 추가 기입 및 수정|
+|회원조회|PATCH|/join|회원가입 중복 방지|
+
+
+#### 🙋🏻 로그인
+|Feature|Request|API|설명|
+|------|---|---| ---|
+|로그인|POST|/signin|회원 정보 DB 전송 및 JWT토큰 발급|
+|카카오 로그인|GET|/kakao|access_token을 이용하여 회원가입 및 로그인|
+|로그인|PATCH|/join|회원가입 중복 방지|
